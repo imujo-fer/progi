@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: api
+  datasource:
+    url: prod url
+    username: prod username
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+server:
+  port: 8080
