@@ -6,3 +6,6 @@ typescript-types:
 
 be-dev:
 	./mvnw spring-boot:run -Dspring-boot.run.profiles=local
+
+be-prod:
+	./mvnw spring-boot:run

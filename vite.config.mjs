@@ -15,29 +15,26 @@ export default defineConfig(({ mode }) => {
       }),
       tailwind(),
     ],
-    base: `frontend`,
     build: {
-      outDir: `/src/main/resources/static/dist`,
+      outDir: `src/main/resources/static`,
       rollupOptions: {
         input: {
           index: `./frontend/src/index.tsx`,
         },
         output: {
-          entryFileNames: isProduction ? `[name]-[hash].js` : `[name].js`,
-          chunkFileNames: isProduction ? `[name]-[hash].js` : `[name].js`,
+          entryFileNames: isProduction ? `[name].js` : `[name].js`,
+          chunkFileNames: isProduction ? `[name].js` : `[name].js`,
           assetFileNames: ({ name }) => {
             if (/\.png$|\.jpg$|\.jpeg$|\.svg$|\.gif$/.test(name ?? "")) {
               return isProduction
-                ? "images/[name]-[hash:8].[ext]"
+                ? "images/[name].[ext]"
                 : "images/[name].[ext]";
             }
             if (/\.woff$|\.woff2$|\.eot$|\.ttf$|\.otf$/.test(name ?? "")) {
-              return isProduction
-                ? "fonts/[name]-[hash:8].[ext]"
-                : "fonts/[name].[ext]";
+              return isProduction ? "fonts/[name].[ext]" : "fonts/[name].[ext]";
             }
 
-            return isProduction ? `[name]-[hash].[ext]` : `[name].[ext]`;
+            return isProduction ? `[name].[ext]` : `[name].[ext]`;
           },
         },
       },

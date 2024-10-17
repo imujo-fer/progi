@@ -10,7 +10,8 @@ public class SpaController {
     @GetMapping(value = "/{path:[^\\.]*}")  // This regex will match any path without a dot (e.g., /home, /about)
     public String forwardIndex() {
         // Return index.html so that React/Vite can handle routing
-        return "forward:/index.html";
+        System.out.println("|test|");
+        return "index";
     }
 
 }
