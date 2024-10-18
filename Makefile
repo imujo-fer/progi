@@ -11,7 +11,7 @@ be-prod:
 	./mvnw spring-boot:run
 
 build:
-	. ~/.nvm/nvm.sh && nvm use && pnpm install && pnpm run build --frozen-lockfile && mvn clean package
+	. ~/.nvm/nvm.sh && nvm use && pnpm install --frozen-lockfile && pnpm run build && mvn clean package
 
 
 start:
