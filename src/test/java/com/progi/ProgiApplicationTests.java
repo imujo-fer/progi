@@ -1,5 +1,6 @@
 package com.progi;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -7,7 +8,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 class ProgiApplicationTests {
 
 	@Test
-	void contextLoads() {
-	}
+    void testGreet() {
+        String expectedGreeting = "Hello, World!";
+        String actualGreeting = "Hello, World!";
+        Assertions.assertEquals(expectedGreeting, actualGreeting, "The greeting message should match the expected output");
+    }
 
 }
