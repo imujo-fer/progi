@@ -11,9 +11,8 @@ be-prod:
 	./mvnw spring-boot:run
 
 build:
-	nvm use
-	pnpm install
-	mvn clean package
+	. ~/.nvm/nvm.sh && nvm use && pnpm install && pnpm run build && mvn clean package
+
 
 start:
 	nohup java -jar target/progi.jar > output.log 2>&1 &
