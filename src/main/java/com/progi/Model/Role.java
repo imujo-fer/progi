@@ -1,5 +1,6 @@
 package com.progi.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.progi.Enum.RoleType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -28,5 +29,6 @@ public class Role {
     private RoleType name;
 
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<User> users;
 }

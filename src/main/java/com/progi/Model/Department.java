@@ -1,5 +1,6 @@
 package com.progi.Model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -26,5 +27,6 @@ public class Department {
     private String name;
 
     @OneToMany(mappedBy = "department")
+    @JsonManagedReference
     private List<User> users;
 }

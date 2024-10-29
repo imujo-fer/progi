@@ -1,6 +1,7 @@
 package com.progi.Model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.progi.Enum.Status;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -33,8 +34,8 @@ public class TripStatus {
     private Timestamp createdAt;
 
     @ManyToOne
-    @MapsId("id")
     @JoinColumn(name = "trip_id")
+    @JsonBackReference
     private Trip trip;
 
     private String message; //nullable

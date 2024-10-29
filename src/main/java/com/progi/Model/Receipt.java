@@ -21,4 +21,7 @@ public class Receipt {
     @Column(nullable = false)
     @NotNull
     private String path;
+
+    @OneToOne(mappedBy = "receipt")
+    private ExpenseReportItem expenseReportItem;
 }

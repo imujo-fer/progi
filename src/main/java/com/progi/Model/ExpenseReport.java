@@ -1,6 +1,7 @@
 package com.progi.Model;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -34,6 +35,7 @@ public class ExpenseReport {
     private Timestamp createdAt;
 
     @OneToMany(mappedBy = "expenseReport")
+    @JsonManagedReference
     private List<ExpenseReportItem> expenseReportItems;
 
     @PrePersist

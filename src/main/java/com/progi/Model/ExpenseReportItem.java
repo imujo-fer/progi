@@ -1,6 +1,8 @@
 package com.progi.Model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.progi.Enum.Currency;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -23,14 +25,16 @@ public class ExpenseReportItem {
 
     @ManyToOne
     @JoinColumn(name = "expense_report_id")
+    @JsonBackReference
     private ExpenseReport expenseReport;
 
-    @ManyToOne
-    @JoinColumn(name = "receipt_id")
+    @OneToOne
+    @JoinColumn(name = "receipt_id", referencedColumnName = "id")
     private Receipt receipt;
 
     @ManyToOne
     @JoinColumn(name = "expense_subcategory_id")
+    @JsonBackReference
     private ExpenseSubcategory expenseSubcategory;
 
     @Column(nullable = false)

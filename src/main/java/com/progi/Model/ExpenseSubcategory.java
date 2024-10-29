@@ -1,5 +1,7 @@
 package com.progi.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -24,6 +26,7 @@ public class ExpenseSubcategory {
 
     @ManyToOne
     @JoinColumn(name = "expense_category_id")
+    @JsonBackReference
     private ExpenseCategory expenseCategory;
 }
 

@@ -1,5 +1,7 @@
 package com.progi.Model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.progi.Enum.Continent;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -30,8 +32,10 @@ public class Country {
     private double eurDailyWage;
 
     @OneToMany(mappedBy = "country")
+    @JsonManagedReference
     private List<Trip> trips;
 
-    @ManyToOne
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Continent continent;
 }

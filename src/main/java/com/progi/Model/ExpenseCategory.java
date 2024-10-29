@@ -1,5 +1,6 @@
 package com.progi.Model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -25,6 +26,7 @@ public class ExpenseCategory {
     private String name;
 
     @OneToMany(mappedBy = "expenseCategory")
+    @JsonManagedReference
     private List<ExpenseSubcategory> expenseSubcategories;
 
 }
