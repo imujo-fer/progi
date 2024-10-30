@@ -89,18 +89,4 @@ public class Trip {
             this.requestNumber = "#" + formattedId;
         }
     }
-
-
-    //napravljeno zbog mock-a
-    public Trip(int i, Object o, double v, double v1, String newYork, Country country, Timestamp timestamp, Timestamp timestamp1, String businessTrip, User user, Object o1) {
-        this.id = i;
-        this.coordinatesLon = v;
-        this.coordinatesLat = v1;
-        this.city = newYork;
-        this.country = country;
-        this.datetimeFrom = timestamp;
-        this.datetimeTo = timestamp1;
-        this.reason = businessTrip;
-        this.user = user;
-    }
 }
