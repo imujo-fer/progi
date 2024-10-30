@@ -1,22 +1,28 @@
 package com.progi.Model;
 
+
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.progi.Enum.Continent;
-import jakarta.persistence.*;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
 
 @Entity
 @Table(name = "countries")
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class Country {
 
     @Id
@@ -35,7 +41,7 @@ public class Country {
     @JsonManagedReference
     private List<Trip> trips;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Continent continent;
+    // @Enumerated(EnumType.STRING)
+    // @Column(nullable = false)
+    // private Continent continent;
 }
