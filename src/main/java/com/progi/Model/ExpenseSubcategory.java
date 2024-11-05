@@ -14,7 +14,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class ExpenseSubcategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +27,36 @@ public class ExpenseSubcategory {
     @JoinColumn(name = "expense_category_id")
     @JsonBackReference
     private ExpenseCategory expenseCategory;
+
+    public ExpenseSubcategory(Integer id, String name, ExpenseCategory expenseCategory) {
+        this.id = id;
+        this.name = name;
+        this.expenseCategory = expenseCategory;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public @NotNull String getName() {
+        return name;
+    }
+
+    public void setName(@NotNull String name) {
+        this.name = name;
+    }
+
+    public ExpenseCategory getExpenseCategory() {
+        return expenseCategory;
+    }
+
+    public void setExpenseCategory(ExpenseCategory expenseCategory) {
+        this.expenseCategory = expenseCategory;
+    }
 }
 
 

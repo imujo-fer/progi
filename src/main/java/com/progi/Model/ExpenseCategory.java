@@ -12,10 +12,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "expense_categories")
-@Getter
-@Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class ExpenseCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,4 +26,33 @@ public class ExpenseCategory {
     @JsonManagedReference
     private List<ExpenseSubcategory> expenseSubcategories;
 
+    public ExpenseCategory(Integer id, String name, List<ExpenseSubcategory> expenseSubcategories) {
+        this.id = id;
+        this.name = name;
+        this.expenseSubcategories = expenseSubcategories;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public @NotNull String getName() {
+        return name;
+    }
+
+    public void setName(@NotNull String name) {
+        this.name = name;
+    }
+
+    public List<ExpenseSubcategory> getExpenseSubcategories() {
+        return expenseSubcategories;
+    }
+
+    public void setExpenseSubcategories(List<ExpenseSubcategory> expenseSubcategories) {
+        this.expenseSubcategories = expenseSubcategories;
+    }
 }

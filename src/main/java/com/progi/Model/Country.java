@@ -16,7 +16,6 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Country {
 
     @Id
@@ -38,4 +37,53 @@ public class Country {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Continent continent;
+
+    public Country(String code, String name, double eurDailyWage, List<Trip> trips, Continent continent) {
+        this.code = code;
+        this.name = name;
+        this.eurDailyWage = eurDailyWage;
+        this.trips = trips;
+        this.continent = continent;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public @NotNull String getName() {
+        return name;
+    }
+
+    public void setName(@NotNull String name) {
+        this.name = name;
+    }
+
+    @NotNull
+    public double getEurDailyWage() {
+        return eurDailyWage;
+    }
+
+    public void setEurDailyWage(@NotNull double eurDailyWage) {
+        this.eurDailyWage = eurDailyWage;
+    }
+
+    public List<Trip> getTrips() {
+        return trips;
+    }
+
+    public void setTrips(List<Trip> trips) {
+        this.trips = trips;
+    }
+
+    public Continent getContinent() {
+        return continent;
+    }
+
+    public void setContinent(Continent continent) {
+        this.continent = continent;
+    }
 }

@@ -17,7 +17,6 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class User {
 
     @Id
@@ -64,4 +63,98 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles;
+
+    public User(Integer id, String email, String firstName, String lastName, String iban, String passwordHash, String registrationHash, boolean hasRegistered, Department department, Set<Role> roles) {
+        this.id = id;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.iban = iban;
+        this.passwordHash = passwordHash;
+        this.registrationHash = registrationHash;
+        this.hasRegistered = hasRegistered;
+        this.department = department;
+        this.roles = roles;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public @NotNull String getEmail() {
+        return email;
+    }
+
+    public void setEmail(@NotNull String email) {
+        this.email = email;
+    }
+
+    public @NotNull String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(@NotNull String firstName) {
+        this.firstName = firstName;
+    }
+
+    public @NotNull String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(@NotNull String lastName) {
+        this.lastName = lastName;
+    }
+
+    public @NotNull String getIban() {
+        return iban;
+    }
+
+    public void setIban(@NotNull String iban) {
+        this.iban = iban;
+    }
+
+    public @NotNull String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public void setPasswordHash(@NotNull String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
+
+    public @NotNull String getRegistrationHash() {
+        return registrationHash;
+    }
+
+    public void setRegistrationHash(@NotNull String registrationHash) {
+        this.registrationHash = registrationHash;
+    }
+
+    @NotNull
+    public boolean isHasRegistered() {
+        return hasRegistered;
+    }
+
+    public void setHasRegistered(@NotNull boolean hasRegistered) {
+        this.hasRegistered = hasRegistered;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
 }

@@ -18,7 +18,6 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class ExpenseReport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,4 +42,51 @@ public class ExpenseReport {
         this.createdAt = new Timestamp(System.currentTimeMillis());
     }
 
+    public ExpenseReport(Integer id, Trip trip, Double eurTotalCost, Timestamp createdAt, List<ExpenseReportItem> expenseReportItems) {
+        this.id = id;
+        this.trip = trip;
+        this.eurTotalCost = eurTotalCost;
+        this.createdAt = createdAt;
+        this.expenseReportItems = expenseReportItems;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Trip getTrip() {
+        return trip;
+    }
+
+    public void setTrip(Trip trip) {
+        this.trip = trip;
+    }
+
+    public Double getEurTotalCost() {
+        return eurTotalCost;
+    }
+
+    public void setEurTotalCost(Double eurTotalCost) {
+        this.eurTotalCost = eurTotalCost;
+    }
+
+    public @NotNull Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(@NotNull Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public List<ExpenseReportItem> getExpenseReportItems() {
+        return expenseReportItems;
+    }
+
+    public void setExpenseReportItems(List<ExpenseReportItem> expenseReportItems) {
+        this.expenseReportItems = expenseReportItems;
+    }
 }
