@@ -2,15 +2,13 @@ package com.progi.mockcontroller;
 
 
 import com.progi.Enum.Status;
-import com.progi.Model.ExpenseReport;
-import com.progi.Model.Trip;
-import com.progi.Model.TripStatus;
+import com.progi.Model.*;
 import com.progi.dto.EmployeeTripByStatusDTO;
-import com.progi.mockdata.MockExpenseReport;
-import com.progi.mockdata.MockTrip;
-import com.progi.mockdata.MockTripStatus;
+import com.progi.mockdata.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/trips")
@@ -18,7 +16,22 @@ public class TripMockController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Trip> getTrip(@PathVariable int id) {
-        return ResponseEntity.ok(MockTrip.generateMockTrips().getFirst());
+        Trip trip = MockTrip.generateMockTrips().getFirst();
+        Country country = MockCountry.generateMockCountries().getFirst();
+        trip.setCountry(country);
+
+        User user = MockUser.generateMockUsers().getFirst();
+        Department department = MockDepartment.generateMockDepartments().getFirst();
+        Role role = MockRole.generateMockRoles().getFirst();
+        user.setDepartment(department);
+        user.setRoles(List.of(role));
+        user.setTrips(List.of(trip));
+
+        TripStatus tripStatus = MockTripStatus.generateMockTripStatuses().getFirst();
+        trip.setTripStatuses(List.of(tripStatus));
+        trip.setUser(user);
+
+        return ResponseEntity.ok(trip);
     }
 
     @GetMapping("/{id}/status")

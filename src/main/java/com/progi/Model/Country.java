@@ -15,7 +15,6 @@ import java.util.List;
 @Table(name = "countries")
 @Getter
 @Setter
-@NoArgsConstructor
 public class Country {
 
     @Id
@@ -44,6 +43,9 @@ public class Country {
         this.eurDailyWage = eurDailyWage;
         this.trips = trips;
         this.continent = continent;
+    }
+
+    public Country() {
     }
 
     public String getCode() {
