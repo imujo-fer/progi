@@ -9,9 +9,9 @@ import java.util.List;
 public class MockCountry {
     public static List<Country> generateMockCountries() {
         List<Country> countries = new ArrayList<>();
-        countries.add(new Country("HR", "Hrvatska", 100.0, null, Continent.EUROPE));
-        countries.add(new Country("DE", "Germany", 150.0, null, Continent.EUROPE));
-        countries.add(new Country("US", "USA", 200.0, null, Continent.AFRICA));
+        countries.add(new Country("HR", "Croatia", 100.0, new ArrayList<>(), Continent.EUROPE));
+        countries.add(new Country("DE", "Germany", 150.0, new ArrayList<>(), Continent.EUROPE));
+        countries.add(new Country("US", "USA", 200.0, new ArrayList<>(), Continent.AFRICA));
         return countries;
     }
 }

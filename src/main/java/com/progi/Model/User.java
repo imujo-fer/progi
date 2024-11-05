@@ -1,6 +1,7 @@
 package com.progi.Model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -62,9 +63,13 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private Set<Role> roles;
+    private List<Role> roles;
 
-    public User(Integer id, String email, String firstName, String lastName, String iban, String passwordHash, String registrationHash, boolean hasRegistered, Department department, Set<Role> roles) {
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Trip> trips;
+
+    public User(Integer id, String email, String firstName, String lastName, String iban, String passwordHash, String registrationHash, boolean hasRegistered, Department department, List<Role> roles, List<Trip> trips) {
         this.id = id;
         this.email = email;
         this.firstName = firstName;
@@ -75,6 +80,7 @@ public class User {
         this.hasRegistered = hasRegistered;
         this.department = department;
         this.roles = roles;
+        this.trips = trips;
     }
 
     public Integer getId() {
@@ -150,11 +156,19 @@ public class User {
         this.department = department;
     }
 
-    public Set<Role> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public List<Trip> getTrips() {
+        return trips;
+    }
+
+    public void setTrips(List<Trip> trips) {
+        this.trips = trips;
     }
 }
