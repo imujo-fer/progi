@@ -4,6 +4,7 @@ import com.progi.Enum.Status;
 import com.progi.tripstatus.TripStatus;
 import com.progi.department.DepartmentService;
 import com.progi.user.User;
+import com.progi.user.UserDTO;
 import com.progi.user.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,20 +35,23 @@ public class TripController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Trip> getTripById(@PathVariable Integer id, @RequestParam Integer userId) {
+    public ResponseEntity<TripWithCountryDTO> getTripById(@PathVariable Integer id, @RequestParam Integer userId) {
         Trip trip = tripService.getTripById(id);
+        User user = userService.getUserbyId(userId);
+
+        TripWithCountryDTO tripDTO = new TripWithCountryDTO(trip);
+        tripDTO.setUser(new UserDTO(user));
 
         if (trip.getUser() != null && trip.getUser().getId().equals(userId)) {
-            return ResponseEntity.ok(trip);
+            return ResponseEntity.ok(tripDTO);
         }
 
-        User user = userService.getUserbyId(userId);
         if (user != null && user.getDepartment() != null) {
             List<User> departmentHeads = departmentService.getDepartmentHeadsByDepartmentId(user.getDepartment().getId());
 
             // Provjeravamo da li je korisnik jedan od department heads
             if (departmentHeads.stream().anyMatch(departmentHead -> departmentHead.getId().equals(userId))) {
-                return ResponseEntity.ok(trip);
+                return ResponseEntity.ok(tripDTO);
             }
         }
 
