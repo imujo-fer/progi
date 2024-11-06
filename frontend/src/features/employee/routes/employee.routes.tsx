@@ -1,15 +1,14 @@
 import { createRoute } from "@tanstack/react-router";
 import { rootRoute } from "../../../routes/router";
-import Sidebar from "../components/Sidebar";
+import SidebarNav from "../../../components/SidebarNav.component";
 
 export const employeeRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/employee",
-  component: Sidebar,
+  component: SidebarNav,
 });
 
 export const newTripRoute = createRoute({
   getParentRoute: () => employeeRoute,
   path: "/trip",
-  component: Sidebar,
 });
