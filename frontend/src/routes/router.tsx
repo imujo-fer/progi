@@ -4,6 +4,10 @@ import {
   createRouter,
   Outlet,
 } from "@tanstack/react-router";
+import {
+  employeeRoute,
+  newTripRoute,
+} from "../features/employee/routes/employee.routes";
 
 const queryClient = new QueryClient();
 
@@ -15,7 +19,9 @@ export const rootRoute = createRootRouteWithContext<RootRouteContext>()({
   ),
 });
 
-export const routeTree = rootRoute.addChildren([]);
+export const routeTree = rootRoute.addChildren([
+  employeeRoute.addChildren([newTripRoute]),
+]);
 
 type RootRouteContext = {
   queryClient: QueryClient;
