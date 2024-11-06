@@ -1,5 +1,6 @@
 package com.progi.receipt;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.progi.expensereportitem.ExpenseReportItem;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -11,7 +12,7 @@ import lombok.Setter;
 @Table(name = "receipts")
 @Getter
 @Setter
-
+@NoArgsConstructor
 public class Receipt {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +23,7 @@ public class Receipt {
     private String path;
 
     @OneToOne(mappedBy = "receipt")
+    @JsonIgnore
     private ExpenseReportItem expenseReportItem;
 
     public Receipt(Integer id, String path, ExpenseReportItem expenseReportItem) {

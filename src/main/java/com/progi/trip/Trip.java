@@ -77,14 +77,12 @@ public class Trip {
     @PrePersist
     protected void onCreate() {
         this.createdAt = new Timestamp(System.currentTimeMillis());
-        generateRequestNumber();
     }
 
+    @PostPersist
     private void generateRequestNumber() {
-        if (this.id != null) {
-            String formattedId = String.format("%04d", this.id);
-            this.requestNumber = "#" + formattedId;
-        }
+        String formattedId = String.format("%04d", this.id);
+        this.requestNumber = "#" + formattedId;
     }
 
     public Trip(Integer id, String requestNumber, double coordinatesLon, double coordinatesLat, String city, Country country, Timestamp datetimeFrom, Timestamp datetimeTo, String reason, User user, Timestamp createdAt, List<TripStatus> tripStatuses) {

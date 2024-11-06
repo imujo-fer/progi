@@ -18,9 +18,9 @@ public class TripStatusController {
         return ResponseEntity.ok(tripStatusService.createTripStatus(tripStatusDTO));
     }
 
-    @GetMapping("/notifications/{userId}")
-    public ResponseEntity<List<NotificationDTO>> getNotifications(@PathVariable Integer userId){
-        return ResponseEntity.ok(tripStatusService.getNotifications(userId));
+    @GetMapping("/notifications")
+    public ResponseEntity<List<NotificationDTO>> getNotifications(){
+        return ResponseEntity.ok(tripStatusService.getNotifications());
     }
 
 }

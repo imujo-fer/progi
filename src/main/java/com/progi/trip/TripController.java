@@ -50,17 +50,20 @@ public class TripController {
         Trip trip = tripService.getTripById(id);
 
         TripWithCountryDTO tripDTO = new TripWithCountryDTO(trip);
-        tripDTO.setUser(new UserDTO(user));
+        // tripDTO.setUser(new UserDTO(user));
 
-        if (trip.getUser() != null && trip.getUser().equals(user)) {
+        boolean isUserTripOwner = trip.getUser() != null && trip.getUser().equals(user);
+
+        if (isUserTripOwner) {
             return ResponseEntity.ok(tripDTO);
         }
 
         if (user != null && user.getDepartment() != null) {
             List<User> departmentHeads = departmentService.getDepartmentHeadsByDepartmentId(user.getDepartment().getId());
 
-            // Provjeravamo da li je korisnik jedan od department heads
-            if (departmentHeads.stream().anyMatch(departmentHead -> departmentHead.equals(user))) {
+            boolean isUserDepartmentHead = departmentHeads.stream().anyMatch(departmentHead -> departmentHead.equals(user));
+
+            if (isUserDepartmentHead) {
                 return ResponseEntity.ok(tripDTO);
             }
         }
@@ -91,15 +94,14 @@ public class TripController {
         return ResponseEntity.ok(tripService.getCurrentTripStatus(id));
     }
 
-    @GetMapping("/employee/{employeeID}")
+    @GetMapping("/employee")
     public ResponseEntity<Page<TripResponseDTO>> getEmployeeTripsByStatus(
-            @PathVariable int employeeID,
             @RequestParam(required = false) Status status,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
 
         PageRequest pageRequest = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
-        Page<Trip> tripsPage = tripService.getTripsByUserAndStatus(employeeID, status, pageRequest);
+        Page<Trip> tripsPage = tripService.getTripsByUserAndStatus( status, pageRequest);
 
         // Mapiranje Trip entiteta na TripResponseDTO
         Page<TripResponseDTO> tripResponsePage = tripsPage.map(TripResponseDTO::new);

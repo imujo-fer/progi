@@ -93,8 +93,10 @@ public class TripService {
         return tripStatusService.getCurrentTripStatus(id);
     }
 
-    public Page<Trip> getTripsByUserAndStatus(Integer userId, Status status, Pageable pageable) {
-        return tripRepository.findByUserIdAndStatus(userId, status, pageable);
+    public Page<Trip> getTripsByUserAndStatus( Status status, Pageable pageable) {
+        User user = userSessionService.getCurrentAuthenticatedUser();
+
+        return tripRepository.findByUserIdAndStatus(user.getId(), status, pageable);
     }
 
     public List<Trip> getTripByUserId(Integer userId) {

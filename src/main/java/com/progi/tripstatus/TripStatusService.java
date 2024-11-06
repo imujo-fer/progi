@@ -1,10 +1,13 @@
 package com.progi.tripstatus;
 
 import com.progi.Enum.Status;
+import com.progi.auth.UserSessionService;
 import com.progi.trip.Trip;
 import com.progi.trip.TripNotificationDTO;
 import com.progi.trip.TripResponseDTO;
 import com.progi.trip.TripService;
+import com.progi.user.User;
+
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -28,6 +31,9 @@ public class TripStatusService {
     @Autowired
     private TripService tripService;
 
+    @Autowired
+    private UserSessionService userSessionService;
+
     public TripStatus getCurrentTripStatus(Integer tripId) {
         return tripStatusRepository.findTopByTripIdOrderByCreatedAtDesc(tripId).orElseThrow(() -> new NoSuchElementException("Trip has no status with tripId  " + tripId));
     }
@@ -48,24 +54,25 @@ public class TripStatusService {
         return tripStatusRepository.findStatusesByTripIdOrdered(tripId);
     }
 
-    public List<NotificationDTO> getNotifications(Integer userId) {
-        List<Trip> trips = tripService.getTripByUserId(userId);
+    public List<NotificationDTO> getNotifications() {
+        User user = userSessionService.getCurrentAuthenticatedUser();
+        List<TripStatus> statuses = tripStatusRepository.findStatusesByUserIdOrdered(user.getId());
+        
 
        List<NotificationDTO> notifications = new ArrayList<>();
 
-       for (Trip trip : trips) {
-           List<TripStatus> statuses = getAllTripStatusesByTripId(trip.getId());
-           TripStatus currentStatus = statuses.isEmpty() ? null : statuses.get(0);
-           Status previousStatus = statuses.size() > 1 ? statuses.get(1).getStatus() : null;
+    for (int i = 0; i < statuses.size() - 1; i++) {
+        TripStatus currentStatus = statuses.get(i);
+        TripStatus previousStatus = statuses.get(i + 1);
 
-           if (currentStatus != null && previousStatus != null) {
-               NotificationDTO notification = new NotificationDTO();
-               notification.setTrip(new TripNotificationDTO(trip));
-               notification.setPreviousTripStatus(previousStatus);
-               notification.setNextTripStatus(currentStatus);
-               notifications.add(notification);
-           }
-       }
+        NotificationDTO notification = new NotificationDTO();
+        notification.setTrip(new TripNotificationDTO(currentStatus.getTrip()));
+        notification.setPreviousTripStatusStatus(previousStatus.getStatus());
+        notification.setNextTripStatus(currentStatus);
+
+        notifications.add(notification);
+    }
+    
     return notifications;
     }
 }

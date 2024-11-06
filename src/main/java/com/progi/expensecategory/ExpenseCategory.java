@@ -1,5 +1,6 @@
 package com.progi.expensecategory;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.progi.expensesubcategory.ExpenseSubcategory;
 import jakarta.persistence.*;
@@ -10,7 +11,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "expense_categories")
-
+@NoArgsConstructor
 public class ExpenseCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +23,7 @@ public class ExpenseCategory {
 
     @OneToMany(mappedBy = "expenseCategory")
     @JsonManagedReference
+    @JsonIgnore
     private List<ExpenseSubcategory> expenseSubcategories;
 
     public ExpenseCategory(Integer id, String name, List<ExpenseSubcategory> expenseSubcategories) {

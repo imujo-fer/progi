@@ -37,5 +37,6 @@ public class TripWithCountryDTO {
         this.datetimeFrom = trip.getDatetimeFrom();
         this.datetimeTo = trip.getDatetimeTo();
         this.reason = trip.getReason();
+        this.user = new UserDTO(trip.getUser());
     }
 }

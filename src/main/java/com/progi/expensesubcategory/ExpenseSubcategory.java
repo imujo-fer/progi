@@ -1,6 +1,7 @@
 package com.progi.expensesubcategory;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.progi.expensecategory.ExpenseCategory;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -12,7 +13,7 @@ import lombok.Setter;
 @Table(name = "expense_subcategories")
 @Getter
 @Setter
-
+@NoArgsConstructor
 public class ExpenseSubcategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
