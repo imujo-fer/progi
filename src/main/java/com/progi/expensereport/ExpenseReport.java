@@ -17,7 +17,7 @@ import java.util.List;
 @Table(name = "expense_reports")
 @Getter
 @Setter
-@NoArgsConstructor
+
 public class ExpenseReport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,6 +48,9 @@ public class ExpenseReport {
         this.eurTotalCost = eurTotalCost;
         this.createdAt = createdAt;
         this.expenseReportItems = expenseReportItems;
+    }
+
+    public ExpenseReport() {
     }
 
     public Integer getId() {

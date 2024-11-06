@@ -1,11 +1,9 @@
-package com.progi.congif;
+package com.progi.auth;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
-
-import com.progi.OAuth2UserService;
 
 
 @Configuration
@@ -23,13 +21,15 @@ public class SecurityConfig {
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
                 http
                         .authorizeHttpRequests(auth -> auth
-                                .requestMatchers("/", "/oauth2/**", "/register", "/register/addUser", "/login/**").permitAll()
-                                .anyRequest().authenticated()
+                                // .requestMatchers("/", "/oauth2/**", "/register", "/register/addUser", "/login/**").permitAll()
+                                // .anyRequest().authenticated()
+                                .anyRequest().permitAll()
 
                         )
                         .oauth2Login(oauth2 -> oauth2  
                                 .loginPage("/login")
                                 .defaultSuccessUrl("/", true) 
+                                .failureUrl("/login?error=true")
                                 .userInfoEndpoint(userInfoEndpoint -> userInfoEndpoint.userService(customOAuth2UserService))
                         ).csrf().disable();
                 return http.build();

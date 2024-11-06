@@ -1,22 +1,23 @@
 package com.progi.trip;
 
-import com.progi.Enum.Status;
-import com.progi.country.Country;
-import com.progi.country.CountryRepository;
-import com.progi.country.CountryService;
-import com.progi.tripstatus.TripStatus;
-import com.progi.tripstatus.TripStatusRepository;
-import com.progi.tripstatus.TripStatusService;
-import com.progi.user.UserService;
-import jakarta.transaction.Transactional;
+import java.util.List;
+import java.util.NoSuchElementException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.NoSuchElementException;
+import com.progi.Enum.Status;
+import com.progi.auth.UserSessionService;
+import com.progi.country.Country;
+import com.progi.country.CountryService;
+import com.progi.tripstatus.TripStatus;
+import com.progi.tripstatus.TripStatusService;
+import com.progi.user.User;
+
+import jakarta.transaction.Transactional;
 
 @Service
 @Transactional
@@ -33,7 +34,7 @@ public class TripService {
     private CountryService countryService;
 
     @Autowired
-    private UserService userService;
+    private UserSessionService userSessionService;
 
     public List<Trip> getAllTrips() {
         return tripRepository.findAll();
@@ -45,7 +46,9 @@ public class TripService {
 
     }
 
-    public Trip createTrip(Integer userId, TripDTO tripDetails) {
+    public Trip createTrip(TripDTO tripDetails) {
+        System.out.println("createTrip");
+        User user = userSessionService.getCurrentAuthenticatedUser();
         Trip trip = new Trip();
 
         trip.setCoordinatesLat(tripDetails.getCoordinatesLat());
@@ -58,7 +61,7 @@ public class TripService {
         trip.setDatetimeFrom(tripDetails.getDatetimeFrom());
         trip.setDatetimeTo(tripDetails.getDatetimeTo());
         trip.setReason(tripDetails.getReason());
-        trip.setUser(userService.getUserbyId(userId));
+        trip.setUser(user);
         return tripRepository.save(trip);    }
 
     public Trip updateTrip(Integer id, TripDTO tripDetails) {

@@ -20,7 +20,7 @@ import lombok.Setter;
 @Table(name = "company")
 @Getter
 @Setter
-@NoArgsConstructor
+
 public class Company {
 
     @Id

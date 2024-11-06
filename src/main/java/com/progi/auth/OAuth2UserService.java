@@ -1,4 +1,4 @@
-package com.progi;
+package com.progi.auth;
 
 import java.util.Optional;
 
@@ -7,9 +7,8 @@ import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserServ
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
-
-import com.progi.Model.User;
 import com.progi.exceptions.UserNotInvitedException;
+import com.progi.user.User;
 import com.progi.user.UserRepository;
 
 @Service

@@ -16,7 +16,7 @@ import lombok.Setter;
 @Table(name = "expense_report_items")
 @Getter
 @Setter
-@NoArgsConstructor
+
 public class ExpenseReportItem {
 
     @Id
@@ -63,6 +63,9 @@ public class ExpenseReportItem {
         this.currency = currency;
         this.currencyValue = currencyValue;
         this.eurValue = eurValue;
+    }
+
+    public ExpenseReportItem() {
     }
 
     public Integer getId() {
