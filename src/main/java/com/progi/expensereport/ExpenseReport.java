@@ -21,13 +21,15 @@ import java.util.List;
 public class ExpenseReport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     private Integer id;
 
     @OneToOne
-    @JoinColumn(name = "trip_id", referencedColumnName = "id")
+    @JoinColumn(name = "trip_id", referencedColumnName = "id", nullable = false)
+    @NotNull
     private Trip trip;
 
-    private Double eurTotalCost;//nullable
+    private Double eurTotalCost;
 
     @Column(nullable = false)
     @NotNull
@@ -35,6 +37,7 @@ public class ExpenseReport {
 
     @OneToMany(mappedBy = "expenseReport")
     @JsonManagedReference
+    @NotNull
     private List<ExpenseReportItem> expenseReportItems;
 
     @PrePersist

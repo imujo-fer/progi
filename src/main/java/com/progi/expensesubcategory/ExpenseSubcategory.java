@@ -17,6 +17,7 @@ import lombok.Setter;
 public class ExpenseSubcategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     private Integer id;
 
     @Column(unique = true, nullable = false)
@@ -24,8 +25,9 @@ public class ExpenseSubcategory {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "expense_category_id")
+    @JoinColumn(name = "expense_category_id", nullable = false)
     @JsonBackReference
+    @NotNull
     private ExpenseCategory expenseCategory;
 
     public ExpenseSubcategory(Integer id, String name, ExpenseCategory expenseCategory) {

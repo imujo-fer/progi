@@ -31,6 +31,7 @@ public class TripStatus {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     private Integer id;
 
     @Enumerated(EnumType.STRING)

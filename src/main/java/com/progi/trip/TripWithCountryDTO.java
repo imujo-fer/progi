@@ -25,7 +25,7 @@ public class TripWithCountryDTO {
     private Timestamp datetimeTo;
     @NotNull
     private String reason;
-
+    @NotNull
     private UserDTO user;
 
     public TripWithCountryDTO(Trip trip) {

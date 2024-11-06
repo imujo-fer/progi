@@ -50,7 +50,6 @@ public class TripController {
         Trip trip = tripService.getTripById(id);
 
         TripWithCountryDTO tripDTO = new TripWithCountryDTO(trip);
-        // tripDTO.setUser(new UserDTO(user));
 
         boolean isUserTripOwner = trip.getUser() != null && trip.getUser().equals(user);
 

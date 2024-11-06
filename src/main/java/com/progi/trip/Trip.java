@@ -24,10 +24,12 @@ import lombok.Setter;
 public class Trip {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     private Integer id;
 
     @Column(unique = true, nullable = true)
-    private String requestNumber; // auto generated
+    @NotNull
+    private String requestNumber;
 
     @Column(nullable = false)
     @NotNull
@@ -42,8 +44,9 @@ public class Trip {
     private String city;
 
     @ManyToOne
-    @JoinColumn(name = "code")
+    @JoinColumn(name = "country_code", referencedColumnName = "code", nullable = false)
     @JsonBackReference
+    @NotNull
     private Country country;
 
     @Column(nullable = false)
@@ -59,8 +62,9 @@ public class Trip {
     private String reason;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     @JsonBackReference
+    @NotNull
     private User user;
 
     @OneToOne(mappedBy = "trip")
@@ -69,10 +73,12 @@ public class Trip {
 
     @OneToMany(mappedBy = "trip")
     @JsonManagedReference
+    @NotNull
     private List<TripStatus> tripStatuses;
 
     @Column(nullable = false)
-    private Timestamp createdAt; // This will be set in @PrePersist
+    @NotNull
+    private Timestamp createdAt;
 
     @PrePersist
     protected void onCreate() {

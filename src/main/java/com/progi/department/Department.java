@@ -24,6 +24,7 @@ public class Department {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     private Integer id;
 
     @Column(unique = true, nullable = false)
@@ -32,6 +33,7 @@ public class Department {
 
     @OneToMany(mappedBy = "department")
     @JsonManagedReference
+    @NotNull
     private List<User> users;
 
     public Department(Integer id, String name, List<User> users) {

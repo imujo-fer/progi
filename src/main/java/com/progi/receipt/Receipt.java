@@ -16,6 +16,7 @@ import lombok.Setter;
 public class Receipt {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     private Integer id;
 
     @Column(nullable = false)

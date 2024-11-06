@@ -18,6 +18,7 @@ public class Country {
 
     @Id
     @Column(name = "code")
+    @NotNull
     private String code;
 
     @Column(unique = true, nullable = false)
@@ -30,10 +31,12 @@ public class Country {
 
     @OneToMany(mappedBy = "country")
     @JsonManagedReference
+    @NotNull
     private List<Trip> trips;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @NotNull
     private Continent continent;
 
     public Country(String code, String name, double eurDailyWage, List<Trip> trips, Continent continent) {

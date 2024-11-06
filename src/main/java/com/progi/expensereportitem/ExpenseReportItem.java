@@ -21,20 +21,24 @@ public class ExpenseReportItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "expense_report_id")
+    @JoinColumn(name = "expense_report_id", nullable = false)
     @JsonBackReference
+    @NotNull
     private ExpenseReport expenseReport;
 
     @OneToOne
-    @JoinColumn(name = "receipt_id", referencedColumnName = "id")
+    @JoinColumn(name = "receipt_id", referencedColumnName = "id", nullable = false)
+    @NotNull
     private Receipt receipt;
 
     @ManyToOne
-    @JoinColumn(name = "expense_subcategory_id")
+    @JoinColumn(name = "expense_subcategory_id", nullable = false)
     @JsonBackReference
+    @NotNull
     private ExpenseSubcategory expenseSubcategory;
 
     @Column(nullable = false)

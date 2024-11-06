@@ -33,6 +33,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     private Integer id;
 
     @Column(unique = true, nullable = false)
@@ -70,8 +71,9 @@ public class User {
     private String providerId;
 
     @ManyToOne
-    @JoinColumn(name = "department_id")
+    @JoinColumn(name = "department_id", nullable = false)
     @JsonBackReference
+    @NotNull
     private Department department;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -80,10 +82,12 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
+    @NotNull
     private List<Role> roles;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
+    @NotNull
     private List<Trip> trips;
 
     public User(Integer id, String email, String firstName, String lastName, String iban, String passwordHash, String registrationHash, boolean hasRegistered, Department department, List<Role> roles, List<Trip> trips) {
