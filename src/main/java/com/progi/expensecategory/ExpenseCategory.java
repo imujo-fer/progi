@@ -10,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "expense_categories")
-@NoArgsConstructor
+
 public class ExpenseCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

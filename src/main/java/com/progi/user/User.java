@@ -1,23 +1,34 @@
 package com.progi.user;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.progi.role.Role;
 import com.progi.department.Department;
+import com.progi.role.Role;
 import com.progi.trip.Trip;
-import jakarta.persistence.*;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.List;
 
 @Entity
 @Table(name = "users")
 @Getter
 @Setter
-@NoArgsConstructor
 public class User {
 
     @Id
@@ -52,6 +63,12 @@ public class User {
     @NotNull
     private boolean hasRegistered;
 
+    @Column
+    private String provider;
+
+    @Column
+    private String providerId;
+
     @ManyToOne
     @JoinColumn(name = "department_id")
     @JsonBackReference
@@ -82,6 +99,8 @@ public class User {
         this.roles = roles;
         this.trips = trips;
     }
+
+    public User(){};
 
     public Integer getId() {
         return id;
@@ -170,5 +189,21 @@ public class User {
 
     public void setTrips(List<Trip> trips) {
         this.trips = trips;
+    }
+
+    public String getProvider() {
+        return provider;
+    }
+
+    public void setProvider(String provider) {
+        this.provider = provider;
+    }
+
+    public String getProviderId() {
+        return providerId;
+    }
+
+    public void setProviderId(String providerId) {
+        this.providerId = providerId;
     }
 }

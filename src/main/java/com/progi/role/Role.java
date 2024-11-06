@@ -15,7 +15,7 @@ import java.util.List;
 @Table(name = "roles")
 @Getter
 @Setter
-@NoArgsConstructor
+
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

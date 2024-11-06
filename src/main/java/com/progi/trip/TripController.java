@@ -1,20 +1,30 @@
 package com.progi.trip;
 
-import com.progi.Enum.Status;
-import com.progi.tripstatus.TripStatus;
-import com.progi.department.DepartmentService;
-import com.progi.user.User;
-import com.progi.user.UserDTO;
-import com.progi.user.UserService;
-import jakarta.validation.Valid;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import com.progi.Enum.Status;
+import com.progi.auth.UserSessionService;
+import com.progi.department.DepartmentService;
+import com.progi.tripstatus.TripStatus;
+import com.progi.user.User;
+import com.progi.user.UserDTO;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/trips")
@@ -27,7 +37,7 @@ public class TripController {
     private DepartmentService departmentService;
 
     @Autowired
-    private UserService userService;
+    private UserSessionService userSessionService;
 
     @GetMapping
     public List<Trip> getAllTrips() {
@@ -35,14 +45,14 @@ public class TripController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TripWithCountryDTO> getTripById(@PathVariable Integer id, @RequestParam Integer userId) {
+    public ResponseEntity<TripWithCountryDTO> getTripById(@PathVariable Integer id) {
+        User user = userSessionService.getCurrentAuthenticatedUser();
         Trip trip = tripService.getTripById(id);
-        User user = userService.getUserbyId(userId);
 
         TripWithCountryDTO tripDTO = new TripWithCountryDTO(trip);
         tripDTO.setUser(new UserDTO(user));
 
-        if (trip.getUser() != null && trip.getUser().getId().equals(userId)) {
+        if (trip.getUser() != null && trip.getUser().equals(user)) {
             return ResponseEntity.ok(tripDTO);
         }
 
@@ -50,7 +60,7 @@ public class TripController {
             List<User> departmentHeads = departmentService.getDepartmentHeadsByDepartmentId(user.getDepartment().getId());
 
             // Provjeravamo da li je korisnik jedan od department heads
-            if (departmentHeads.stream().anyMatch(departmentHead -> departmentHead.getId().equals(userId))) {
+            if (departmentHeads.stream().anyMatch(departmentHead -> departmentHead.equals(user))) {
                 return ResponseEntity.ok(tripDTO);
             }
         }
@@ -59,8 +69,8 @@ public class TripController {
     }
 
     @PostMapping
-    public ResponseEntity<Trip> createTrip(@RequestParam Integer userId, @RequestBody TripDTO trip) {
-        Trip createdTrip = tripService.createTrip(userId, trip);
+    public ResponseEntity<Trip> createTrip(@RequestBody TripDTO trip) {
+        Trip createdTrip = tripService.createTrip(trip);
         return ResponseEntity.ok(createdTrip);
     }
 

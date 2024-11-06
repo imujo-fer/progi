@@ -20,13 +20,13 @@ import lombok.Setter;
 @Table(name = "trips")
 @Getter
 @Setter
-@NoArgsConstructor
+
 public class Trip {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = true)
     private String requestNumber; // auto generated
 
     @Column(nullable = false)
@@ -100,6 +100,9 @@ public class Trip {
         this.user = user;
         this.createdAt = createdAt;
         this.tripStatuses = tripStatuses;
+    }
+
+    public Trip() {
     }
 
     public Integer getId() {

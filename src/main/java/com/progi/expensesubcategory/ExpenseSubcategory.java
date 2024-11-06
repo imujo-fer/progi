@@ -12,7 +12,7 @@ import lombok.Setter;
 @Table(name = "expense_subcategories")
 @Getter
 @Setter
-@NoArgsConstructor
+
 public class ExpenseSubcategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

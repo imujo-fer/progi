@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface TripRepository extends JpaRepository<Trip, Integer> {
     @Query("SELECT t FROM Trip t JOIN t.tripStatuses ts WHERE t.user.id = :userId AND ts.status = :status")
