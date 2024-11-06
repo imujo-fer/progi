@@ -3,7 +3,8 @@ spring:
     name: api
   datasource:
     url: jdbc:postgresql://localhost:5432/progi
-    username: ivomujo
+    username: postgres
+    password: 12345678
   jpa:
     hibernate:
       ddl-auto: update

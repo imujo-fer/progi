@@ -5,8 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class SpaController {
 
-
-    @GetMapping(value = "/{path:[^\\.]*}")  
+    @GetMapping(value = "/**")
     public String forwardIndex() {
         return "index";
     }
