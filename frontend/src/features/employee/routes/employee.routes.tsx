@@ -11,4 +11,5 @@ export const employeeRoute = createRoute({
 export const newTripRoute = createRoute({
   getParentRoute: () => employeeRoute,
   path: "/trip",
+  component: SidebarNav,
 });
