@@ -9,6 +9,7 @@ import com.progi.receipt.ReceiptService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.NoSuchElementException;
 
@@ -29,6 +30,7 @@ public class ExpenseReportItemService {
         return expenseReportItemRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Expense report item not found with id " + id));
     }
 
+
     public void deleteExpenseReportItem(Integer id) {
         ExpenseReportItem expenseReportItem = getExpenseReportItemById(id);
         Receipt receipt = expenseReportItem.getReceipt();
@@ -39,6 +41,8 @@ public class ExpenseReportItemService {
             receiptService.deleteReceipt(receipt.getId());
         }
     }
+
+
 
     public ExpenseReportItem createExpenseReportItem(ExpenseReportItemDTO expenseReportItemDTO) {
         ExpenseReportItem expenseReportItem = new ExpenseReportItem();
@@ -80,5 +84,12 @@ public class ExpenseReportItemService {
         return expenseReportItemRepository.save(expenseReportItem);
     }
 
+    public ExpenseReportItem uploadReceipt(Integer id, MultipartFile file) {
+        ExpenseReportItem expenseReportItem = getExpenseReportItemById(id);
 
+        Receipt receipt = receiptService.uploadReceipt(id, file);
+
+        expenseReportItem.setReceipt(receipt);
+       return expenseReportItemRepository.save(expenseReportItem);
+    }
 }
