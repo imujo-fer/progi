@@ -1,6 +1,9 @@
 package com.progi.expensereportitem;
 
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.progi.Enum.Currency;
 import com.progi.expensesubcategory.ExpenseSubcategory;
@@ -10,7 +13,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
@@ -34,6 +36,7 @@ public class ExpenseReportItem {
     @OneToOne
     @JoinColumn(name = "receipt_id", referencedColumnName = "id", nullable = false)
     @NotNull
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Receipt receipt;
 
     @ManyToOne

@@ -1,7 +1,10 @@
 package com.progi.user;
 
 
-import jakarta.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +16,7 @@ import com.progi.user.dto.UserEditDTO;
 import com.progi.user.dto.UserInviteDTO;
 import com.progi.user.dto.UserInviteDetailsDTO;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import jakarta.transaction.Transactional;
 
 @Service
 @Transactional
@@ -34,8 +35,16 @@ public class UserService {
         return new UserDetailsDTO(user);
     }
 
+    public User getUserById(Integer userId) {
+        return userRepository.findById(Long.valueOf(userId)).orElseThrow(() -> new IllegalArgumentException("User not found" + userId));
+    }
+
+    public User getUserByRegistrationHash(String registrationHash) {
+        return userRepository.findByRegistrationHash(registrationHash).orElseThrow(() -> new IllegalArgumentException("User not found " + registrationHash));
+    }
+
     public UserDetailsDTO updateUser(Integer userId, UserEditDTO userEditDTO) {
-        User user = userRepository.findById(Long.valueOf(userId)).orElseThrow(() -> new IllegalArgumentException("User not found"));
+        User user = getUserById(userId);
 
         Department department = new Department();
         department.setId(userEditDTO.getDepartmentId());
@@ -59,13 +68,13 @@ public class UserService {
     }
 
     public UserInviteDetailsDTO getUserInviteDetails(Integer userId) {
-        User user = userRepository.findById(Long.valueOf(userId)).orElseThrow(() -> new IllegalArgumentException("User not found"));
+        User user = getUserById(userId);
 
         return new UserInviteDetailsDTO(user);
     }
 
     public UserInviteDetailsDTO getUserInviteDetailsByRegistrationHash(String registrationHash) {
-        User user = userRepository.findByRegistrationHash(registrationHash).orElseThrow(() -> new IllegalArgumentException("User not found"));
+        User user = getUserByRegistrationHash(registrationHash);
 
         if (user.hasRegistered()) {
             throw new IllegalArgumentException("User has already registered");

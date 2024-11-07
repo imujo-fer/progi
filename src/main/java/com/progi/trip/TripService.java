@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
@@ -16,7 +15,7 @@ import com.progi.Enum.Status;
 import com.progi.auth.UserSessionService;
 import com.progi.country.Country;
 import com.progi.country.CountryService;
-import com.progi.tripstatus.TripStatus;
+import com.progi.department.Department;
 import com.progi.tripstatus.TripStatusService;
 import com.progi.user.User;
 
@@ -82,6 +81,11 @@ public class TripService {
         if (country != null) {
             trip.setCountry(country);
         }
+
+        Country newCountry = new Country();
+        newCountry.setCode(tripDetails.getCountryCode());
+        trip.setCountry(newCountry);
+
         trip.setDatetimeFrom(tripDetails.getDatetimeFrom());
         trip.setDatetimeTo(tripDetails.getDatetimeTo());
         trip.setReason(tripDetails.getReason());
@@ -103,6 +107,57 @@ public class TripService {
         PageRequest pageRequest = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
 
         Page<Trip> trips =  tripRepository.findByUserIdAndStatus(user.getId(), status, pageRequest);
+
+        return trips.map(TripResponseDTO::new);
+    }
+
+    public Page<TripResponseDTO> getDepartmentApprovalTrip(int page, int size) {
+        User user = userSessionService.getCurrentAuthenticatedUser();
+
+        if (!user.isUserDepartmentHead()) throw new IllegalArgumentException("User is not department head");
+
+        Department department = user.getDepartment();
+
+        PageRequest pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
+
+        Page<Trip> trips = tripRepository.findDepartmentHeadReviewTrips(department.getId(), pageable);
+
+        return trips.map(TripResponseDTO::new);
+    }
+
+
+    public Page<TripResponseDTO> getExpenseApprovalTrip(int page, int size) {
+        User user = userSessionService.getCurrentAuthenticatedUser();
+
+        if (!user.isUserAccountant()) throw new IllegalArgumentException("User is not accountant");
+
+        PageRequest pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
+
+        Page<Trip> trips = tripRepository.findExpenseReviewTrips(pageable);
+
+        return trips.map(TripResponseDTO::new);
+    }
+
+    public Page<TripResponseDTO> getPaymentApprovalTrip(int page, int size) {
+        User user = userSessionService.getCurrentAuthenticatedUser();
+
+        if (!user.isUserAccountant()) throw new IllegalArgumentException("User is not accountant");
+
+        PageRequest pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
+
+        Page<Trip> trips = tripRepository.findPaymentReviewTrips(pageable);
+
+        return trips.map(TripResponseDTO::new);
+    }
+
+    public Page<TripResponseDTO> getDirectorApprovalTrip(int page, int size) {
+        User user = userSessionService.getCurrentAuthenticatedUser();
+
+        if (!user.isUserDirector()) throw new IllegalArgumentException("User is not director");
+
+        PageRequest pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
+
+        Page<Trip> trips = tripRepository.findDirectorReviewTrips(pageable);
 
         return trips.map(TripResponseDTO::new);
     }

@@ -37,11 +37,6 @@ public class TripController {
     @Autowired
     private TripStatusService tripStatusService;
 
-    @GetMapping
-    public List<Trip> getAllTrips() {
-        return tripService.getAllTrips();
-    }
-
     @GetMapping("/{id}")
     public ResponseEntity<TripWithCountryDTO> getTripById(@PathVariable Integer id) {
         try {
@@ -82,6 +77,42 @@ public class TripController {
             @RequestParam(defaultValue = "10") int size) {
 
         return ResponseEntity.ok(tripService.getTripsByUserAndStatus( status, page, size));
+    }
+
+    @GetMapping("/department-head")
+    public ResponseEntity<Page<TripResponseDTO>> getDepartmentApprovalTrips(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        
+
+        return ResponseEntity.ok(tripService.getDepartmentApprovalTrip(page, size));
+    }
+
+    @GetMapping("/accountant-expense")
+    public ResponseEntity<Page<TripResponseDTO>> getExpenseApprovalTrips(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        
+
+        return ResponseEntity.ok(tripService.getExpenseApprovalTrip(page, size));
+    }
+
+    @GetMapping("/accountant-payment")
+    public ResponseEntity<Page<TripResponseDTO>> getPaymentApprovalTrips(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        
+
+        return ResponseEntity.ok(tripService.getPaymentApprovalTrip(page, size));
+    }
+
+    @GetMapping("/director")
+    public ResponseEntity<Page<TripResponseDTO>> getDirectorApprovalTrips(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        
+
+        return ResponseEntity.ok(tripService.getDirectorApprovalTrip(page, size));
     }
 
 
