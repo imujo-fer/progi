@@ -16,4 +16,11 @@ public class ReceiptService {
     public Receipt getReceiptById(Integer id) {
         return receiptRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Receipt not found with id " + id));
     }
+
+    public void deleteReceipt(Integer id) {
+        if (!receiptRepository.existsById(id)) {
+            throw new NoSuchElementException("Receipt not found with id " + id);
+        }
+        receiptRepository.deleteById(id);
+    }
 }

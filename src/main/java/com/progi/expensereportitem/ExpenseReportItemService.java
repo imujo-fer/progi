@@ -30,10 +30,14 @@ public class ExpenseReportItemService {
     }
 
     public void deleteExpenseReportItem(Integer id) {
-        if (!expenseReportItemRepository.existsById(id)) {
-            throw new NoSuchElementException("Expense report item not found with id " + id);
-        }
+        ExpenseReportItem expenseReportItem = getExpenseReportItemById(id);
+        Receipt receipt = expenseReportItem.getReceipt();
+
         expenseReportItemRepository.deleteById(id);
+
+        if (receipt != null) {
+            receiptService.deleteReceipt(receipt.getId());
+        }
     }
 
     public ExpenseReportItem createExpenseReportItem(ExpenseReportItemDTO expenseReportItemDTO) {
