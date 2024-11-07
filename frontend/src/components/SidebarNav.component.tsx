@@ -1,15 +1,14 @@
 import { Layout, Grid, Button, Drawer } from "antd";
 import { MenuOutlined } from "@ant-design/icons";
-import { ReactNode, useState } from "react";
+import { useState } from "react";
+import { Outlet } from "@tanstack/react-router";
 
 const { Sider, Header, Content } = Layout;
 const { useBreakpoint } = Grid;
 
-interface SidebarNavProps {
-  children: ReactNode;
-}
+const roleList = ["Department head", "Accountant", "Director"];
 
-export default function SidebarNav({ children }: SidebarNavProps) {
+export default function SidebarNav() {
   const screens = useBreakpoint();
   const [drawerVisible, setDrawerVisible] = useState(false);
 
@@ -36,7 +35,44 @@ export default function SidebarNav({ children }: SidebarNavProps) {
               <a className="text-lg" href="./past-trips">
                 Past Trips
               </a>
+              {roleList.includes("Department head") ? (
+                <>
+                  <a className="text-lg" href="./department-approval-requests">
+                    Department approval requests
+                  </a>
+                  <a className="text-lg" href="./department-statistics">
+                    Department statistics
+                  </a>
+                </>
+              ) : (
+                <></>
+              )}
+              {roleList.includes("Accountant") ? (
+                <>
+                  <a className="text-lg" href="./expense-review-requests">
+                    Expense reivew requests
+                  </a>
+                  <a className="text-lg" href="./awaiting-payment">
+                    Awaiting payment
+                  </a>
+                </>
+              ) : (
+                <></>
+              )}
+              {roleList.includes("Director") ? (
+                <>
+                  <a className="text-lg" href="./review-trips">
+                    Review trips
+                  </a>
+                  <a className="text-lg" href="./statistics">
+                    Statistics
+                  </a>
+                </>
+              ) : (
+                <></>
+              )}
             </div>
+
             <a className="text-lg" href="./notifications">
               Notifications
             </a>
@@ -77,7 +113,9 @@ export default function SidebarNav({ children }: SidebarNavProps) {
         </>
       )}
       <Layout>
-        <Content className="bg-gray-100 p-6">{children}</Content>
+        <Content className="bg-gray-100 p-6">
+          <Outlet />
+        </Content>
       </Layout>
     </Layout>
   );

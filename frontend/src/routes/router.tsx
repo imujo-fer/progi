@@ -1,6 +1,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   createRootRouteWithContext,
+  createRoute,
   createRouter,
   Outlet,
 } from "@tanstack/react-router";
@@ -9,6 +10,19 @@ import {
   pastTripsRoute,
   tripRequestsRoute,
 } from "../features/employee/routes/employee.routes";
+import {
+  departmentApprovalRequestsRoute,
+  departmentStatisticsRoute,
+} from "../features/departmentHead/routes/departmentHead.routes";
+import SidebarNav from "../components/SidebarNav.component";
+import {
+  awaitingPaymentRoute,
+  expenseReviewRequestsRoute,
+} from "../features/accountant/routes/accountant.routes";
+import {
+  reviewTripsRoute,
+  statisticsRoute,
+} from "../features/director/routes/director.routes";
 
 const queryClient = new QueryClient();
 
@@ -20,10 +34,24 @@ export const rootRoute = createRootRouteWithContext<RootRouteContext>()({
   ),
 });
 
+export const layoutRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/",
+  component: SidebarNav,
+});
+
 export const routeTree = rootRoute.addChildren([
-  tripRequestsRoute,
-  pastTripsRoute,
-  notificationsRoute,
+  layoutRoute.addChildren([
+    tripRequestsRoute,
+    pastTripsRoute,
+    notificationsRoute,
+    departmentApprovalRequestsRoute,
+    departmentStatisticsRoute,
+    awaitingPaymentRoute,
+    expenseReviewRequestsRoute,
+    reviewTripsRoute,
+    statisticsRoute,
+  ]),
 ]);
 
 type RootRouteContext = {
