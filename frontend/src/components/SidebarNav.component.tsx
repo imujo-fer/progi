@@ -108,6 +108,42 @@ export default function SidebarNav() {
               <a className="text-lg" href="./notifications">
                 Notifications
               </a>
+              {roleList.includes("Department head") ? (
+                <>
+                  <a className="text-lg" href="./department-approval-requests">
+                    Department approval requests
+                  </a>
+                  <a className="text-lg" href="./department-statistics">
+                    Department statistics
+                  </a>
+                </>
+              ) : (
+                <></>
+              )}
+              {roleList.includes("Accountant") ? (
+                <>
+                  <a className="text-lg" href="./expense-review-requests">
+                    Expense reivew requests
+                  </a>
+                  <a className="text-lg" href="./awaiting-payment">
+                    Awaiting payment
+                  </a>
+                </>
+              ) : (
+                <></>
+              )}
+              {roleList.includes("Director") ? (
+                <>
+                  <a className="text-lg" href="./review-trips">
+                    Review trips
+                  </a>
+                  <a className="text-lg" href="./statistics">
+                    Statistics
+                  </a>
+                </>
+              ) : (
+                <></>
+              )}
             </div>
           </Drawer>
         </>
