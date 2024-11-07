@@ -17,7 +17,7 @@ import com.progi.auth.UserSessionService;
 import com.progi.department.DepartmentService;
 import com.progi.tripstatus.TripStatus;
 import com.progi.user.User;
-import com.progi.user.UserDTO;
+import com.progi.user.dto.UserDetailsDTO;
 
 import jakarta.validation.Valid;
 
