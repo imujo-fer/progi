@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -35,7 +36,8 @@ public class TripStatusService {
     private UserSessionService userSessionService;
 
     public TripStatus getCurrentTripStatus(Integer tripId) {
-        return tripStatusRepository.findTopByTripIdOrderByCreatedAtDesc(tripId).orElseThrow(() -> new NoSuchElementException("Trip has no status with tripId  " + tripId));
+        List<TripStatus> tripStatuses = tripStatusRepository.findStatusesByTripIdOrdered(tripId);
+        return tripStatuses.stream().findFirst().orElseThrow(() -> new NoSuchElementException("Trip has no status " + tripId));
     }
 
     public TripStatus createTripStatus(TripStatusDTO tripStatusDTO) {

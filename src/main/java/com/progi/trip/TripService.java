@@ -92,9 +92,6 @@ public class TripService {
         tripRepository.deleteById(id);
     }
 
-    public TripStatus getCurrentTripStatus(Integer id) {
-        return tripStatusService.getCurrentTripStatus(id);
-    }
 
     public Page<TripResponseDTO> getTripsByUserAndStatus( Status status, int page, int size) {
         User user = userSessionService.getCurrentAuthenticatedUser();

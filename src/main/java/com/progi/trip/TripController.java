@@ -2,6 +2,7 @@ package com.progi.trip;
 
 import java.util.List;
 
+import com.progi.tripstatus.TripStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -32,6 +33,9 @@ public class TripController {
 
     @Autowired
     private UserSessionService userSessionService;
+
+    @Autowired
+    private TripStatusService tripStatusService;
 
     @GetMapping
     public List<Trip> getAllTrips() {
@@ -68,7 +72,7 @@ public class TripController {
 
     @GetMapping("{id}/status")
     public ResponseEntity<TripStatus> getTripStatus(@PathVariable Integer id) {
-        return ResponseEntity.ok(tripService.getCurrentTripStatus(id));
+        return ResponseEntity.ok(tripStatusService.getCurrentTripStatus(id));
     }
 
     @GetMapping("/employee")
