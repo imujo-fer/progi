@@ -35,8 +35,16 @@ public class UserService {
         return new UserDetailsDTO(user);
     }
 
+    public User getUserById(Integer userId) {
+        return userRepository.findById(Long.valueOf(userId)).orElseThrow(() -> new IllegalArgumentException("User not found" + userId));
+    }
+
+    public User getUserByRegistrationHash(String registrationHash) {
+        return userRepository.findByRegistrationHash(registrationHash).orElseThrow(() -> new IllegalArgumentException("User not found " + registrationHash));
+    }
+
     public UserDetailsDTO updateUser(Integer userId, UserEditDTO userEditDTO) {
-        User user = userRepository.findById(Long.valueOf(userId)).orElseThrow(() -> new IllegalArgumentException("User not found"));
+        User user = getUserById(userId);
 
         Department department = new Department();
         department.setId(userEditDTO.getDepartmentId());
@@ -60,13 +68,13 @@ public class UserService {
     }
 
     public UserInviteDetailsDTO getUserInviteDetails(Integer userId) {
-        User user = userRepository.findById(Long.valueOf(userId)).orElseThrow(() -> new IllegalArgumentException("User not found"));
+        User user = getUserById(userId);
 
         return new UserInviteDetailsDTO(user);
     }
 
     public UserInviteDetailsDTO getUserInviteDetailsByRegistrationHash(String registrationHash) {
-        User user = userRepository.findByRegistrationHash(registrationHash).orElseThrow(() -> new IllegalArgumentException("User not found"));
+        User user = getUserByRegistrationHash(registrationHash);
 
         if (user.hasRegistered()) {
             throw new IllegalArgumentException("User has already registered");
