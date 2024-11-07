@@ -83,7 +83,7 @@ public class TripService {
         }
 
         Country newCountry = new Country();
-        newCountry.setCode("hr");
+        newCountry.setCode(tripDetails.getCountryCode());
         trip.setCountry(newCountry);
 
         trip.setDatetimeFrom(tripDetails.getDatetimeFrom());
