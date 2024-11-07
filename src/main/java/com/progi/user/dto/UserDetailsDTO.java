@@ -1,10 +1,12 @@
-package com.progi.user;
+package com.progi.user.dto;
+
+import com.progi.user.User;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class UserDTO {
+public class UserDetailsDTO {
     @NotNull
     private Integer id;
 
@@ -20,7 +22,7 @@ public class UserDTO {
     @NotNull
     private String iban;
 
-    public UserDTO(User user) {
+    public UserDetailsDTO(User user) {
         this.id = user.getId();
         this.email = user.getEmail();
         this.firstName = user.getFirstName();
