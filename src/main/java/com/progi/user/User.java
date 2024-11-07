@@ -103,5 +103,28 @@ public class User {
 
     }
 
+
+    public boolean isUserDepartmentHead() {
+        this.roles.stream().forEach(System.out::println);
+        return this.roles.stream().anyMatch(role -> role.getRoleType().equals(RoleType.DEPARTMENT_HEAD));
+    }
+
+    public boolean isUserDepartmentHead(Department targetDepartment) {
+
+        if (targetDepartment == null) return false;
+
+        boolean isUserInDepartment = this.department.getId() == targetDepartment.getId();
+        boolean isUserDepartmentHead = this.isUserDepartmentHead(); 
+
+        return isUserInDepartment && isUserDepartmentHead;
+    }
+
+    public boolean isUserAdmin() {
+        return this.roles.stream().anyMatch(role -> role.getRoleType().equals("ADMIN"));
+    }
+
+    public boolean isUserAccountant(){
+        return this.roles.stream().anyMatch(role -> role.getRoleType().equals("ACCOUNTANT"));
+    }
     
 }
