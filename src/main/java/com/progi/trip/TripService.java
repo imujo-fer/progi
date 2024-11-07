@@ -6,7 +6,9 @@ import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
@@ -94,10 +96,13 @@ public class TripService {
         return tripStatusService.getCurrentTripStatus(id);
     }
 
-    public Page<Trip> getTripsByUserAndStatus( Status status, Pageable pageable) {
+    public Page<TripResponseDTO> getTripsByUserAndStatus( Status status, int page, int size) {
         User user = userSessionService.getCurrentAuthenticatedUser();
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
 
-        return tripRepository.findByUserIdAndStatus(user.getId(), status, pageable);
+        Page<Trip> trips =  tripRepository.findByUserIdAndStatus(user.getId(), status, pageRequest);
+
+        return trips.map(TripResponseDTO::new);
     }
 
     public List<Trip> getTripByUserId(Integer userId) {
@@ -126,4 +131,5 @@ public class TripService {
 
         return isUserTripOwner || isUserDepartmentHead;
     }
+
 }

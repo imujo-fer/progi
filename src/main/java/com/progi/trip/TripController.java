@@ -77,13 +77,7 @@ public class TripController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
 
-        PageRequest pageRequest = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
-        Page<Trip> tripsPage = tripService.getTripsByUserAndStatus( status, pageRequest);
-
-        // Mapiranje Trip entiteta na TripResponseDTO
-        Page<TripResponseDTO> tripResponsePage = tripsPage.map(TripResponseDTO::new);
-
-        return ResponseEntity.ok(tripResponsePage);
+        return ResponseEntity.ok(tripService.getTripsByUserAndStatus( status, page, size));
     }
 
 
