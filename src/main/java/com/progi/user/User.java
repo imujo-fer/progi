@@ -58,7 +58,7 @@ public class User {
     @NotNull
     private String iban;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     @NotNull
     private String registrationHash;
 
@@ -96,7 +96,11 @@ public class User {
     }
 
     public boolean hasRegistered() {
-        return provider != null && providerId != null;
+        return provider != null
+            && !provider.isBlank()
+            && providerId != null
+            && !providerId.isBlank();
+
     }
 
     

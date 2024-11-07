@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.progi.user.dto.UserDetailsDTO;
 import com.progi.user.dto.UserInviteDTO;
+import com.progi.user.dto.UserInviteDetailsDTO;
+
 import java.util.UUID;
 
 @Service
@@ -24,6 +26,22 @@ public class UserService {
         user = userRepository.save(user);
 
         return new UserDetailsDTO(user);
+    }
+
+    public UserInviteDetailsDTO getUserInviteDetails(Integer userId) {
+        User user = userRepository.findById(Long.valueOf(userId)).orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        return new UserInviteDetailsDTO(user);
+    }
+
+    public UserInviteDetailsDTO getUserInviteDetailsByRegistrationHash(String registrationHash) {
+        User user = userRepository.findByRegistrationHash(registrationHash).orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        if (user.hasRegistered()) {
+            throw new IllegalArgumentException("User has already registered");
+        }
+
+        return new UserInviteDetailsDTO(user);
     }
 
 

@@ -2,6 +2,7 @@ package com.progi.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.progi.user.dto.UserDetailsDTO;
 import com.progi.user.dto.UserInviteDTO;
+import com.progi.user.dto.UserInviteDetailsDTO;
 
 @RestController
 @RequestMapping("/api/users")
@@ -24,4 +26,17 @@ public class UserController {
         return ResponseEntity.ok(newUser);
     }
     
+    @GetMapping("/{userId}")
+    public ResponseEntity<UserInviteDetailsDTO> getUserDetails(Integer userId) {
+        UserInviteDetailsDTO userDetails = userService.getUserInviteDetails(userId);
+        
+        return ResponseEntity.ok(userDetails);
+    }
+
+    @GetMapping("register-info/{registrationHash}")
+    public ResponseEntity<UserInviteDetailsDTO> getUserDetailsByRegistrationHash(String registrationHash) {
+        UserInviteDetailsDTO userDetails = userService.getUserInviteDetailsByRegistrationHash(registrationHash);
+        
+        return ResponseEntity.ok(userDetails);
+    }
 }
