@@ -124,7 +124,7 @@ public class User {
     }
 
     public boolean isUserAccountant(){
-        return this.roles.stream().anyMatch(role -> role.getRoleType().equals("ACCOUNTANT"));
+        return this.roles.stream().anyMatch(role -> role.getRoleType().equals(RoleType.ACCOUNTANT));
     }
     
 }

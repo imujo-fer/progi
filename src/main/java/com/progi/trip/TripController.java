@@ -88,6 +88,15 @@ public class TripController {
         return ResponseEntity.ok(tripService.getDepartmentApprovalTrip(page, size));
     }
 
+    @GetMapping("/accountant")
+    public ResponseEntity<Page<TripResponseDTO>> getAccountantApprovalTrips(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        
+
+        return ResponseEntity.ok(tripService.getAccountantApprovalTrip(page, size));
+    }
+
 
 }
 

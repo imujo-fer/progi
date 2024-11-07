@@ -125,6 +125,19 @@ public class TripService {
         return trips.map(TripResponseDTO::new);
     }
 
+
+    public Page<TripResponseDTO> getAccountantApprovalTrip(int page, int size) {
+        User user = userSessionService.getCurrentAuthenticatedUser();
+
+        if (!user.isUserAccountant()) throw new IllegalArgumentException("User is not accountant");
+
+        PageRequest pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
+
+        Page<Trip> trips = tripRepository.findAccountantReviewTrips(pageable);
+
+        return trips.map(TripResponseDTO::new);
+    }
+
     public List<Trip> getTripByUserId(Integer userId) {
         return tripRepository.findByUserId(userId);
     }
