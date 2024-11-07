@@ -5,8 +5,6 @@ import {
   Outlet,
 } from "@tanstack/react-router";
 import {
-  employeeRoute,
-  newTripRoute,
   notificationsRoute,
   pastTripsRoute,
   tripRequestsRoute,
@@ -23,12 +21,9 @@ export const rootRoute = createRootRouteWithContext<RootRouteContext>()({
 });
 
 export const routeTree = rootRoute.addChildren([
-  employeeRoute.addChildren([
-    newTripRoute,
-    tripRequestsRoute,
-    pastTripsRoute,
-    notificationsRoute,
-  ]),
+  tripRequestsRoute,
+  pastTripsRoute,
+  notificationsRoute,
 ]);
 
 type RootRouteContext = {
