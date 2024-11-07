@@ -47,7 +47,7 @@ public class TripStatus {
     @JsonBackReference
     private Trip trip;
 
-    private String message; //nullable
+    private String message;
 
     @Column(nullable = false)
     @NotNull
