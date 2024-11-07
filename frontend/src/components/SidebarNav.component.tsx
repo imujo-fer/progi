@@ -1,6 +1,7 @@
 import { Layout, Grid, Button, Drawer } from "antd";
 import { MenuOutlined } from "@ant-design/icons";
 import { useState } from "react";
+import { Outlet } from "@tanstack/react-router";
 
 const { Sider, Header, Content } = Layout;
 const { useBreakpoint } = Grid;
@@ -26,10 +27,16 @@ export default function SidebarNav() {
               Logo
             </div>
             <div className="flex flex-col pb-44 space-y-2">
-              <p className="text-lg">Trip requests</p>
-              <p className="text-lg">Past Trips</p>
+              <a className="text-lg" href="./trip-requests">
+                Trip requests
+              </a>
+              <a className="text-lg" href="./past-trips">
+                Past Trips
+              </a>
             </div>
-            <p className="text-lg">Notifications</p>
+            <a className="text-lg" href="./notifications">
+              Notifications
+            </a>
           </div>
         </Sider>
       ) : (
@@ -53,15 +60,23 @@ export default function SidebarNav() {
             className="bg-gray-300"
           >
             <div className="flex flex-col gap-4">
-              <p className="text-lg">Trip requests</p>
-              <p className="text-lg">Past Trips</p>
-              <p className="text-lg">Notifications</p>
+              <a className="text-lg" href="./trip-requests">
+                Trip requests
+              </a>
+              <a className="text-lg" href="./past-trips">
+                Past Trips
+              </a>
+              <a className="text-lg" href="./notifications">
+                Notifications
+              </a>
             </div>
           </Drawer>
         </>
       )}
       <Layout>
-        <Content className="bg-gray-100 p-6"></Content>
+        <Content className="bg-gray-100 p-6">
+          <Outlet />
+        </Content>
       </Layout>
     </Layout>
   );

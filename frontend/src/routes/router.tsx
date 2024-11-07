@@ -7,6 +7,9 @@ import {
 import {
   employeeRoute,
   newTripRoute,
+  notificationsRoute,
+  pastTripsRoute,
+  tripRequestsRoute,
 } from "../features/employee/routes/employee.routes";
 
 const queryClient = new QueryClient();
@@ -20,7 +23,12 @@ export const rootRoute = createRootRouteWithContext<RootRouteContext>()({
 });
 
 export const routeTree = rootRoute.addChildren([
-  employeeRoute.addChildren([newTripRoute]),
+  employeeRoute.addChildren([
+    newTripRoute,
+    tripRequestsRoute,
+    pastTripsRoute,
+    notificationsRoute,
+  ]),
 ]);
 
 type RootRouteContext = {
