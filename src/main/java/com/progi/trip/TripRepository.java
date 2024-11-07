@@ -17,7 +17,13 @@ public interface TripRepository extends JpaRepository<Trip, Integer> {
     Page<Trip> findDepartmentHeadReviewTrips(@Param("departmentId") Integer departmentId, Pageable pageable);
 
     @Query("SELECT t FROM Trip t JOIN t.tripStatuses ts WHERE ts.status = 'PENDING_EXPENSE_APPROVAL' AND ts.createdAt = (SELECT MAX(ts2.createdAt) FROM TripStatus ts2 WHERE ts2.trip.id = t.id)")
-    Page<Trip> findAccountantReviewTrips(Pageable pageable);
+    Page<Trip> findExpenseReviewTrips(Pageable pageable);
+
+    @Query("SELECT t FROM Trip t JOIN t.tripStatuses ts WHERE ts.status = 'AWAITING_PAYMENT' AND ts.createdAt = (SELECT MAX(ts2.createdAt) FROM TripStatus ts2 WHERE ts2.trip.id = t.id)")
+    Page<Trip> findPaymentReviewTrips(Pageable pageable);
+
+    @Query("SELECT t FROM Trip t JOIN t.tripStatuses ts WHERE ts.status = 'PENDING_DIRECTOR_APPROVAL' AND ts.createdAt = (SELECT MAX(ts2.createdAt) FROM TripStatus ts2 WHERE ts2.trip.id = t.id)")
+    Page<Trip> findDirectorReviewTrips(Pageable pageable);
 
     @Query("SELECT t FROM Trip t WHERE t.user.id = :userId")
     List<Trip> findByUserId(@Param("userId") Integer userId);

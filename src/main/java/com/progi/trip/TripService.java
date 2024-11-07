@@ -126,14 +126,38 @@ public class TripService {
     }
 
 
-    public Page<TripResponseDTO> getAccountantApprovalTrip(int page, int size) {
+    public Page<TripResponseDTO> getExpenseApprovalTrip(int page, int size) {
         User user = userSessionService.getCurrentAuthenticatedUser();
 
         if (!user.isUserAccountant()) throw new IllegalArgumentException("User is not accountant");
 
         PageRequest pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
 
-        Page<Trip> trips = tripRepository.findAccountantReviewTrips(pageable);
+        Page<Trip> trips = tripRepository.findExpenseReviewTrips(pageable);
+
+        return trips.map(TripResponseDTO::new);
+    }
+
+    public Page<TripResponseDTO> getPaymentApprovalTrip(int page, int size) {
+        User user = userSessionService.getCurrentAuthenticatedUser();
+
+        if (!user.isUserAccountant()) throw new IllegalArgumentException("User is not accountant");
+
+        PageRequest pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
+
+        Page<Trip> trips = tripRepository.findPaymentReviewTrips(pageable);
+
+        return trips.map(TripResponseDTO::new);
+    }
+
+    public Page<TripResponseDTO> getDirectorApprovalTrip(int page, int size) {
+        User user = userSessionService.getCurrentAuthenticatedUser();
+
+        if (!user.isUserDirector()) throw new IllegalArgumentException("User is not director");
+
+        PageRequest pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
+
+        Page<Trip> trips = tripRepository.findDirectorReviewTrips(pageable);
 
         return trips.map(TripResponseDTO::new);
     }

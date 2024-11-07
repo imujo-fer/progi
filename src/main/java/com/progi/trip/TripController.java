@@ -88,13 +88,31 @@ public class TripController {
         return ResponseEntity.ok(tripService.getDepartmentApprovalTrip(page, size));
     }
 
-    @GetMapping("/accountant")
-    public ResponseEntity<Page<TripResponseDTO>> getAccountantApprovalTrips(
+    @GetMapping("/accountant-expense")
+    public ResponseEntity<Page<TripResponseDTO>> getExpenseApprovalTrips(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
         
 
-        return ResponseEntity.ok(tripService.getAccountantApprovalTrip(page, size));
+        return ResponseEntity.ok(tripService.getExpenseApprovalTrip(page, size));
+    }
+
+    @GetMapping("/accountant-payment")
+    public ResponseEntity<Page<TripResponseDTO>> getPaymentApprovalTrips(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        
+
+        return ResponseEntity.ok(tripService.getPaymentApprovalTrip(page, size));
+    }
+
+    @GetMapping("/director")
+    public ResponseEntity<Page<TripResponseDTO>> getDirectorApprovalTrips(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        
+
+        return ResponseEntity.ok(tripService.getDirectorApprovalTrip(page, size));
     }
 
 
