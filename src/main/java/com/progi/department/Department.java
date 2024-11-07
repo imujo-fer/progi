@@ -13,18 +13,21 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "departments")
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Department {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
     private Integer id;
 
     @Column(unique = true, nullable = false)
@@ -33,42 +36,8 @@ public class Department {
 
     @OneToMany(mappedBy = "department")
     @JsonManagedReference
-    @NotNull
     private List<User> users;
 
-    public Department(Integer id, String name, List<User> users) {
-        this.id = id;
-        this.name = name;
-        this.users = users;
-    }
-
-    public Department() {
-        
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public @NotNull String getName() {
-        return name;
-    }
-
-    public void setName(@NotNull String name) {
-        this.name = name;
-    }
-
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
 }
 
 
