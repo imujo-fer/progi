@@ -87,22 +87,13 @@ public class User {
     @JsonManagedReference
     private List<Trip> trips;
 
-    public boolean isUserDepartmentHead () {
-        List<User> departmentHeads =  department.getUsers().stream()
-                .filter(user -> user.getRoles().stream().anyMatch(role -> role.getRoleType().equals(RoleType.DEPARTMENT_HEAD)))
-                .toList();
-
-        return departmentHeads.contains(this);
-    }
 
     public boolean hasRegistered() {
         return provider != null
             && !provider.isBlank()
             && providerId != null
             && !providerId.isBlank();
-
     }
-
 
     public boolean isUserDepartmentHead() {
         this.roles.stream().forEach(System.out::println);
