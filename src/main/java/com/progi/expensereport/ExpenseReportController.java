@@ -19,9 +19,7 @@ public class ExpenseReportController {
 
     @GetMapping("/{id}/items")
     public ResponseEntity<List<ExpenseReportItemWithSubcategoryDTO>> getExpenseReportItems(@PathVariable Integer id) {
-        ExpenseReport expenseReport = expenseReportService.getExpenseReportById(id);
-        List<ExpenseReportItemWithSubcategoryDTO> expenseReportItems = expenseReport.getExpenseReportItems().stream().map(ExpenseReportItemWithSubcategoryDTO::new).toList();
-        return ResponseEntity.ok(expenseReportItems);
+        return ResponseEntity.ok(expenseReportService.getExpenseReportItems(id));
     }
 
     @DeleteMapping

@@ -1,12 +1,15 @@
 package com.progi.expensereport;
 
 import com.progi.country.Country;
+import com.progi.expensereportitem.ExpenseReportItemDTO;
+import com.progi.expensereportitem.ExpenseReportItemWithSubcategoryDTO;
 import com.progi.trip.Trip;
 import com.progi.trip.TripService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -37,5 +40,11 @@ public class ExpenseReportService {
         expenseReport.setTrip(trip);
 
         return expenseReportRepository.save(expenseReport);
+    }
+
+    public List<ExpenseReportItemWithSubcategoryDTO> getExpenseReportItems (Integer id) {
+        ExpenseReport expenseReport = getExpenseReportById(id);
+
+        return expenseReport.getExpenseReportItems().stream().map(ExpenseReportItemWithSubcategoryDTO::new).toList();
     }
 }
