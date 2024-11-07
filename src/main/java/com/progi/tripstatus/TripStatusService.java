@@ -22,6 +22,8 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import static com.progi.Enum.Status.PENDING_DEPARTMENT_APPROVAL;
+
 @Service
 @Transactional
 public class TripStatusService {
@@ -50,6 +52,15 @@ public class TripStatusService {
         tripStatus.setMessage(tripStatusDTO.getMessage());
 
         return tripStatusRepository.save(tripStatus);
+    }
+
+    public void createFirstTripStatus(Integer tripId) {
+        TripStatus tripStatus = new TripStatus();
+
+        tripStatus.setTrip(tripService.getTripById(tripId));
+        tripStatus.setStatus(PENDING_DEPARTMENT_APPROVAL);
+
+        tripStatusRepository.save(tripStatus);
     }
 
     public List<TripStatus> getAllTripStatusesByTripId(Integer tripId) {

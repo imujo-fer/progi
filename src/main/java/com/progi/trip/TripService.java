@@ -65,7 +65,12 @@ public class TripService {
         trip.setDatetimeTo(tripDetails.getDatetimeTo());
         trip.setReason(tripDetails.getReason());
         trip.setUser(user);
-        return tripRepository.save(trip);    }
+        trip =  tripRepository.save(trip);
+
+        tripStatusService.createFirstTripStatus(trip.getId());
+
+        return trip;
+    }
 
     public Trip updateTrip(Integer id, TripDTO tripDetails) {
         Trip trip = getTripById(id);
