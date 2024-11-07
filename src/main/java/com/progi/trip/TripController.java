@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.*;
 
 import com.progi.Enum.Status;
@@ -38,28 +40,12 @@ public class TripController {
 
     @GetMapping("/{id}")
     public ResponseEntity<TripWithCountryDTO> getTripById(@PathVariable Integer id) {
-        User user = userSessionService.getCurrentAuthenticatedUser();
-        Trip trip = tripService.getTripById(id);
-
-        TripWithCountryDTO tripDTO = new TripWithCountryDTO(trip);
-
-        boolean isUserTripOwner = trip.getUser() != null && trip.getUser().equals(user);
-
-        if (isUserTripOwner) {
+        try {
+            TripWithCountryDTO tripDTO = tripService.getTripByIdIfAccessible(id);
             return ResponseEntity.ok(tripDTO);
+        } catch (AccessDeniedException ex) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
-
-        if (user != null && user.getDepartment() != null) {
-            List<User> departmentHeads = departmentService.getDepartmentHeadsByDepartmentId(user.getDepartment().getId());
-
-            boolean isUserDepartmentHead = departmentHeads.stream().anyMatch(departmentHead -> departmentHead.equals(user));
-
-            if (isUserDepartmentHead) {
-                return ResponseEntity.ok(tripDTO);
-            }
-        }
-
-        return ResponseEntity.status(403).build();
     }
 
     @PostMapping

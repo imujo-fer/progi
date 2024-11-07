@@ -1,9 +1,11 @@
 package com.progi.user;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.progi.Enum.RoleType;
 import com.progi.department.Department;
 import com.progi.role.Role;
 import com.progi.trip.Trip;
@@ -89,4 +91,11 @@ public class User {
     @JsonManagedReference
     private List<Trip> trips;
 
+    public boolean isUserDepartmentHead () {
+        List<User> departmentHeads =  department.getUsers().stream()
+                .filter(user -> user.getRoles().stream().anyMatch(role -> role.getName().equals(RoleType.DEPARTMENT_HEAD)))
+                .toList();
+
+        return departmentHeads.contains(this);
+    }
 }

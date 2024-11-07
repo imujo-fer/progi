@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 import com.progi.Enum.Status;
@@ -101,5 +102,28 @@ public class TripService {
 
     public List<Trip> getTripByUserId(Integer userId) {
         return tripRepository.findByUserId(userId);
+    }
+
+    public TripWithCountryDTO getTripByIdIfAccessible(Integer tripId) {
+        User user = userSessionService.getCurrentAuthenticatedUser();
+
+        if (user == null) {
+            throw new AccessDeniedException("User is not authenticated.");
+        }
+
+        Trip trip = getTripById(tripId);
+
+        if (canAccessTrip(user, trip)) {
+            return new TripWithCountryDTO(trip);
+        } else {
+            throw new AccessDeniedException("User does not have access to this trip.");
+        }
+    }
+
+    private boolean canAccessTrip(User user, Trip trip) {
+        boolean isUserTripOwner = trip.getUser() != null && trip.getUser().equals(user);
+        boolean isUserDepartmentHead = user.isUserDepartmentHead();
+
+        return isUserTripOwner || isUserDepartmentHead;
     }
 }
