@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.progi.Statistics.dto.CostStatisticsDTO;
 import com.progi.Statistics.dto.NumberOfTripsStatisticsDTO;
+import com.progi.Statistics.dto.UserStatisticsDTO;
 import com.progi.trip.Trip;
 
 public interface StatisticsRepository extends JpaRepository<Trip, Long> {
@@ -38,6 +39,26 @@ public interface StatisticsRepository extends JpaRepository<Trip, Long> {
     "AND (:departmentId IS NULL OR o.department.id = :departmentId) " +
     "GROUP BY EXTRACT(MONTH FROM t.datetimeTo)")
     List<NumberOfTripsStatisticsDTO> findMonthlyNumberOfTripsStatistics(@Param("year") int year, @Param("departmentId") Integer departmentId);
-   
+
+    @Query("SELECT new com.progi.Statistics.dto.UserStatisticsDTO(" +
+        "   new com.progi.user.dto.UserDetailsDTO(u.id, u.email, u.firstName, u.lastName, u.iban), " +
+        "   SUM(e.eurTotalCost), " +
+        "   COUNT(t) " +
+        ") " +
+        "FROM Trip t " +
+        "JOIN t.user u " +
+        "JOIN t.tripStatuses ts " +
+        "JOIN t.user o " +
+        "LEFT JOIN t.expenseReport e " +
+        "WHERE ts.status = 'PAID' " +
+        "AND (:departmentId IS NULL OR o.department.id = :departmentId) " +
+        "AND (:dateFrom IS NULL OR :dateFrom = '' OR t.datetimeTo >= CAST(:dateFrom AS timestamp)) " +
+        "AND (:dateTo IS NULL OR :dateTo = '' OR t.datetimeTo <= CAST(:dateTo AS timestamp)) " +
+        "GROUP BY u.id, u.email, u.firstName, u.lastName, u.iban")
+    List<UserStatisticsDTO> findUserStatistics(
+        @Param("departmentId") Integer departmentId,
+        @Param("dateFrom") String dateFrom,
+        @Param("dateTo") String dateTo
+    );
 
 }

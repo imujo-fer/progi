@@ -3,9 +3,11 @@ package com.progi.user.dto;
 import com.progi.user.User;
 
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class UserDetailsDTO {
     @NotNull
     private Integer id;

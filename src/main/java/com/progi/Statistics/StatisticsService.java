@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.progi.Statistics.dto.CostStatisticsDTO;
 import com.progi.Statistics.dto.NumberOfTripsStatisticsDTO;
+import com.progi.Statistics.dto.UserStatisticsDTO;
 import com.progi.auth.UserSessionService;
 import com.progi.user.User;
 
@@ -92,5 +93,21 @@ public class StatisticsService {
         }
 
         return completeStats;
+    }
+
+    List<UserStatisticsDTO> getUserStatistics(String dateFrom, String dateTo) {
+        User user = userSessionService.getCurrentAuthenticatedUser();
+
+        if (!user.isUserDepartmentHead() && !user.isUserDirector()){
+            throw new RuntimeException("User is not authorized to view statistics");
+        }
+
+        Integer departmentId = null;
+
+        if (user.isUserDepartmentHead()){
+            departmentId = user.getDepartment().getId();
+        }
+
+        return statisticsRepository.findUserStatistics(departmentId, dateFrom, dateTo);
     }
 }
