@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.progi.Statistics.dto.CostStatisticsDTO;
+import com.progi.Statistics.dto.NumberOfTripsStatisticsDTO;
 
 @RestController
 @RequestMapping("/api/statistics")
@@ -20,6 +21,11 @@ public class StatisticsController {
     @GetMapping("cost/{year}")
     public ResponseEntity<List<CostStatisticsDTO>> getCostStatisticsByYear(Integer year) {
         return ResponseEntity.ok(statisticsService.getCostStatisticsByYear(year));
+    }
+
+    @GetMapping("trips/{year}")
+    public ResponseEntity<List<NumberOfTripsStatisticsDTO>> getNumberOfTripsStatisticsByYear(Integer year) {
+        return ResponseEntity.ok(statisticsService.getNumberOfTripsStatisticsByYear(year));
     }
     
 }

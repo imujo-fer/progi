@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.progi.Statistics.dto.CostStatisticsDTO;
+import com.progi.Statistics.dto.NumberOfTripsStatisticsDTO;
 import com.progi.auth.UserSessionService;
 import com.progi.user.User;
 
@@ -51,6 +52,41 @@ public class StatisticsService {
             CostStatisticsDTO emptyStat = new CostStatisticsDTO();
             emptyStat.setMonth(month);
             emptyStat.setEurCost(0D);
+            completeStats.add(emptyStat);
+            }
+        }
+
+        return completeStats;
+    }
+
+    public List<NumberOfTripsStatisticsDTO> getNumberOfTripsStatisticsByYear(Integer year) {
+        User user = userSessionService.getCurrentAuthenticatedUser();
+
+        if (!user.isUserDepartmentHead() && !user.isUserDirector()){
+            throw new RuntimeException("User is not authorized to view statistics");
+        }
+
+        Integer departmentId = null;
+
+        if (user.isUserDepartmentHead()){
+            departmentId = user.getDepartment().getId();
+        }
+        
+        List<NumberOfTripsStatisticsDTO> stats = statisticsRepository.findMonthlyNumberOfTripsStatistics(year, departmentId);
+
+        Map<java.time.Month, NumberOfTripsStatisticsDTO> statsMap = new HashMap<>();
+        for (NumberOfTripsStatisticsDTO stat : stats) {
+            statsMap.put(stat.getMonth(), stat);
+        }
+
+        List<NumberOfTripsStatisticsDTO> completeStats = new ArrayList<>();
+        for (java.time.Month month : java.time.Month.values()) {
+            if (statsMap.containsKey(month)) {
+            completeStats.add(statsMap.get(month));
+            } else {
+                NumberOfTripsStatisticsDTO emptyStat = new NumberOfTripsStatisticsDTO();
+            emptyStat.setMonth(month);
+            emptyStat.setNumberOfTrips(0L);;
             completeStats.add(emptyStat);
             }
         }
