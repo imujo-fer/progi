@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.progi.auth.UserSessionService;
 import com.progi.user.dto.UserDetailsDTO;
 import com.progi.user.dto.UserEditDTO;
 import com.progi.user.dto.UserInviteDTO;
@@ -20,6 +21,15 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserSessionService userSessionService;
+
+    @GetMapping("current")
+    public ResponseEntity<UserDetailsDTO> getUser() {
+        User user = userSessionService.getCurrentAuthenticatedUser();
+
+        return ResponseEntity.ok(new UserDetailsDTO(user));
+    }
 
     @PostMapping("/invite")
     public ResponseEntity<UserDetailsDTO> inviteUser(@RequestBody UserInviteDTO userInviteDTO) {
