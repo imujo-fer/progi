@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.progi.Enum.RoleType;
 import com.progi.user.User;
-import com.progi.user.UserRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -19,9 +18,6 @@ public class DepartmentService {
 
     @Autowired
     private DepartmentRepository departmentRepository;
-
-    @Autowired
-    private UserRepository userRepository;
 
     public Department getDepartmentById(Integer id) {
         return departmentRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Department not found with id " + id));

@@ -1,13 +1,12 @@
 package com.progi.trip;
 
+import java.sql.Timestamp;
+
 import com.progi.Enum.Status;
-import com.progi.country.Country;
 import com.progi.country.CountryDTO;
-import com.progi.tripstatus.TripStatus;
+
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-
-import java.sql.Timestamp;
 
 @Data
 public class TripResponseDTO {

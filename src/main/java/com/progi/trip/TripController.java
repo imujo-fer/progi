@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.progi.Enum.Status;
-import com.progi.auth.UserSessionService;
-import com.progi.department.DepartmentService;
 import com.progi.tripstatus.TripStatus;
 import com.progi.tripstatus.TripStatusService;
 
@@ -29,12 +27,6 @@ public class TripController {
 
     @Autowired
     private TripService tripService;
-
-    @Autowired
-    private DepartmentService departmentService;
-
-    @Autowired
-    private UserSessionService userSessionService;
 
     @Autowired
     private TripStatusService tripStatusService;
