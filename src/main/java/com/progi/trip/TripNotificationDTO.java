@@ -1,6 +1,5 @@
 package com.progi.trip;
 
-import com.progi.Enum.Status;
 import com.progi.country.CountryDTO;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;

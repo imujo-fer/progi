@@ -1,11 +1,16 @@
 package com.progi.user.dto;
 
+import java.util.List;
+
+import com.progi.Enum.RoleType;
 import com.progi.user.User;
 
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class UserDetailsDTO {
     @NotNull
     private Integer id;
@@ -22,11 +27,22 @@ public class UserDetailsDTO {
     @NotNull
     private String iban;
 
+    private List<RoleType> roles;
+
     public UserDetailsDTO(User user) {
         this.id = user.getId();
         this.email = user.getEmail();
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
         this.iban = user.getIban();
+        this.roles = user.getRoles().stream().map(role -> role.getRoleType()).toList();
+    }
+
+    public UserDetailsDTO(Integer id, String email, String firstName, String lastName, String iban) {
+        this.id = id;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.iban = iban;
     }
 }

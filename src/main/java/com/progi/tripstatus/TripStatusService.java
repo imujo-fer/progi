@@ -1,28 +1,22 @@
 package com.progi.tripstatus;
 
-import com.progi.Enum.Status;
-import com.progi.auth.UserSessionService;
-import com.progi.trip.Trip;
-import com.progi.trip.TripNotificationDTO;
-import com.progi.trip.TripResponseDTO;
-import com.progi.trip.TripService;
-import com.progi.user.User;
-
-import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Service;
+import static com.progi.Enum.Status.PENDING_DEPARTMENT_APPROVAL;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
-import static com.progi.Enum.Status.PENDING_DEPARTMENT_APPROVAL;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Service;
+
+import com.progi.auth.UserSessionService;
+import com.progi.trip.Trip;
+import com.progi.trip.TripNotificationDTO;
+import com.progi.trip.TripService;
+import com.progi.user.User;
+
+import jakarta.transaction.Transactional;
 
 @Service
 @Transactional
