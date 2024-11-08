@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class SpaController {
 
-    @GetMapping(value = "/**")
+    @GetMapping(value = "/{path:^(?!api|swagger|oauth2).*$}/**")
     public String forwardIndex() {
         return "index";
     }
