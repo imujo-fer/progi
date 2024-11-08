@@ -1,18 +1,23 @@
 package com.progi.Statistics.dto;
 
-import com.progi.Enum.Month;
+import java.time.Month;
 
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
-@AllArgsConstructor
+@Getter
+@Setter
 @NoArgsConstructor
 public class CostStatisticsDTO {
     @NotNull
     private Month month;
     @NotNull
-    private Float eur_cost;
+    private Double eurCost;
+
+    public CostStatisticsDTO(Integer month, Double eurCost) {
+        this.month = Month.of(month);
+        this.eurCost = eurCost;
+    }
 }

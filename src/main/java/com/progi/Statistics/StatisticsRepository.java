@@ -12,20 +12,17 @@ import com.progi.trip.Trip;
 public interface StatisticsRepository extends JpaRepository<Trip, Long> {
     
     @Query("SELECT new com.progi.Statistics.dto.CostStatisticsDTO(" +
-    "   FUNCTION('MONTH', t.datetimeTo), " +
-    "   SUM(er.eurTotalCost)" +
+    "   EXTRACT(MONTH FROM t.datetimeTo), " +
+    "   SUM(e.eurTotalCost) " +
     ") " +
     "FROM Trip t " +
-    "JOIN t.expenseReport er " +
+    "JOIN t.expenseReport e " +
     "JOIN t.tripStatuses ts " +
-    "JOIN t.user u " +
-    "WHERE ts.status = com.progi.Enum.Status.PAID " +
-    "  AND FUNCTION('YEAR', t.datetimeTo) = :year " +
-    "  AND (:departmentId IS NULL OR u.department.id = :departmentId) " +
-    "GROUP BY FUNCTION('MONTH', t.datetimeTo) " +
-    "ORDER BY FUNCTION('MONTH', t.datetimeTo)")
-    List<CostStatisticsDTO> findMonthlyCostStatistics(
-            @Param("year") int year,
-            @Param("departmentId") Integer departmentId
-    );
+    "JOIN t.user o " +
+    "WHERE ts.status = 'PAID' " +
+    "AND EXTRACT(YEAR FROM t.datetimeTo) = :year " +
+    "AND (:departmentId IS NULL OR o.department.id = :departmentId) " +
+    "GROUP BY EXTRACT(MONTH FROM t.datetimeTo)")
+    List<CostStatisticsDTO> findMonthlyCostStatistics(@Param("year") int year, @Param("departmentId") Integer departmentId);
+
 }

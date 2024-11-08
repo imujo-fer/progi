@@ -10,6 +10,9 @@ import com.progi.auth.UserSessionService;
 import com.progi.user.User;
 
 import jakarta.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -23,8 +26,35 @@ public class StatisticsService {
     public List<CostStatisticsDTO> getCostStatisticsByYear(Integer year) {
         User user = userSessionService.getCurrentAuthenticatedUser();
 
-        Integer departmentId = user.getDepartment() != null ? user.getDepartment().getId() : null;
+        if (!user.isUserDepartmentHead() && !user.isUserDirector()){
+            throw new RuntimeException("User is not authorized to view statistics");
+        }
+
+        Integer departmentId = null;
+
+        if (user.isUserDepartmentHead()){
+            departmentId = user.getDepartment().getId();
+        }
         
-        return statisticsRepository.findMonthlyCostStatistics(year, departmentId);
+        List<CostStatisticsDTO> stats = statisticsRepository.findMonthlyCostStatistics(year, departmentId);
+
+        Map<java.time.Month, CostStatisticsDTO> statsMap = new HashMap<>();
+        for (CostStatisticsDTO stat : stats) {
+            statsMap.put(stat.getMonth(), stat);
+        }
+
+        List<CostStatisticsDTO> completeStats = new ArrayList<>();
+        for (java.time.Month month : java.time.Month.values()) {
+            if (statsMap.containsKey(month)) {
+            completeStats.add(statsMap.get(month));
+            } else {
+            CostStatisticsDTO emptyStat = new CostStatisticsDTO();
+            emptyStat.setMonth(month);
+            emptyStat.setEurCost(0D);
+            completeStats.add(emptyStat);
+            }
+        }
+
+        return completeStats;
     }
 }
