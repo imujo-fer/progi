@@ -25,7 +25,7 @@ export interface ExpenseCategory {
      * @type {number}
      * @memberof ExpenseCategory
      */
-    'id': number;
+    'id'?: number;
     /**
      * 
      * @type {string}

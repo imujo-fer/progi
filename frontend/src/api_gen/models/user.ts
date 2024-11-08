@@ -64,19 +64,7 @@ export interface User {
      * @type {string}
      * @memberof User
      */
-    'passwordHash': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
     'registrationHash': string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof User
-     */
-    'hasRegistered': boolean;
     /**
      * 
      * @type {string}
@@ -106,6 +94,30 @@ export interface User {
      * @type {Array<Trip>}
      * @memberof User
      */
-    'trips': Array<Trip>;
+    'trips'?: Array<Trip>;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof User
+     */
+    'userDirector'?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof User
+     */
+    'userAdmin'?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof User
+     */
+    'userDepartmentHead'?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof User
+     */
+    'userAccountant'?: boolean;
 }
 

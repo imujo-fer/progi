@@ -7,6 +7,7 @@ apis/expense-report-controller-api.ts
 apis/expense-report-item-controller-api.ts
 apis/trip-controller-api.ts
 apis/trip-status-controller-api.ts
+apis/user-controller-api.ts
 base.ts
 common.ts
 configuration.ts
@@ -35,5 +36,8 @@ models/trip-status-dto.ts
 models/trip-status.ts
 models/trip-with-country-dto.ts
 models/trip.ts
-models/user-dto.ts
+models/user-details-dto.ts
+models/user-edit-dto.ts
+models/user-invite-details-dto.ts
+models/user-invite-dto.ts
 models/user.ts

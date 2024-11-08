@@ -18,7 +18,7 @@
 import type { CountryDTO } from './country-dto';
 // May contain unused imports in some cases
 // @ts-ignore
-import type { UserDTO } from './user-dto';
+import type { UserDetailsDTO } from './user-details-dto';
 
 /**
  * 
@@ -76,9 +76,9 @@ export interface TripWithCountryDTO {
     'reason': string;
     /**
      * 
-     * @type {UserDTO}
+     * @type {UserDetailsDTO}
      * @memberof TripWithCountryDTO
      */
-    'user': UserDTO;
+    'user': UserDetailsDTO;
 }
 

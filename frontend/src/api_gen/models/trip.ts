@@ -37,13 +37,13 @@ export interface Trip {
      * @type {number}
      * @memberof Trip
      */
-    'id': number;
+    'id'?: number;
     /**
      * 
      * @type {string}
      * @memberof Trip
      */
-    'requestNumber': string;
+    'requestNumber'?: string;
     /**
      * 
      * @type {number}
@@ -103,7 +103,7 @@ export interface Trip {
      * @type {Array<TripStatus>}
      * @memberof Trip
      */
-    'tripStatuses': Array<TripStatus>;
+    'tripStatuses'?: Array<TripStatus>;
     /**
      * 
      * @type {string}

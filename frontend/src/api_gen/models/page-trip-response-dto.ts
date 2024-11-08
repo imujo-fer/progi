@@ -55,6 +55,18 @@ export interface PageTripResponseDTO {
     'last'?: boolean;
     /**
      * 
+     * @type {PageableObject}
+     * @memberof PageTripResponseDTO
+     */
+    'pageable'?: PageableObject;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageTripResponseDTO
+     */
+    'numberOfElements'?: number;
+    /**
+     * 
      * @type {number}
      * @memberof PageTripResponseDTO
      */
@@ -77,18 +89,6 @@ export interface PageTripResponseDTO {
      * @memberof PageTripResponseDTO
      */
     'sort'?: Array<SortObject>;
-    /**
-     * 
-     * @type {PageableObject}
-     * @memberof PageTripResponseDTO
-     */
-    'pageable'?: PageableObject;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageTripResponseDTO
-     */
-    'numberOfElements'?: number;
     /**
      * 
      * @type {boolean}

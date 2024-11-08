@@ -28,7 +28,7 @@ export interface Department {
      * @type {number}
      * @memberof Department
      */
-    'id': number;
+    'id'?: number;
     /**
      * 
      * @type {string}
@@ -40,6 +40,6 @@ export interface Department {
      * @type {Array<User>}
      * @memberof Department
      */
-    'users': Array<User>;
+    'users'?: Array<User>;
 }
 

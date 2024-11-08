@@ -107,11 +107,13 @@ export const TripControllerApiAxiosParamCreator = function (configuration?: Conf
         },
         /**
          * 
+         * @param {number} [page] 
+         * @param {number} [size] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAllTrips: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/trips`;
+        getDepartmentApprovalTrips: async (page?: number, size?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/trips/department-head`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -122,6 +124,53 @@ export const TripControllerApiAxiosParamCreator = function (configuration?: Conf
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {number} [page] 
+         * @param {number} [size] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getDirectorApprovalTrips: async (page?: number, size?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/trips/director`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
 
 
     
@@ -158,6 +207,84 @@ export const TripControllerApiAxiosParamCreator = function (configuration?: Conf
             if (status !== undefined) {
                 localVarQueryParameter['status'] = status;
             }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {number} [page] 
+         * @param {number} [size] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getExpenseApprovalTrips: async (page?: number, size?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/trips/accountant-expense`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {number} [page] 
+         * @param {number} [size] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPaymentApprovalTrips: async (page?: number, size?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/trips/accountant-payment`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
 
             if (page !== undefined) {
                 localVarQueryParameter['page'] = page;
@@ -265,7 +392,7 @@ export const TripControllerApiAxiosParamCreator = function (configuration?: Conf
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -319,13 +446,28 @@ export const TripControllerApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {number} [page] 
+         * @param {number} [size] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAllTrips(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Trip>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getAllTrips(options);
+        async getDepartmentApprovalTrips(page?: number, size?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageTripResponseDTO>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getDepartmentApprovalTrips(page, size, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['TripControllerApi.getAllTrips']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['TripControllerApi.getDepartmentApprovalTrips']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {number} [page] 
+         * @param {number} [size] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getDirectorApprovalTrips(page?: number, size?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageTripResponseDTO>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getDirectorApprovalTrips(page, size, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TripControllerApi.getDirectorApprovalTrips']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -340,6 +482,32 @@ export const TripControllerApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getEmployeeTripsByStatus(status, page, size, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['TripControllerApi.getEmployeeTripsByStatus']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {number} [page] 
+         * @param {number} [size] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getExpenseApprovalTrips(page?: number, size?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageTripResponseDTO>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getExpenseApprovalTrips(page, size, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TripControllerApi.getExpenseApprovalTrips']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {number} [page] 
+         * @param {number} [size] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getPaymentApprovalTrips(page?: number, size?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageTripResponseDTO>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getPaymentApprovalTrips(page, size, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TripControllerApi.getPaymentApprovalTrips']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -409,11 +577,21 @@ export const TripControllerApiFactory = function (configuration?: Configuration,
         },
         /**
          * 
+         * @param {TripControllerApiGetDepartmentApprovalTripsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAllTrips(options?: RawAxiosRequestConfig): AxiosPromise<Array<Trip>> {
-            return localVarFp.getAllTrips(options).then((request) => request(axios, basePath));
+        getDepartmentApprovalTrips(requestParameters: TripControllerApiGetDepartmentApprovalTripsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<PageTripResponseDTO> {
+            return localVarFp.getDepartmentApprovalTrips(requestParameters.page, requestParameters.size, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {TripControllerApiGetDirectorApprovalTripsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getDirectorApprovalTrips(requestParameters: TripControllerApiGetDirectorApprovalTripsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<PageTripResponseDTO> {
+            return localVarFp.getDirectorApprovalTrips(requestParameters.page, requestParameters.size, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -423,6 +601,24 @@ export const TripControllerApiFactory = function (configuration?: Configuration,
          */
         getEmployeeTripsByStatus(requestParameters: TripControllerApiGetEmployeeTripsByStatusRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<PageTripResponseDTO> {
             return localVarFp.getEmployeeTripsByStatus(requestParameters.status, requestParameters.page, requestParameters.size, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {TripControllerApiGetExpenseApprovalTripsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getExpenseApprovalTrips(requestParameters: TripControllerApiGetExpenseApprovalTripsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<PageTripResponseDTO> {
+            return localVarFp.getExpenseApprovalTrips(requestParameters.page, requestParameters.size, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {TripControllerApiGetPaymentApprovalTripsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPaymentApprovalTrips(requestParameters: TripControllerApiGetPaymentApprovalTripsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<PageTripResponseDTO> {
+            return localVarFp.getPaymentApprovalTrips(requestParameters.page, requestParameters.size, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -483,6 +679,48 @@ export interface TripControllerApiDeleteTripRequest {
 }
 
 /**
+ * Request parameters for getDepartmentApprovalTrips operation in TripControllerApi.
+ * @export
+ * @interface TripControllerApiGetDepartmentApprovalTripsRequest
+ */
+export interface TripControllerApiGetDepartmentApprovalTripsRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof TripControllerApiGetDepartmentApprovalTrips
+     */
+    readonly page?: number
+
+    /**
+     * 
+     * @type {number}
+     * @memberof TripControllerApiGetDepartmentApprovalTrips
+     */
+    readonly size?: number
+}
+
+/**
+ * Request parameters for getDirectorApprovalTrips operation in TripControllerApi.
+ * @export
+ * @interface TripControllerApiGetDirectorApprovalTripsRequest
+ */
+export interface TripControllerApiGetDirectorApprovalTripsRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof TripControllerApiGetDirectorApprovalTrips
+     */
+    readonly page?: number
+
+    /**
+     * 
+     * @type {number}
+     * @memberof TripControllerApiGetDirectorApprovalTrips
+     */
+    readonly size?: number
+}
+
+/**
  * Request parameters for getEmployeeTripsByStatus operation in TripControllerApi.
  * @export
  * @interface TripControllerApiGetEmployeeTripsByStatusRequest
@@ -506,6 +744,48 @@ export interface TripControllerApiGetEmployeeTripsByStatusRequest {
      * 
      * @type {number}
      * @memberof TripControllerApiGetEmployeeTripsByStatus
+     */
+    readonly size?: number
+}
+
+/**
+ * Request parameters for getExpenseApprovalTrips operation in TripControllerApi.
+ * @export
+ * @interface TripControllerApiGetExpenseApprovalTripsRequest
+ */
+export interface TripControllerApiGetExpenseApprovalTripsRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof TripControllerApiGetExpenseApprovalTrips
+     */
+    readonly page?: number
+
+    /**
+     * 
+     * @type {number}
+     * @memberof TripControllerApiGetExpenseApprovalTrips
+     */
+    readonly size?: number
+}
+
+/**
+ * Request parameters for getPaymentApprovalTrips operation in TripControllerApi.
+ * @export
+ * @interface TripControllerApiGetPaymentApprovalTripsRequest
+ */
+export interface TripControllerApiGetPaymentApprovalTripsRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof TripControllerApiGetPaymentApprovalTrips
+     */
+    readonly page?: number
+
+    /**
+     * 
+     * @type {number}
+     * @memberof TripControllerApiGetPaymentApprovalTrips
      */
     readonly size?: number
 }
@@ -590,12 +870,24 @@ export class TripControllerApi extends BaseAPI {
 
     /**
      * 
+     * @param {TripControllerApiGetDepartmentApprovalTripsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TripControllerApi
      */
-    public getAllTrips(options?: RawAxiosRequestConfig) {
-        return TripControllerApiFp(this.configuration).getAllTrips(options).then((request) => request(this.axios, this.basePath));
+    public getDepartmentApprovalTrips(requestParameters: TripControllerApiGetDepartmentApprovalTripsRequest = {}, options?: RawAxiosRequestConfig) {
+        return TripControllerApiFp(this.configuration).getDepartmentApprovalTrips(requestParameters.page, requestParameters.size, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {TripControllerApiGetDirectorApprovalTripsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TripControllerApi
+     */
+    public getDirectorApprovalTrips(requestParameters: TripControllerApiGetDirectorApprovalTripsRequest = {}, options?: RawAxiosRequestConfig) {
+        return TripControllerApiFp(this.configuration).getDirectorApprovalTrips(requestParameters.page, requestParameters.size, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -607,6 +899,28 @@ export class TripControllerApi extends BaseAPI {
      */
     public getEmployeeTripsByStatus(requestParameters: TripControllerApiGetEmployeeTripsByStatusRequest = {}, options?: RawAxiosRequestConfig) {
         return TripControllerApiFp(this.configuration).getEmployeeTripsByStatus(requestParameters.status, requestParameters.page, requestParameters.size, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {TripControllerApiGetExpenseApprovalTripsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TripControllerApi
+     */
+    public getExpenseApprovalTrips(requestParameters: TripControllerApiGetExpenseApprovalTripsRequest = {}, options?: RawAxiosRequestConfig) {
+        return TripControllerApiFp(this.configuration).getExpenseApprovalTrips(requestParameters.page, requestParameters.size, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {TripControllerApiGetPaymentApprovalTripsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TripControllerApi
+     */
+    public getPaymentApprovalTrips(requestParameters: TripControllerApiGetPaymentApprovalTripsRequest = {}, options?: RawAxiosRequestConfig) {
+        return TripControllerApiFp(this.configuration).getPaymentApprovalTrips(requestParameters.page, requestParameters.size, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

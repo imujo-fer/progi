@@ -3,6 +3,7 @@ package com.progi.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,21 +30,21 @@ public class UserController {
     }
 
     @PutMapping("/{userId}")
-    public ResponseEntity<UserDetailsDTO> updateUser(Integer userId, @RequestBody UserEditDTO userInviteDTO) {
+    public ResponseEntity<UserDetailsDTO> updateUser(@PathVariable Integer userId, @RequestBody UserEditDTO userInviteDTO) {
         UserDetailsDTO updatedUser = userService.updateUser(userId, userInviteDTO);
 
         return ResponseEntity.ok(updatedUser);
     }
     
     @GetMapping("/{userId}")
-    public ResponseEntity<UserInviteDetailsDTO> getUserDetails(Integer userId) {
+    public ResponseEntity<UserInviteDetailsDTO> getUserDetails(@PathVariable Integer userId) {
         UserInviteDetailsDTO userDetails = userService.getUserInviteDetails(userId);
         
         return ResponseEntity.ok(userDetails);
     }
 
     @GetMapping("register-info/{registrationHash}")
-    public ResponseEntity<UserInviteDetailsDTO> getUserDetailsByRegistrationHash(String registrationHash) {
+    public ResponseEntity<UserInviteDetailsDTO> getUserDetailsByRegistrationHash(@PathVariable String registrationHash) {
         UserInviteDetailsDTO userDetails = userService.getUserInviteDetailsByRegistrationHash(registrationHash);
         
         return ResponseEntity.ok(userDetails);

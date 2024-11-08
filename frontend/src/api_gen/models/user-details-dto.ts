@@ -17,37 +17,37 @@
 /**
  * 
  * @export
- * @interface UserDTO
+ * @interface UserDetailsDTO
  */
-export interface UserDTO {
+export interface UserDetailsDTO {
     /**
      * 
      * @type {number}
-     * @memberof UserDTO
+     * @memberof UserDetailsDTO
      */
     'id': number;
     /**
      * 
      * @type {string}
-     * @memberof UserDTO
+     * @memberof UserDetailsDTO
      */
     'email': string;
     /**
      * 
      * @type {string}
-     * @memberof UserDTO
+     * @memberof UserDetailsDTO
      */
     'firstName': string;
     /**
      * 
      * @type {string}
-     * @memberof UserDTO
+     * @memberof UserDetailsDTO
      */
     'lastName': string;
     /**
      * 
      * @type {string}
-     * @memberof UserDTO
+     * @memberof UserDetailsDTO
      */
     'iban': string;
 }

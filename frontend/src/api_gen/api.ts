@@ -19,4 +19,5 @@ export * from './apis/expense-report-controller-api';
 export * from './apis/expense-report-item-controller-api';
 export * from './apis/trip-controller-api';
 export * from './apis/trip-status-controller-api';
+export * from './apis/user-controller-api';
 

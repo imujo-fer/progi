@@ -21,4 +21,7 @@ export * from './trip-status';
 export * from './trip-status-dto';
 export * from './trip-with-country-dto';
 export * from './user';
-export * from './user-dto';
+export * from './user-details-dto';
+export * from './user-edit-dto';
+export * from './user-invite-dto';
+export * from './user-invite-details-dto';
