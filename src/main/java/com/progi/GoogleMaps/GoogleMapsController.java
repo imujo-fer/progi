@@ -13,19 +13,9 @@ import com.google.maps.model.GeocodingResult;
 public class GoogleMapsController {
 
     @GetMapping("/location/{location}")
-    public ResponseEntity<GeocodingResult[]> getLocationInfo(@PathVariable String location) {
-        try {
-
-            GeocodingResult[] results = GeoApiContextSingleton.getGeocodingResponse(location);
-            return ResponseEntity.ok(results);
-            
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("Failed to get geocoding response");
-        } finally {
-            GeoApiContextSingleton.shutdown();
-        }
+    public ResponseEntity<GeocodingResult[]> getLocationInfo(@PathVariable String location) throws Exception {
+        GeocodingResult[] results = GeoApiContextSingleton.getGeocodingResponse(location);
+        return ResponseEntity.ok(results);
     }
     
 }

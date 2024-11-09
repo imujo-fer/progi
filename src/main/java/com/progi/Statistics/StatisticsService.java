@@ -12,6 +12,8 @@ import com.progi.auth.UserSessionService;
 import com.progi.user.User;
 
 import jakarta.transaction.Transactional;
+
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,13 +42,13 @@ public class StatisticsService {
         
         List<CostStatisticsDTO> stats = statisticsRepository.findMonthlyCostStatistics(year, departmentId);
 
-        Map<java.time.Month, CostStatisticsDTO> statsMap = new HashMap<>();
+        Map<Month, CostStatisticsDTO> statsMap = new HashMap<>();
         for (CostStatisticsDTO stat : stats) {
             statsMap.put(stat.getMonth(), stat);
         }
 
         List<CostStatisticsDTO> completeStats = new ArrayList<>();
-        for (java.time.Month month : java.time.Month.values()) {
+        for (Month month : Month.values()) {
             if (statsMap.containsKey(month)) {
             completeStats.add(statsMap.get(month));
             } else {
@@ -75,13 +77,13 @@ public class StatisticsService {
         
         List<NumberOfTripsStatisticsDTO> stats = statisticsRepository.findMonthlyNumberOfTripsStatistics(year, departmentId);
 
-        Map<java.time.Month, NumberOfTripsStatisticsDTO> statsMap = new HashMap<>();
+        Map<Month, NumberOfTripsStatisticsDTO> statsMap = new HashMap<>();
         for (NumberOfTripsStatisticsDTO stat : stats) {
             statsMap.put(stat.getMonth(), stat);
         }
 
         List<NumberOfTripsStatisticsDTO> completeStats = new ArrayList<>();
-        for (java.time.Month month : java.time.Month.values()) {
+        for (Month month : Month.values()) {
             if (statsMap.containsKey(month)) {
             completeStats.add(statsMap.get(month));
             } else {

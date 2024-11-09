@@ -1,13 +1,25 @@
 import { createRoute } from "@tanstack/react-router";
 import { layoutRoute } from "../../../routes/router";
-import tripRequests from "../../../pages/TripRequests/TripRequests.page";
-import pastTrips from "../../../pages/PastTrips/PastTrips.page";
-import Notifications from "../../../pages/Notifications/Notifications.page";
+import TripRequests from "../pages/TripRequests/TripRequests.page";
+import pastTrips from "../pages/PastTrips/PastTrips.page";
+import Notifications from "../pages/Notifications/Notifications.page";
+import TripRequestCreatePage from "../pages/TripRequestForm/TripRequestCreate.page";
 
-export const tripRequestsRoute = createRoute({
+export const _tripRequestsRoute = createRoute({
   getParentRoute: () => layoutRoute,
   path: "/trip-requests",
-  component: tripRequests,
+});
+
+export const tripRequestsRoute = createRoute({
+  getParentRoute: () => _tripRequestsRoute,
+  path: "/",
+  component: TripRequests,
+});
+
+export const tripRequestsCreateRoute = createRoute({
+  getParentRoute: () => _tripRequestsRoute,
+  path: "/create",
+  component: TripRequestCreatePage,
 });
 
 export const pastTripsRoute = createRoute({

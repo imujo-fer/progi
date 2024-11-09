@@ -8,7 +8,9 @@ import {
 import {
   notificationsRoute,
   pastTripsRoute,
+  _tripRequestsRoute,
   tripRequestsRoute,
+  tripRequestsCreateRoute,
 } from "../features/employee/routes/employee.routes";
 import {
   departmentApprovalRequestsRoute,
@@ -42,7 +44,10 @@ export const layoutRoute = createRoute({
 
 export const routeTree = rootRoute.addChildren([
   layoutRoute.addChildren([
-    tripRequestsRoute,
+    _tripRequestsRoute.addChildren([
+      tripRequestsRoute,
+      tripRequestsCreateRoute,
+    ]),
     pastTripsRoute,
     notificationsRoute,
     departmentApprovalRequestsRoute,
