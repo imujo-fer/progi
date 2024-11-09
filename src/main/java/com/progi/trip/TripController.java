@@ -64,6 +64,7 @@ public class TripController {
         return ResponseEntity.ok(tripStatusService.getCurrentTripStatus(id));
     }
 
+
     @GetMapping("/employee")
     public ResponseEntity<Page<TripResponseDTO>> getEmployeeTripsByStatus(
             @RequestParam(required = false) Status status,
