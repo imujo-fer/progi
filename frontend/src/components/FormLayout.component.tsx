@@ -7,10 +7,9 @@ type FormLayoutProps<T extends object> = {
   children: React.ReactNode;
   isPending?: boolean;
   onDiscard: () => void;
-  isDirty?: boolean;
   submitLabel?: string;
   hideCancel?: boolean;
-  form?: FormInstance;
+  form: FormInstance;
 };
 
 export function FormLayout<T extends object>({
@@ -19,7 +18,6 @@ export function FormLayout<T extends object>({
   children,
   isPending,
   onDiscard,
-  isDirty: dirty,
   submitLabel,
   hideCancel,
   form,
@@ -27,7 +25,7 @@ export function FormLayout<T extends object>({
   const discardModal = useModal();
 
   const onCancel = () => {
-    if (dirty) {
+    if (form.isFieldsTouched()) {
       discardModal.openModal();
     } else {
       onDiscard();
@@ -52,9 +50,9 @@ export function FormLayout<T extends object>({
           open={discardModal.isModalOpen}
           onOk={onDiscard}
           onCancel={discardModal.closeModal}
-          okText={"Keep editing"}
+          okText={"Discard changes"}
           okType="danger"
-          cancelText={"Discard changes"}
+          cancelText={"Keep editing"}
           okButtonProps={{ type: "primary" }}
         >
           <p>

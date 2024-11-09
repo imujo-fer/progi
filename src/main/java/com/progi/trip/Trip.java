@@ -28,7 +28,7 @@ public class Trip {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = true)
     private String requestNumber;
 
     @Column(nullable = false)
