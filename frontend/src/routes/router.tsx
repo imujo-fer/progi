@@ -1,48 +1,61 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient } from "@tanstack/react-query";
 import {
   createRootRouteWithContext,
   createRoute,
   createRouter,
   Outlet,
 } from "@tanstack/react-router";
-import {
-  notificationsRoute,
-  pastTripsRoute,
-  tripRequestsRoute,
-} from "../features/employee/routes/employee.routes";
-import {
-  departmentApprovalRequestsRoute,
-  departmentStatisticsRoute,
-} from "../features/departmentHead/routes/departmentHead.routes";
-import SidebarNav from "../components/SidebarNav.component";
+
+import AppLayout from "../components/Layout/AppLayout.component";
 import {
   awaitingPaymentRoute,
   expenseReviewRequestsRoute,
 } from "../features/accountant/routes/accountant.routes";
 import {
+  departmentApprovalRequestsRoute,
+  departmentStatisticsRoute,
+} from "../features/departmentHead/routes/departmentHead.routes";
+import {
   reviewTripsRoute,
   statisticsRoute,
 } from "../features/director/routes/director.routes";
-
-const queryClient = new QueryClient();
+import {
+  _tripRequestsRoute,
+  notificationsRoute,
+  pastTripsRoute,
+  tripRequestsCreateRoute,
+  tripRequestsEditRoute,
+  tripRequestsRoute,
+} from "../features/employee/routes/employee.routes";
+import { AuthedProviders, Providers, queryClient } from "@/providers/Providers";
 
 export const rootRoute = createRootRouteWithContext<RootRouteContext>()({
   component: () => (
-    <QueryClientProvider client={queryClient}>
+    <Providers>
       <Outlet />
-    </QueryClientProvider>
+    </Providers>
   ),
 });
 
 export const layoutRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/",
-  component: SidebarNav,
+  component: () => (
+    <AuthedProviders>
+      <AppLayout>
+        <Outlet />
+      </AppLayout>
+    </AuthedProviders>
+  ),
 });
 
 export const routeTree = rootRoute.addChildren([
   layoutRoute.addChildren([
-    tripRequestsRoute,
+    _tripRequestsRoute.addChildren([
+      tripRequestsRoute,
+      tripRequestsCreateRoute,
+      tripRequestsEditRoute,
+    ]),
     pastTripsRoute,
     notificationsRoute,
     departmentApprovalRequestsRoute,

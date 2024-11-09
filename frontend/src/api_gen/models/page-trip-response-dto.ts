@@ -34,13 +34,13 @@ export interface PageTripResponseDTO {
      * @type {number}
      * @memberof PageTripResponseDTO
      */
-    'totalPages'?: number;
+    'totalElements'?: number;
     /**
      * 
      * @type {number}
      * @memberof PageTripResponseDTO
      */
-    'totalElements'?: number;
+    'totalPages'?: number;
     /**
      * 
      * @type {boolean}
@@ -79,16 +79,16 @@ export interface PageTripResponseDTO {
     'sort'?: Array<SortObject>;
     /**
      * 
-     * @type {PageableObject}
-     * @memberof PageTripResponseDTO
-     */
-    'pageable'?: PageableObject;
-    /**
-     * 
      * @type {number}
      * @memberof PageTripResponseDTO
      */
     'numberOfElements'?: number;
+    /**
+     * 
+     * @type {PageableObject}
+     * @memberof PageTripResponseDTO
+     */
+    'pageable'?: PageableObject;
     /**
      * 
      * @type {boolean}

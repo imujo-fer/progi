@@ -38,8 +38,8 @@ public class TripService {
     @Autowired
     private UserSessionService userSessionService;
 
-    public List<Trip> getAllTrips() {
-        return tripRepository.findAll();
+    public List<TripResponseDTO> getAllTrips() {
+        return tripRepository.findAll().stream().map(TripResponseDTO::new).toList();
     }
 
     public Trip getTripById(Integer id) {
@@ -49,7 +49,6 @@ public class TripService {
     }
 
     public Trip createTrip(TripDTO tripDetails) {
-        System.out.println("createTrip");
         User user = userSessionService.getCurrentAuthenticatedUser();
         Trip trip = new Trip();
 
@@ -64,6 +63,7 @@ public class TripService {
         trip.setDatetimeTo(tripDetails.getDatetimeTo());
         trip.setReason(tripDetails.getReason());
         trip.setUser(user);
+        trip.setAddress(tripDetails.getAddress());
         trip =  tripRepository.save(trip);
 
         tripStatusService.createFirstTripStatus(trip.getId());
@@ -89,6 +89,7 @@ public class TripService {
         trip.setDatetimeFrom(tripDetails.getDatetimeFrom());
         trip.setDatetimeTo(tripDetails.getDatetimeTo());
         trip.setReason(tripDetails.getReason());
+        trip.setAddress(tripDetails.getAddress());
 
         return tripRepository.save(trip);
     }

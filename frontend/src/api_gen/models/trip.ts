@@ -61,6 +61,12 @@ export interface Trip {
      * @type {string}
      * @memberof Trip
      */
+    'address': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Trip
+     */
     'city': string;
     /**
      * 

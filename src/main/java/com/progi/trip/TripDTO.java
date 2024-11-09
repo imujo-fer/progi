@@ -12,6 +12,8 @@ public class TripDTO {
     @NotNull
     private Double coordinatesLon;
     @NotNull
+    private String address;
+    @NotNull
     private String city;
     @NotNull
     private String countryCode;

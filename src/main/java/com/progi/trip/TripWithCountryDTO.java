@@ -13,9 +13,13 @@ public class TripWithCountryDTO {
     @NotNull
     Integer id;
     @NotNull
+    private String requestNumber;
+    @NotNull
     private Double coordinatesLat;
     @NotNull
     private Double coordinatesLon;
+    @NotNull
+    private String address;
     @NotNull
     private String city;
     @NotNull
@@ -39,5 +43,7 @@ public class TripWithCountryDTO {
         this.datetimeTo = trip.getDatetimeTo();
         this.reason = trip.getReason();
         this.user = new UserDetailsDTO(trip.getUser());
+        this.requestNumber = trip.getRequestNumber();
+        this.address = trip.getAddress();
     }
 }

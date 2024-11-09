@@ -1,4 +1,9 @@
-import { Configuration, TripControllerApi } from "./api_gen";
+import {
+  CompanyControllerApi,
+  Configuration,
+  GoogleMapsControllerApi,
+  TripControllerApi,
+} from "./api_gen";
 
 export const baseApiRoute = window.location.origin;
 export const apiConfig = new Configuration({
@@ -12,3 +17,5 @@ export const apiConfig = new Configuration({
 });
 
 export const tripApi = new TripControllerApi(apiConfig);
+export const googleMapsApi = new GoogleMapsControllerApi(apiConfig);
+export const companyApi = new CompanyControllerApi(apiConfig);

@@ -1,13 +1,16 @@
 import { MenuOutlined } from "@ant-design/icons";
-import { Outlet } from "@tanstack/react-router";
 import { Button, Drawer, Grid, Layout } from "antd";
 import { useState } from "react";
-import Sidebar from "./Layout/Sidebar.component";
+import Sidebar from "./Sidebar.component";
 
 const { Sider, Header, Content } = Layout;
 const { useBreakpoint } = Grid;
 
-export default function SidebarNav() {
+type AppLayoutProps = {
+  children: React.ReactNode;
+};
+
+export default function AppLayout({ children }: AppLayoutProps) {
   const screens = useBreakpoint();
   const [drawerVisible, setDrawerVisible] = useState(false);
 
@@ -52,9 +55,7 @@ export default function SidebarNav() {
       )}
 
       <Layout>
-        <Content className="bg-gray-100 p-6">
-          <Outlet />
-        </Content>
+        <Content className="bg-gray-100 p-6">{children}</Content>
       </Layout>
     </Layout>
   );
