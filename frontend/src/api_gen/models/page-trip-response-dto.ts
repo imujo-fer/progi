@@ -43,6 +43,12 @@ export interface PageTripResponseDTO {
     'totalPages'?: number;
     /**
      * 
+     * @type {PageableObject}
+     * @memberof PageTripResponseDTO
+     */
+    'pageable'?: PageableObject;
+    /**
+     * 
      * @type {boolean}
      * @memberof PageTripResponseDTO
      */
