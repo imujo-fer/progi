@@ -1,4 +1,4 @@
-import { Button, Card, Flex, Form, Input, Typography } from "antd";
+import { Button, Card, Flex, Form, Typography } from "antd";
 
 interface RegisterProps {
   email: string;
@@ -26,13 +26,9 @@ export default function RegisterForm({
           <Form.Item>Role: {role}</Form.Item>
           <Form.Item>Department: {department}</Form.Item>
 
-          <Form.Item className="">
-            <Input.Password placeholder="Choose password" />
-          </Form.Item>
-
           <Form.Item>
-            <Button block htmlType="submit">
-              Register
+            <Button block htmlType="submit" href="/oauth2/authorization/google">
+              Register with Google Authentification
             </Button>
           </Form.Item>
         </Form>
