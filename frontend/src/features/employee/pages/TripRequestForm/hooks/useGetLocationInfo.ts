@@ -11,10 +11,9 @@ export default function useGetLocationInfo({
   return useQuery({
     queryKey: ["location", location],
     queryFn: async () => {
-      console.log({ location });
-      if (!location) return;
       const response = await googleMapsApi.getLocationInfo({ location });
       return response.data;
     },
+    enabled: !!location && !!location.length,
   });
 }

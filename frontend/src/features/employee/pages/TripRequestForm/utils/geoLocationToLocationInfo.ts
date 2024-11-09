@@ -46,3 +46,7 @@ export const geoLocationToLocationInfo = (geoLocation: GeocodingResult) => {
     formattedAddress: geoLocation.formattedAddress || "-",
   };
 };
+
+export type LocationInfo = NonNullable<
+  ReturnType<typeof geoLocationToLocationInfo>
+>;
