@@ -1,11 +1,10 @@
+import useGetUserRegisterInfo from "../../hooks/useGetUserRegisterInfo";
 import RegisterForm from "./components/RegisterForm";
 
 export default function Register() {
-  return (
-    <RegisterForm
-      email={"pero@peric.com"}
-      role={"Employee"}
-      department={"Developer"}
-    />
-  );
+  const { data } = useGetUserRegisterInfo({ registrationHash: "hash" });
+  const email = data?.email || "";
+  const role = data?.roles || [];
+  const department = data?.departmentId.toString() || "";
+  return <RegisterForm email={email} roles={role} department={department} />;
 }
