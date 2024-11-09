@@ -19,6 +19,8 @@ public class TripResponseDTO {
     @NotNull
     private Timestamp dateTo;
     @NotNull
+    private String address;
+    @NotNull
     private String city;
     @NotNull
     private CountryDTO country;
@@ -36,5 +38,6 @@ public class TripResponseDTO {
         this.country = new CountryDTO(trip.getCountry());
         this.status = trip.getTripStatuses().isEmpty() ? null : trip.getTripStatuses().get(trip.getTripStatuses().size() - 1).getStatus();
         this.expenseReportId = trip.getExpenseReport() != null ? trip.getExpenseReport().getId() : null;
+        this.address = trip.getAddress();
     }
 }

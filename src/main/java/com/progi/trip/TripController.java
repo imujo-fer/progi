@@ -1,5 +1,7 @@
 package com.progi.trip;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -40,6 +42,12 @@ public class TripController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
     }
+
+    @GetMapping("tmp")
+    public ResponseEntity<List<TripResponseDTO>> tmpGetAllTrips() {
+        return ResponseEntity.ok(tripService.getAllTrips());
+    }
+
 
     @PostMapping
     public ResponseEntity<Trip> createTrip(@RequestBody TripDTO trip) {

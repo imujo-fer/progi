@@ -52,6 +52,12 @@ export interface TripResponseDTO {
      * @type {string}
      * @memberof TripResponseDTO
      */
+    'address': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TripResponseDTO
+     */
     'city': string;
     /**
      * 
