@@ -5,26 +5,27 @@ import {
   createRouter,
   Outlet,
 } from "@tanstack/react-router";
-import {
-  notificationsRoute,
-  pastTripsRoute,
-  _tripRequestsRoute,
-  tripRequestsRoute,
-  tripRequestsCreateRoute,
-} from "../features/employee/routes/employee.routes";
-import {
-  departmentApprovalRequestsRoute,
-  departmentStatisticsRoute,
-} from "../features/departmentHead/routes/departmentHead.routes";
 import SidebarNav from "../components/SidebarNav.component";
 import {
   awaitingPaymentRoute,
   expenseReviewRequestsRoute,
 } from "../features/accountant/routes/accountant.routes";
 import {
+  departmentApprovalRequestsRoute,
+  departmentStatisticsRoute,
+} from "../features/departmentHead/routes/departmentHead.routes";
+import {
   reviewTripsRoute,
   statisticsRoute,
 } from "../features/director/routes/director.routes";
+import {
+  _tripRequestsRoute,
+  notificationsRoute,
+  pastTripsRoute,
+  tripRequestsCreateRoute,
+  tripRequestsEditRoute,
+  tripRequestsRoute,
+} from "../features/employee/routes/employee.routes";
 
 const queryClient = new QueryClient();
 
@@ -47,6 +48,7 @@ export const routeTree = rootRoute.addChildren([
     _tripRequestsRoute.addChildren([
       tripRequestsRoute,
       tripRequestsCreateRoute,
+      tripRequestsEditRoute,
     ]),
     pastTripsRoute,
     notificationsRoute,

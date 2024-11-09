@@ -16,23 +16,6 @@ export const geoLocationToLocationInfo = (geoLocation: GeocodingResult) => {
     component.types?.includes("LOCALITY")
   );
 
-  const streetComponent = geoLocation.addressComponents?.find((component) =>
-    // @ts-expect-error incorrect types from backend
-    component.types?.includes("ROUTE")
-  );
-
-  const streetNumberComponent = geoLocation.addressComponents?.find(
-    (component) =>
-      // @ts-expect-error incorrect types from backend
-      component.types?.includes("STREET_NUMBER")
-  );
-
-  const address =
-    streetComponent &&
-    `${streetComponent?.longName || ""} ${
-      streetNumberComponent?.longName || ""
-    }`;
-
   if (!countryComponent || !cityComponent) return null;
 
   return {
@@ -42,8 +25,7 @@ export const geoLocationToLocationInfo = (geoLocation: GeocodingResult) => {
       code: countryComponent.shortName || "-",
     },
     city: cityComponent.longName || "-",
-    address,
-    formattedAddress: geoLocation.formattedAddress || "-",
+    address: geoLocation.formattedAddress || "-",
   };
 };
 

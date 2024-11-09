@@ -34,6 +34,12 @@ export interface TripWithCountryDTO {
     'id': number;
     /**
      * 
+     * @type {string}
+     * @memberof TripWithCountryDTO
+     */
+    'requestNumber': string;
+    /**
+     * 
      * @type {number}
      * @memberof TripWithCountryDTO
      */
@@ -44,6 +50,12 @@ export interface TripWithCountryDTO {
      * @memberof TripWithCountryDTO
      */
     'coordinatesLon': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof TripWithCountryDTO
+     */
+    'address': string;
     /**
      * 
      * @type {string}

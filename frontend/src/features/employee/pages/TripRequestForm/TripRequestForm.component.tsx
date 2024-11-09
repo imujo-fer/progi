@@ -12,17 +12,18 @@ import {
   geoLocationToLocationInfo,
   LocationInfo,
 } from "./utils/geoLocationToLocationInfo";
+import dayjs from "dayjs";
 
-type TripRequestForm = {
+export type TripRequestFormType = {
   destination: string;
-  duration: [string, string];
+  duration: [dayjs.Dayjs, dayjs.Dayjs];
   purpose: string;
 };
 
 type TripRequestFormProps = {
   title: string;
-  form: FormInstance;
-  onSubmit: NonNullable<FormProps<TripRequestForm>["onFinish"]>;
+  form: FormInstance<TripRequestFormType>;
+  onSubmit: NonNullable<FormProps<TripRequestFormType>["onFinish"]>;
   isPending: boolean;
   onDiscard: () => void;
 };
@@ -35,10 +36,10 @@ export default function TripRequestForm({
   title,
 }: TripRequestFormProps) {
   const destination: string | undefined = Form.useWatch("destination", form);
-  const destinationLocationInfo = useMemo(
-    () => destination && (JSON.parse(destination) as LocationInfo),
-    [destination]
-  );
+  const destinationLocationInfo = useMemo(() => {
+    if (!destination) return undefined;
+    return JSON.parse(destination) as LocationInfo;
+  }, [destination]);
 
   const [destinationSearch, setDestinationSearch] = useState("");
 
@@ -56,7 +57,7 @@ export default function TripRequestForm({
     locationsInfo
       ?.filter((locationInfo) => !!locationInfo)
       .map((locationInfo) => ({
-        label: locationInfo.formattedAddress,
+        label: locationInfo.address,
         value: JSON.stringify(locationInfo),
       })) || [];
 
@@ -81,6 +82,7 @@ export default function TripRequestForm({
           onSearch={setDestinationSearch}
           placeholder="Destination"
           options={destinationOptions}
+          labelRender={(item) => JSON.parse(item.value as string).address}
           notFoundContent={
             isLoading ? (
               <Spin indicator={<LoadingOutlined spin />} size="small" />

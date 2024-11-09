@@ -64,6 +64,7 @@ public class TripService {
         trip.setDatetimeTo(tripDetails.getDatetimeTo());
         trip.setReason(tripDetails.getReason());
         trip.setUser(user);
+        trip.setAddress(tripDetails.getAddress());
         trip =  tripRepository.save(trip);
 
         tripStatusService.createFirstTripStatus(trip.getId());

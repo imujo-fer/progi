@@ -12,7 +12,7 @@ export default function TripRequestCreatePage() {
   const navigate = tripRequestsCreateRoute.useNavigate();
   const [form] = useForm();
 
-  const { mutate } = useCreateTrip({
+  const { mutate, isPending } = useCreateTrip({
     onSuccess: () => {
       message.success("Trip request created successfully");
       navigate({
@@ -32,12 +32,13 @@ export default function TripRequestCreatePage() {
           coordinatesLat: destination.coordinates.lat,
           coordinatesLon: destination.coordinates.lng,
           countryCode: destination.country.code,
-          datetimeFrom: data.duration[0],
-          datetimeTo: data.duration[1],
+          datetimeFrom: data.duration[0].toString(),
+          datetimeTo: data.duration[1].toString(),
           reason: data.purpose,
+          address: destination.address,
         });
       }}
-      isPending={false}
+      isPending={isPending}
       onDiscard={() => {
         navigate({
           to: tripRequestsRoute.to,

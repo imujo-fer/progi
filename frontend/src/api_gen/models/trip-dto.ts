@@ -37,6 +37,12 @@ export interface TripDTO {
      * @type {string}
      * @memberof TripDTO
      */
+    'address': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TripDTO
+     */
     'city': string;
     /**
      * 

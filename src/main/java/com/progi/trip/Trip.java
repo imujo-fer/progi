@@ -41,6 +41,10 @@ public class Trip {
 
     @Column(nullable = false)
     @NotNull
+    private String address;
+
+    @Column(nullable = false)
+    @NotNull
     private String city;
 
     @ManyToOne
