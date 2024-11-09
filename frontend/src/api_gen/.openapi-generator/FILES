@@ -5,6 +5,7 @@ api.ts
 apis/expense-category-controller-api.ts
 apis/expense-report-controller-api.ts
 apis/expense-report-item-controller-api.ts
+apis/statistics-controller-api.ts
 apis/trip-controller-api.ts
 apis/trip-status-controller-api.ts
 apis/user-controller-api.ts
@@ -13,6 +14,7 @@ common.ts
 configuration.ts
 git_push.sh
 index.ts
+models/cost-statistics-dto.ts
 models/country-dto.ts
 models/country.ts
 models/department.ts
@@ -24,6 +26,7 @@ models/expense-report.ts
 models/expense-subcategory.ts
 models/index.ts
 models/notification-dto.ts
+models/number-of-trips-statistics-dto.ts
 models/page-trip-response-dto.ts
 models/pageable-object.ts
 models/receipt.ts
@@ -40,4 +43,5 @@ models/user-details-dto.ts
 models/user-edit-dto.ts
 models/user-invite-details-dto.ts
 models/user-invite-dto.ts
+models/user-statistics-dto.ts
 models/user.ts

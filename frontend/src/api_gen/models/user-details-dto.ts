@@ -50,5 +50,21 @@ export interface UserDetailsDTO {
      * @memberof UserDetailsDTO
      */
     'iban': string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof UserDetailsDTO
+     */
+    'roles'?: Array<UserDetailsDTORolesEnum>;
 }
+
+export const UserDetailsDTORolesEnum = {
+    Employee: 'EMPLOYEE',
+    Accountant: 'ACCOUNTANT',
+    DepartmentHead: 'DEPARTMENT_HEAD',
+    Director: 'DIRECTOR'
+} as const;
+
+export type UserDetailsDTORolesEnum = typeof UserDetailsDTORolesEnum[keyof typeof UserDetailsDTORolesEnum];
+
 

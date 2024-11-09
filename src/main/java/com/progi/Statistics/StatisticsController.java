@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,12 +22,12 @@ public class StatisticsController {
     private StatisticsService statisticsService;
 
     @GetMapping("cost/{year}")
-    public ResponseEntity<List<CostStatisticsDTO>> getCostStatisticsByYear(Integer year) {
+    public ResponseEntity<List<CostStatisticsDTO>> getCostStatisticsByYear(@PathVariable Integer year) {
         return ResponseEntity.ok(statisticsService.getCostStatisticsByYear(year));
     }
 
     @GetMapping("trips/{year}")
-    public ResponseEntity<List<NumberOfTripsStatisticsDTO>> getNumberOfTripsStatisticsByYear(Integer year) {
+    public ResponseEntity<List<NumberOfTripsStatisticsDTO>> getNumberOfTripsStatisticsByYear(@PathVariable Integer year) {
         return ResponseEntity.ok(statisticsService.getNumberOfTripsStatisticsByYear(year));
     }
 

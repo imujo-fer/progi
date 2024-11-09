@@ -1,3 +1,4 @@
+export * from './cost-statistics-dto';
 export * from './country';
 export * from './country-dto';
 export * from './department';
@@ -8,6 +9,7 @@ export * from './expense-report-item-dto';
 export * from './expense-report-item-with-subcategory-dto';
 export * from './expense-subcategory';
 export * from './notification-dto';
+export * from './number-of-trips-statistics-dto';
 export * from './page-trip-response-dto';
 export * from './pageable-object';
 export * from './receipt';
@@ -25,3 +27,4 @@ export * from './user-details-dto';
 export * from './user-edit-dto';
 export * from './user-invite-dto';
 export * from './user-invite-details-dto';
+export * from './user-statistics-dto';
