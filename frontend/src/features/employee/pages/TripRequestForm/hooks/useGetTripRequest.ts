@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { tripApi } from "../../../../../apiClient";
-import { TripWithCountryDTO } from "src/api_gen";
 import { useEffect } from "react";
+import { tripApi } from "../../../../../apiClient";
+import { TripWithCountryDTO } from "@/api_gen";
 
 type UseGetTripRequestProps = {
   tripId: number;

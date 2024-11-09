@@ -15,7 +15,7 @@ export default function TripRequests() {
       </Link>
       <br />
       {data?.map((trip) => (
-        <div className="flex gap-4">
+        <div className="flex gap-4" key={trip.id}>
           <span>{trip.requestNumber}</span>
           <span>{trip.address}</span>
           <span>{trip.dateFrom}</span>

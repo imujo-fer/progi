@@ -13,6 +13,7 @@ import {
   LocationInfo,
 } from "./utils/geoLocationToLocationInfo";
 import dayjs from "dayjs";
+import useCompany from "@/providers/CompanyProvider";
 
 export type TripRequestFormType = {
   destination: string;
@@ -41,6 +42,8 @@ export default function TripRequestForm({
     return JSON.parse(destination) as LocationInfo;
   }, [destination]);
 
+  const company = useCompany();
+
   const [destinationSearch, setDestinationSearch] = useState("");
 
   const [debouncedDestination] = useDebounceValue(destinationSearch, 500);
@@ -60,8 +63,6 @@ export default function TripRequestForm({
         label: locationInfo.address,
         value: JSON.stringify(locationInfo),
       })) || [];
-
-  const companyCoordinates = { lat: 45.8003692, lng: 15.9713773 };
 
   return (
     <FormLayout
@@ -111,7 +112,10 @@ export default function TripRequestForm({
       {destinationLocationInfo && (
         <GoogleMapsDirections
           destination={destinationLocationInfo.coordinates}
-          origin={companyCoordinates}
+          origin={{
+            lat: company.locationCoordLat,
+            lng: company.locationCoordLon,
+          }}
         />
       )}
     </FormLayout>

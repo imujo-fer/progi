@@ -1,4 +1,5 @@
 import {
+  CompanyControllerApi,
   Configuration,
   GoogleMapsControllerApi,
   TripControllerApi,
@@ -17,3 +18,4 @@ export const apiConfig = new Configuration({
 
 export const tripApi = new TripControllerApi(apiConfig);
 export const googleMapsApi = new GoogleMapsControllerApi(apiConfig);
+export const companyApi = new CompanyControllerApi(apiConfig);

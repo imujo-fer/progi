@@ -1,4 +1,4 @@
-import { GeocodingResult } from "src/api_gen";
+import { GeocodingResult } from "@/api_gen";
 
 export const geoLocationToLocationInfo = (geoLocation: GeocodingResult) => {
   const coordinates = {
