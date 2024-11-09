@@ -14,6 +14,7 @@
 
 
 
+export * from './apis/company-controller-api';
 export * from './apis/expense-category-controller-api';
 export * from './apis/expense-report-controller-api';
 export * from './apis/expense-report-item-controller-api';

@@ -2,6 +2,7 @@
 .npmignore
 .openapi-generator-ignore
 api.ts
+apis/company-controller-api.ts
 apis/expense-category-controller-api.ts
 apis/expense-report-controller-api.ts
 apis/expense-report-item-controller-api.ts
@@ -17,6 +18,7 @@ git_push.sh
 index.ts
 models/address-component.ts
 models/bounds.ts
+models/company.ts
 models/cost-statistics-dto.ts
 models/country-dto.ts
 models/country.ts

@@ -1,5 +1,6 @@
 export * from './address-component';
 export * from './bounds';
+export * from './company';
 export * from './cost-statistics-dto';
 export * from './country';
 export * from './country-dto';
