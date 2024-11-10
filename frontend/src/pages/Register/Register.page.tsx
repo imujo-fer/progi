@@ -5,6 +5,7 @@ export default function Register() {
   const { data } = useGetUserRegisterInfo({ registrationHash: "hash" });
   const email = data?.email || "";
   const role = data?.roles || [];
-  const department = data?.departmentId.toString() || "";
+  console.log(data);
+  const department = data?.department.name || "";
   return <RegisterForm email={email} roles={role} department={department} />;
 }

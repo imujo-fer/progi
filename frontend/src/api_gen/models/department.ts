@@ -13,9 +13,6 @@
  */
 
 
-// May contain unused imports in some cases
-// @ts-ignore
-import type { User } from './user';
 
 /**
  * 
@@ -35,11 +32,5 @@ export interface Department {
      * @memberof Department
      */
     'name': string;
-    /**
-     * 
-     * @type {Array<User>}
-     * @memberof Department
-     */
-    'users'?: Array<User>;
 }
 
