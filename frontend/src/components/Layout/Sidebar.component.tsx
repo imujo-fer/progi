@@ -1,5 +1,4 @@
 import { Menu } from "antd";
-import useGetCurrentUserInfo from "../../hooks/currentUser";
 import { UserDetailsDTORolesEnum } from "../../api_gen/models/user-details-dto";
 import { Link } from "@tanstack/react-router";
 import {
@@ -19,10 +18,11 @@ import {
   reviewTripsRoute,
   statisticsRoute,
 } from "../../features/director/routes/director.routes";
+import useUser from "@/providers/UserProvider";
 
 export default function Sidebar() {
-  const { data } = useGetCurrentUserInfo();
-  const roleList = data?.roles || [];
+  const user = useUser();
+  const roleList = user?.roles || [];
 
   const roles = [
     {
@@ -31,8 +31,6 @@ export default function Sidebar() {
     },
     { key: "2", label: <Link to={pastTripsRoute.to}> Past Trips </Link> },
   ];
-
-  console.log(data);
 
   if (roleList.includes(UserDetailsDTORolesEnum.DepartmentHead)) {
     roles.push({
