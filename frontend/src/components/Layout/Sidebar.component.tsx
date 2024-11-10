@@ -1,5 +1,6 @@
 import { Menu } from "antd";
 import useGetCurrentUserInfo from "../../hooks/currentUser";
+import { UserDetailsDTORolesEnum } from "../../api_gen/models/user-details-dto";
 
 export default function Sidebar() {
   const { data } = useGetCurrentUserInfo();
@@ -10,17 +11,19 @@ export default function Sidebar() {
     { key: "2", label: "Past Trips" },
   ];
 
-  if (roleList.includes("DEPARTMENT_HEAD")) {
+  console.log(data);
+
+  if (roleList.includes(UserDetailsDTORolesEnum.DepartmentHead)) {
     roles.push({ key: "4", label: "Department approval requests" });
     roles.push({ key: "5", label: "Department statistics" });
   }
 
-  if (roleList.includes("ACCOUNTANT")) {
+  if (roleList.includes(UserDetailsDTORolesEnum.Accountant)) {
     roles.push({ key: "6", label: "Expense review requests" });
     roles.push({ key: "7", label: "Awaiting payment" });
   }
 
-  if (roleList.includes("DIRECTOR")) {
+  if (roleList.includes(UserDetailsDTORolesEnum.Director)) {
     roles.push({ key: "8", label: "Review trips" });
     roles.push({ key: "9", label: "Statistics" });
   }
