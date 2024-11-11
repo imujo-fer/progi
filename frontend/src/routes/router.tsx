@@ -30,7 +30,7 @@ import {
   tripRequestsEditRoute,
   tripRequestsRoute,
 } from "../features/employee/routes/employee.routes";
-import { loginRoute } from "@/pages/Login/login.routes";
+import { loginRoute } from "@/features/auth/Login/login.routes";
 
 export const rootRoute = createRootRouteWithContext<RootRouteContext>()();
 
