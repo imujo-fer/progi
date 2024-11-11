@@ -4,6 +4,6 @@ import { rootRoute } from "../../routes/router";
 
 export const registerRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: "/register",
+  path: "/register/$hash",
   component: Register,
 });
