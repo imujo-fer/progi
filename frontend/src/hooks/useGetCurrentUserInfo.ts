@@ -8,5 +8,8 @@ export default function useGetCurrentUserInfo() {
       const response = await userApi.getUser();
       return response.data;
     },
+    retry: (failureCount) => {
+      return failureCount < 1;
+    },
   });
 }

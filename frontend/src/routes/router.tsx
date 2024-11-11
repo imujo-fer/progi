@@ -6,6 +6,9 @@ import {
   Outlet,
 } from "@tanstack/react-router";
 
+import { UserDetailsDTO } from "@/api_gen";
+import { AuthedProviders, queryClient } from "@/providers/Providers";
+import { protectedRoute } from "@/utils/protectedRoute";
 import AppLayout from "../components/Layout/AppLayout.component";
 import {
   awaitingPaymentRoute,
@@ -27,19 +30,15 @@ import {
   tripRequestsEditRoute,
   tripRequestsRoute,
 } from "../features/employee/routes/employee.routes";
-import { AuthedProviders, Providers, queryClient } from "@/providers/Providers";
 
-export const rootRoute = createRootRouteWithContext<RootRouteContext>()({
-  component: () => (
-    <Providers>
-      <Outlet />
-    </Providers>
-  ),
-});
+export const rootRoute = createRootRouteWithContext<RootRouteContext>()();
 
 export const layoutRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/",
+  beforeLoad: ({ context }) => {
+    protectedRoute({ context });
+  },
   component: () => (
     <AuthedProviders>
       <AppLayout>
@@ -49,7 +48,15 @@ export const layoutRoute = createRoute({
   ),
 });
 
+// POLINA - remove when rebaseing with login branch
+export const loginRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/login",
+  component: () => "login",
+});
+
 export const routeTree = rootRoute.addChildren([
+  loginRoute,
   layoutRoute.addChildren([
     _tripRequestsRoute.addChildren([
       tripRequestsRoute,
@@ -67,13 +74,14 @@ export const routeTree = rootRoute.addChildren([
   ]),
 ]);
 
-type RootRouteContext = {
+export type RootRouteContext = {
   queryClient: QueryClient;
+  user: UserDetailsDTO | null;
 };
 
 export const router = createRouter({
   routeTree,
-  context: { queryClient },
+  context: { queryClient, user: null },
 });
 
 declare module "@tanstack/react-router" {
