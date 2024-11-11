@@ -1,4 +1,5 @@
-import { loginRoute, RootRouteContext } from "@/routes/router";
+import { loginRoute } from "@/features/auth/Login/login.routes";
+import { RootRouteContext } from "@/routes/router";
 import { redirect } from "@tanstack/react-router";
 
 type ProtectedRouteProps = {
