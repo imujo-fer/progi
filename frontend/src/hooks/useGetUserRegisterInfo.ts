@@ -6,7 +6,11 @@ export default function useGetUserRegisterInfo(
   registrationHashRequest: UserControllerApiGetUserDetailsByRegistrationHashRequest
 ) {
   return useQuery({
-    queryKey: ["user"],
+    queryKey: [
+      "user",
+      "registrationHash",
+      registrationHashRequest.registrationHash,
+    ],
     queryFn: async () => {
       const response = await userApi.getUserDetailsByRegistrationHash(
         registrationHashRequest
