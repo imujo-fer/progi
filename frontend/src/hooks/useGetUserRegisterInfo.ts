@@ -17,5 +17,8 @@ export default function useGetUserRegisterInfo(
       );
       return response.data;
     },
+    retry(failureCount) {
+      return failureCount < 2;
+    },
   });
 }
