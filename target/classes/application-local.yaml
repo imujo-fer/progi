@@ -30,3 +30,4 @@ server:
   port: 8082
 # http://localhost:8082/oauth2/authorization/google
 # AIzaSyBt-GRg51zN6Wgq51FKhgV0fm_rgpDeG7E
+# postgres://postgres:postgres@161.35.76.200:5432/progi
