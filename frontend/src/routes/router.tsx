@@ -31,7 +31,7 @@ import {
   tripRequestsRoute,
 } from "../features/employee/routes/employee.routes";
 import { loginRoute } from "@/features/auth/Login/login.routes";
-import { registerRoute } from "@/pages/Register/register.routes";
+import { registerRoute } from "@/features/auth/Register/register.routes";
 
 export const rootRoute = createRootRouteWithContext<RootRouteContext>()();
 

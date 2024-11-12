@@ -1,5 +1,5 @@
 import { Navigate } from "@tanstack/react-router";
-import useGetUserRegisterInfo from "../../hooks/useGetUserRegisterInfo";
+import useGetUserRegisterInfo from "../../../hooks/useGetUserRegisterInfo";
 import RegisterForm from "./components/RegisterForm";
 import { registerRoute } from "./register.routes";
 import { Skeleton } from "antd";
