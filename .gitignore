@@ -72,5 +72,4 @@ secrets.yml
 node_modules
 
 src/main/resources/application-local.yaml
-src/main/resources/static
 .env
