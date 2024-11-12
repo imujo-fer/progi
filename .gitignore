@@ -33,7 +33,6 @@ build/
 *.iml
 *.ipr
 *.iws
-*.jar
 *.sw?
 *~
 .#*
