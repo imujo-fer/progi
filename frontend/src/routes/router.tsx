@@ -30,6 +30,7 @@ import {
   tripRequestsEditRoute,
   tripRequestsRoute,
 } from "../features/employee/routes/employee.routes";
+import { loginRoute } from "@/features/auth/Login/login.routes";
 
 export const rootRoute = createRootRouteWithContext<RootRouteContext>()();
 
@@ -48,15 +49,7 @@ export const layoutRoute = createRoute({
   ),
 });
 
-// POLINA - remove when rebaseing with login branch
-export const loginRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/login",
-  component: () => "login",
-});
-
 export const routeTree = rootRoute.addChildren([
-  loginRoute,
   layoutRoute.addChildren([
     _tripRequestsRoute.addChildren([
       tripRequestsRoute,
@@ -72,6 +65,7 @@ export const routeTree = rootRoute.addChildren([
     reviewTripsRoute,
     statisticsRoute,
   ]),
+  loginRoute,
 ]);
 
 export type RootRouteContext = {
