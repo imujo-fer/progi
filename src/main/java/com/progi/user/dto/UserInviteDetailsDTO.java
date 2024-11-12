@@ -4,6 +4,7 @@ package com.progi.user.dto;
 import java.util.List;
 
 import com.progi.Enum.RoleType;
+import com.progi.department.Department;
 import com.progi.role.Role;
 import com.progi.user.User;
 
@@ -23,7 +24,7 @@ public class UserInviteDetailsDTO {
     @NotNull
     private String iban;
     @NotNull
-    private Integer departmentId;
+    private Department department;
     @NotNull 
     private List<RoleType> roles;
 
@@ -33,7 +34,7 @@ public class UserInviteDetailsDTO {
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
         this.iban = user.getIban();
-        this.departmentId = user.getDepartment().getId();
+        this.department = user.getDepartment();
         this.roles = user.getRoles().stream().map(Role::getRoleType).toList();
     }
 }

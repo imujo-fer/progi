@@ -13,6 +13,9 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import type { Department } from './department';
 
 /**
  * 
@@ -52,10 +55,10 @@ export interface UserInviteDetailsDTO {
     'iban': string;
     /**
      * 
-     * @type {number}
+     * @type {Department}
      * @memberof UserInviteDetailsDTO
      */
-    'departmentId': number;
+    'department': Department;
     /**
      * 
      * @type {Array<string>}
