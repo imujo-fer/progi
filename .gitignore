@@ -1,8 +1,4 @@
 HELP.md
-target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
 
 ### STS ###
 .apt_generated
@@ -69,7 +65,6 @@ lib/
 manifest.yml
 out
 overridedb.*
-target
 .flattened-pom.xml
 secrets.yml
 .gradletasknamecache
