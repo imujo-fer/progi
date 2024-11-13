@@ -38,10 +38,10 @@ public class ReceiptService {
         receiptRepository.deleteById(id);
     }
 
-    public Receipt uploadReceipt(Integer expenseReportItemId, MultipartFile file) {
+    public Receipt uploadReceipt(MultipartFile file) {
 
         Receipt receipt = new Receipt();
-        String receiptUrl = receiptFunction.apply(expenseReportItemId, file);
+        String receiptUrl = receiptFunction.apply(file);
 
         receipt.setPath(receiptUrl);
         receipt = receiptRepository.save(receipt);
@@ -54,8 +54,8 @@ public class ReceiptService {
             .map(name -> "." + name.substring(filename.lastIndexOf(".") + 1))
             .orElse(".pdf");
 
-    private final BiFunction<Integer, MultipartFile, String> receiptFunction = (id, file) -> {
-        String filename = id + "_" + System.currentTimeMillis() + fileExtension.apply(file.getOriginalFilename());
+    private final Function<MultipartFile, String> receiptFunction = (file) -> {
+        String filename =  System.currentTimeMillis() + fileExtension.apply(file.getOriginalFilename());
         try {
             Path fileStorageLocation = Paths.get(RECEIPT_DIRECTORY).toAbsolutePath().normalize();
 
@@ -65,7 +65,7 @@ public class ReceiptService {
             Files.copy(file.getInputStream(), fileStorageLocation.resolve(filename), REPLACE_EXISTING);
 
             return ServletUriComponentsBuilder.fromCurrentContextPath()
-                    .path("/expense-reports/receipt/" + filename)
+                    .path("/receipt/" + filename)
                     .toUriString();
         } catch (Exception e) {
             throw new RuntimeException("Unable to save receipt");

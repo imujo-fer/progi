@@ -50,6 +50,10 @@ public class ExpenseReportItemService {
         ExpenseReport expenseReport = expenseReportService.getExpenseReportById(expenseReportItemDTO.getExpenseReportId());
         expenseReportItem.setExpenseReport(expenseReport);
 
+        Receipt receipt = new Receipt();
+        receipt = receiptService.getReceiptById(expenseReportItemDTO.getReceiptId());
+        expenseReportItem.setReceipt(receipt);
+
         ExpenseSubcategory expenseSubcategory = expenseSubcategoryService.getExpenseSubcategoryById(expenseReportItemDTO.getExpenseSubcategoryId());
         expenseReportItem.setExpenseSubcategory(expenseSubcategory);
 
@@ -67,6 +71,9 @@ public class ExpenseReportItemService {
         ExpenseReport expenseReport = expenseReportService.getExpenseReportById(expenseReportItemDTO.getExpenseReportId());
         expenseReportItem.setExpenseReport(expenseReport);
 
+        Receipt receipt = new Receipt();
+        receipt = receiptService.getReceiptById(expenseReportItemDTO.getReceiptId());
+        expenseReportItem.setReceipt(receipt);
 
         ExpenseSubcategory expenseSubcategory = expenseSubcategoryService.getExpenseSubcategoryById(expenseReportItemDTO.getExpenseSubcategoryId());
         expenseReportItem.setExpenseSubcategory(expenseSubcategory);
@@ -79,12 +86,4 @@ public class ExpenseReportItemService {
         return expenseReportItemRepository.save(expenseReportItem);
     }
 
-    public ExpenseReportItem uploadReceipt(Integer id, MultipartFile file) {
-        ExpenseReportItem expenseReportItem = getExpenseReportItemById(id);
-
-        Receipt receipt = receiptService.uploadReceipt(id, file);
-
-        expenseReportItem.setReceipt(receipt);
-       return expenseReportItemRepository.save(expenseReportItem);
-    }
 }

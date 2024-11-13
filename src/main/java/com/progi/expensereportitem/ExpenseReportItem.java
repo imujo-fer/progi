@@ -32,7 +32,8 @@ public class ExpenseReportItem {
     private ExpenseReport expenseReport;
 
     @OneToOne
-    @JoinColumn(name = "receipt_id", referencedColumnName = "id", nullable = true)
+    @JoinColumn(name = "receipt_id", referencedColumnName = "id", nullable = false)
+    @NotNull
     private Receipt receipt;
 
     @ManyToOne

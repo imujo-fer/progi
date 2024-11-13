@@ -9,6 +9,8 @@ public class ExpenseReportItemDTO {
     @NotNull
     private Integer expenseReportId;
     @NotNull
+    private Integer receiptId;
+    @NotNull
     private Integer expenseSubcategoryId;
     @NotNull
     private String description;
