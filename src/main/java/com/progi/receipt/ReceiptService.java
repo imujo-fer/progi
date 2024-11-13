@@ -22,7 +22,7 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 @Transactional
 public class ReceiptService {
 
-    public static final String RECEIPT_DIRECTORY = System.getProperty("user.home") + "/E:/Progi-projekt/progi/src/main/resources/receipts";
+    public static final String RECEIPT_DIRECTORY = System.getProperty("user.home") + "/Downloads/receipts";
 
     @Autowired
     private ReceiptRepository receiptRepository;

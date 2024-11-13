@@ -39,7 +39,7 @@ public class ExpenseReportItemController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/receipts/{id}")
+    @PutMapping(value = "/receipts/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> uploadReceipt(@PathVariable("id") Integer id,
                                                   @RequestParam("receipt") MultipartFile file) {
         try {

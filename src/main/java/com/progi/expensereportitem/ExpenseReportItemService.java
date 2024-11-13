@@ -50,9 +50,6 @@ public class ExpenseReportItemService {
         ExpenseReport expenseReport = expenseReportService.getExpenseReportById(expenseReportItemDTO.getExpenseReportId());
         expenseReportItem.setExpenseReport(expenseReport);
 
-        Receipt receipt = receiptService.getReceiptById(expenseReportItemDTO.getReceiptId());
-        expenseReportItem.setReceipt(receipt);
-
         ExpenseSubcategory expenseSubcategory = expenseSubcategoryService.getExpenseSubcategoryById(expenseReportItemDTO.getExpenseSubcategoryId());
         expenseReportItem.setExpenseSubcategory(expenseSubcategory);
 
@@ -70,8 +67,6 @@ public class ExpenseReportItemService {
         ExpenseReport expenseReport = expenseReportService.getExpenseReportById(expenseReportItemDTO.getExpenseReportId());
         expenseReportItem.setExpenseReport(expenseReport);
 
-        Receipt receipt = receiptService.getReceiptById(expenseReportItemDTO.getReceiptId());
-        expenseReportItem.setReceipt(receipt);
 
         ExpenseSubcategory expenseSubcategory = expenseSubcategoryService.getExpenseSubcategoryById(expenseReportItemDTO.getExpenseSubcategoryId());
         expenseReportItem.setExpenseSubcategory(expenseSubcategory);
