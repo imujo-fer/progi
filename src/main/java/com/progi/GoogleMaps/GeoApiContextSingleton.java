@@ -10,7 +10,8 @@ public class GeoApiContextSingleton {
 
     static {
         Dotenv dotenv = Dotenv.load();
-        API_KEY = dotenv.get("GOOGLE_API_KEY"); 
+        API_KEY = dotenv.get("VITE_GOOGLE_API_KEY"); 
+        System.out.println("API_KEY: " + API_KEY);
 
         if (API_KEY == null || API_KEY.isEmpty()) {
             throw new IllegalStateException("Google API key is not set in the .env file");
