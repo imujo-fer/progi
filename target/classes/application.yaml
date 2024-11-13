@@ -28,4 +28,4 @@ spring:
             token-uri: https://oauth2.googleapis.com/token
             user-info-uri: https://openidconnect.googleapis.com/v1/userinfo
 server:
-  port: 8080
+  port: 8082
