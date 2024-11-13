@@ -71,5 +71,5 @@ secrets.yml
 .git-hooks/
 node_modules
 
-src/main/resources/application-local.yaml
+src/main/resources/application-*.yaml
 .env

@@ -18,4 +18,5 @@ start:
 	nohup java -jar target/progi.jar > output.log 2>&1 &
 
 stop:
-	kill -9 `ps -ef | grep "java -jar target/progi.jar" | grep -v grep | awk '{print $2}'`
+	kill -9 $(ps -ef | grep "java -jar target/progi.jar" | grep -v grep | awk '{print $2}')
+
