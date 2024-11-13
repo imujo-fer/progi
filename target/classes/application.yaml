@@ -19,7 +19,7 @@ spring:
           google:
             client-id: 1015105553133-72mv61lsi2o8cj4fgvp9654flm0ah288.apps.googleusercontent.com
             client-secret: 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
-            redirect-uri: "http://progi-progi.pro/login/oauth2/code/google"
+            redirect-uri: "https://progi-progi.pro/login/oauth2/code/google"
             scope: email, profile
             client-name: Google
         provider:
