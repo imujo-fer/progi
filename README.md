@@ -43,11 +43,17 @@ pnpm i
 
 ## Team Members
 Adriano Faletar 
+
 Polina Rykova
+
 Marija Klenkar
+
 Patrik Landeka 
+
 Vilim Skorić
+
 Vjekoslav Gračaković
+
 Ivo Mujo
 
 ## Contributions
