@@ -1,5 +1,5 @@
-import TripsTable from "../../components/TripsTable.component";
+import TripsOverview from "../../components/TripsOverview.component";
 
 export default function TripRequests() {
-  return <TripsTable />;
+  return <TripsOverview />;
 }
