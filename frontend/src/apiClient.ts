@@ -1,6 +1,7 @@
 import {
   CompanyControllerApi,
   Configuration,
+  ExpenseReportControllerApi,
   GoogleMapsControllerApi,
   TripControllerApi,
   UserControllerApi,
@@ -20,5 +21,6 @@ export const apiConfig = new Configuration({
 export const tripApi = new TripControllerApi(apiConfig);
 export const googleMapsApi = new GoogleMapsControllerApi(apiConfig);
 export const companyApi = new CompanyControllerApi(apiConfig);
+export const expenseReportApi = new ExpenseReportControllerApi(apiConfig);
 
 export const userApi = new UserControllerApi(apiConfig);

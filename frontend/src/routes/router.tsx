@@ -32,6 +32,7 @@ import {
 } from "../features/employee/routes/employee.routes";
 import { loginRoute } from "@/features/auth/Login/login.routes";
 import { registerRoute } from "@/features/auth/Register/register.routes";
+import Export from "@/features/export/Export.page";
 
 export const rootRoute = createRootRouteWithContext<RootRouteContext>()();
 
@@ -50,6 +51,12 @@ export const layoutRoute = createRoute({
   ),
 });
 
+const exportRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/pdf",
+  component: Export,
+});
+
 export const routeTree = rootRoute.addChildren([
   layoutRoute.addChildren([
     _tripRequestsRoute.addChildren([
@@ -66,6 +73,7 @@ export const routeTree = rootRoute.addChildren([
     reviewTripsRoute,
     statisticsRoute,
   ]),
+  exportRoute,
   loginRoute,
   registerRoute,
 ]);
