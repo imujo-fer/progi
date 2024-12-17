@@ -8,16 +8,11 @@ export default function useGetTripsByStatus(
   return useQuery({
     queryKey: ["trips", "status"],
     queryFn: async () => {
-      if (status) {
-        const response = await tripApi.getEmployeeTripsByStatus({
-          status: status as GetEmployeeTripsByStatusStatusEnum,
-        });
+      const response = await tripApi.getEmployeeTripsByStatus({
+        status: status,
+      });
 
-        return response.data;
-      } else {
-        const response = await tripApi.getEmployeeTripsByStatus();
-        return response.data;
-      }
+      return response.data;
     },
     retry(failureCount) {
       return failureCount < 2;
