@@ -6,6 +6,7 @@ import Notifications from "../pages/Notifications/Notifications.page";
 import TripRequestCreatePage from "../pages/TripRequestForm/TripRequestCreate.page";
 import TripRequestEditPage from "../pages/TripRequestForm/TripRequestEdit.page";
 import { coerceToNumber } from "../../../utils/coerceToNumber";
+import SubmitExpenseReport from "../pages/SubmitExpenseReport/SubmitExpenseReport.page";
 
 export const _tripRequestsRoute = createRoute({
   getParentRoute: () => layoutRoute,
@@ -44,4 +45,10 @@ export const notificationsRoute = createRoute({
   getParentRoute: () => layoutRoute,
   path: "/notifications",
   component: Notifications,
+});
+
+export const expenseReportRoute = createRoute({
+  getParentRoute: () => layoutRoute,
+  path: "/expense-report",
+  component: SubmitExpenseReport,
 });
