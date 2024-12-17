@@ -1,5 +1,5 @@
 import { ExpenseReportItemWithSubcategoryDTO } from "@/api_gen";
-import { EditOutlined, SettingOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Link } from "@tanstack/react-router";
 import { Card, Flex } from "antd";
 
@@ -10,15 +10,15 @@ interface ExpenseReportItemProps {
 export default function ExpenseReportItem({ item }: ExpenseReportItemProps) {
   const actions = [
     <EditOutlined key="edit" />,
-    <SettingOutlined key="setting" />,
+    <DeleteOutlined key="delete" />,
     <Link>View bill</Link>,
   ];
   return (
-    <Card actions={actions} className="my-3">
+    <Card actions={actions} className="my-3 w-full">
       <Card.Meta
         description={
           <Flex justify="space-between" align="center" className="text-black">
-            <div className="w-2/3">{item.description}</div>
+            <div className="w-2/3 break-words">{item.description}</div>
             <div className="flex flex-col w-1/4">
               <div className="ml-auto">
                 {`${item.currencyValue} ${item.currency} =   `}
