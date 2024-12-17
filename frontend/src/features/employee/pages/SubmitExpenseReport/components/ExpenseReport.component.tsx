@@ -9,6 +9,12 @@ export default function ExpenseReport() {
   const { data } = useGetExpenseReportItems();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+
+  function onEdit() {
+    setIsEditing(true);
+    setIsOpen(true);
+  }
 
   if (!data || !Array.isArray(data)) {
     return <></>;
@@ -18,18 +24,29 @@ export default function ExpenseReport() {
     <div className="w-1/2 min-w-96">
       <Flex justify="space-between" align="center">
         <Title>Submit expense report</Title>
-        <Button onClick={() => setIsOpen(true)}>Add</Button>
+        <Button
+          onClick={() => {
+            setIsOpen(true);
+            setIsEditing(false);
+          }}
+        >
+          Add
+        </Button>
       </Flex>
 
       <List
         dataSource={data}
         renderItem={(item) => (
           <List.Item key={item.receiptId}>
-            <ExpenseReportItem item={item} />
+            <ExpenseReportItem item={item} onEdit={onEdit} />
           </List.Item>
         )}
       />
-      <CreateEditExpenseReportItemModal open={isOpen} setOpen={setIsOpen} />
+      <CreateEditExpenseReportItemModal
+        open={isOpen}
+        setOpen={setIsOpen}
+        editing={isEditing}
+      />
     </div>
   );
 }
