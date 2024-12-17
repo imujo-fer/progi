@@ -11,7 +11,10 @@ export default function TripsOverview() {
     GetEmployeeTripsByStatusStatusEnum | undefined
   >(undefined);
 
-  const options = [
+  const options: {
+    value: GetEmployeeTripsByStatusStatusEnum;
+    label: string;
+  }[] = [
     {
       value: GetEmployeeTripsByStatusStatusEnum.PendingDepartmentApproval,
       label: "Pending Department Approval",
@@ -49,7 +52,9 @@ export default function TripsOverview() {
 
   const { data } = useGetTripsByStatus(status);
 
-  useEffect(() => {}, [status, data]);
+  useEffect(() => {
+    console.log(data);
+  }, [status, data]);
 
   return (
     <>
