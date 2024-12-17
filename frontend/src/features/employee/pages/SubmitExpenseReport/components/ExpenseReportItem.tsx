@@ -1,9 +1,6 @@
 import { ExpenseReportItemWithSubcategoryDTO } from "@/api_gen";
-import {
-  EditOutlined,
-  SettingOutlined,
-  EllipsisOutlined,
-} from "@ant-design/icons";
+import { EditOutlined, SettingOutlined } from "@ant-design/icons";
+import { Link } from "@tanstack/react-router";
 import { Card, Flex } from "antd";
 
 interface ExpenseReportItemProps {
@@ -14,10 +11,10 @@ export default function ExpenseReportItem({ item }: ExpenseReportItemProps) {
   const actions = [
     <EditOutlined key="edit" />,
     <SettingOutlined key="setting" />,
-    <EllipsisOutlined key="ellipsis" />,
+    <Link>View bill</Link>,
   ];
   return (
-    <Card actions={actions}>
+    <Card actions={actions} className="my-3">
       <Card.Meta
         description={
           <Flex justify="space-between" align="center" className="text-black">

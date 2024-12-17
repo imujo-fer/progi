@@ -11,7 +11,7 @@ export default function ExpenseReport() {
   }
 
   return (
-    <div className="w-1/2">
+    <div className="w-1/2 min-w-96">
       <Flex justify="space-between" align="center">
         <Title>Submit expense report</Title>
         <Button>Add</Button>
