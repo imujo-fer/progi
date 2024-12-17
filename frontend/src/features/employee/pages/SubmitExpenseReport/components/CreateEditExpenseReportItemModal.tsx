@@ -6,11 +6,13 @@ import Title from "antd/es/typography/Title";
 interface CreateEditExpenseReportItemModalProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  editing: boolean;
 }
 
 export default function CreateEditExpenseReportItemModal({
   open,
   setOpen,
+  editing,
 }: CreateEditExpenseReportItemModalProps) {
   const selectCurrencyOptions = [{ value: "USD" }, { value: "EUR" }];
   const selectCategoryOptions = [{ value: "Transport" }, { value: "Food" }];
@@ -21,9 +23,8 @@ export default function CreateEditExpenseReportItemModal({
         labelCol={{ span: 4 }}
         wrapperCol={{ span: 14 }}
         layout="horizontal"
-        style={{ maxWidth: 600 }}
       >
-        <Title>Add expense item</Title>
+        <Title>{editing ? "Edit " : "Add "}expense item</Title>
         <Form.Item label="Upload">
           <Upload listType="picture-card">
             <button type="button">
