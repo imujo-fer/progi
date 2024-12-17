@@ -1,7 +1,7 @@
 import Title from "antd/es/typography/Title";
 import useGetExpenseReportItems from "../hooks/useGetExpenseReportItems";
 import ExpenseReportItem from "./ExpenseReportItem";
-import { Button, Flex } from "antd";
+import { Button, Flex, List } from "antd";
 
 export default function ExpenseReport() {
   const { data } = useGetExpenseReportItems();
@@ -17,11 +17,14 @@ export default function ExpenseReport() {
         <Button>Add</Button>
       </Flex>
 
-      <div>
-        {data.map((item) => (
-          <ExpenseReportItem key={item.receiptId} item={item} />
-        ))}
-      </div>
+      <List
+        dataSource={data}
+        renderItem={(item) => (
+          <List.Item key={item.receiptId}>
+            <ExpenseReportItem item={item} />
+          </List.Item>
+        )}
+      />
     </div>
   );
 }
