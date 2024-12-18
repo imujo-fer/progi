@@ -1,6 +1,7 @@
 import {
   CompanyControllerApi,
   Configuration,
+  ExpenseCategoryControllerApi,
   ExpenseReportControllerApi,
   ExpenseReportItemControllerApi,
   GoogleMapsControllerApi,
@@ -28,6 +29,7 @@ export const expenseReportApi = new ExpenseReportControllerApi(apiConfig);
 export const expenseReportItemApi = new ExpenseReportItemControllerApi(
   apiConfig
 );
+export const expenseCategoryApi = new ExpenseCategoryControllerApi(apiConfig);
 
 export const userApi = new UserControllerApi(apiConfig);
 export const tripStatusApi = new TripStatusControllerApi(apiConfig);
