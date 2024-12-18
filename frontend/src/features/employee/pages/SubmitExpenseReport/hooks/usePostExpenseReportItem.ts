@@ -10,5 +10,8 @@ export default function usePostExpenseReportItem() {
       const response = await expenseReportItemApi.createExpenseReportItem(item);
       return response.data;
     },
+    onSuccess: (data) => {
+      console.log("Mutation successful:", data);
+    },
   });
 }
