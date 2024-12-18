@@ -7,6 +7,7 @@ import {
   ExpenseReportItemControllerApiCreateExpenseReportItemRequest,
   ExpenseReportItemDTOCurrencyEnum,
 } from "@/api_gen";
+import useGetExpenseReportCategories from "../hooks/useGetExpenseReportCategories";
 
 interface CreateEditExpenseReportItemModalProps {
   open: boolean;
@@ -15,7 +16,7 @@ interface CreateEditExpenseReportItemModalProps {
 }
 
 interface FormValues {
-  category: string;
+  categoryId: number;
   cost: number;
   currency: string;
   description: string;
@@ -33,7 +34,7 @@ export default function CreateEditExpenseReportItemModal({
     value: currency,
     label: currency,
   }));
-  const selectCategoryOptions = [{ value: "Transport" }, { value: "Food" }];
+  const selectCategoryOptions = useGetExpenseReportCategories().data;
   const [form] = Form.useForm<FormValues>();
   const { mutate } = usePostExpenseReportItem();
 
@@ -42,8 +43,8 @@ export default function CreateEditExpenseReportItemModal({
       {
         expenseReportItemDTO: {
           expenseReportId: 1,
-          receiptId: 5,
-          expenseSubcategoryId: 1,
+          receiptId: 6,
+          expenseSubcategoryId: values.categoryId,
           description: values.description,
           currency: values.currency as ExpenseReportItemDTOCurrencyEnum,
           currencyValue: values.cost,
@@ -94,11 +95,14 @@ export default function CreateEditExpenseReportItemModal({
 
         <Form.Item
           label="Category"
-          name="expenseSubcategoryId"
+          name="categoryId"
           rules={[{ required: true, message: "Please select a subcategory" }]}
         >
           <Select
-            options={selectCategoryOptions}
+            options={selectCategoryOptions?.map((category) => ({
+              value: category.id,
+              label: category.name,
+            }))}
             placeholder="Select subcategory"
           />
         </Form.Item>
