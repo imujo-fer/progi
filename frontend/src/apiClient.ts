@@ -4,6 +4,7 @@ import {
   ExpenseReportControllerApi,
   GoogleMapsControllerApi,
   TripControllerApi,
+  TripStatusControllerApi,
   UserControllerApi,
 } from "./api_gen";
 
@@ -24,3 +25,4 @@ export const companyApi = new CompanyControllerApi(apiConfig);
 export const expenseReportApi = new ExpenseReportControllerApi(apiConfig);
 
 export const userApi = new UserControllerApi(apiConfig);
+export const tripStatusApi = new TripStatusControllerApi(apiConfig);
