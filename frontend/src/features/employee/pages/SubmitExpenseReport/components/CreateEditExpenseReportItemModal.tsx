@@ -27,6 +27,14 @@ interface FormValues {
   attachment: string;
 }
 
+interface FormValues {
+  category: string;
+  cost: number;
+  currency: string;
+  description: string;
+  attachment: string;
+}
+
 export default function CreateEditExpenseReportItemModal({
   open,
   setOpen,
