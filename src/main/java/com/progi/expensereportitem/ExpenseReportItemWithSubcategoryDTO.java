@@ -8,6 +8,8 @@ import lombok.Data;
 @Data
 public class ExpenseReportItemWithSubcategoryDTO {
     @NotNull
+    private Integer id;
+    @NotNull
     private Integer expenseReportId;
     @NotNull
     private Integer receiptId;
@@ -23,6 +25,7 @@ public class ExpenseReportItemWithSubcategoryDTO {
     private Double eurValue;
 
     public ExpenseReportItemWithSubcategoryDTO(ExpenseReportItem expenseReportItem) {
+        this.id = expenseReportItem.getId();
         this.expenseReportId = expenseReportItem.getExpenseReport().getId();
         this.receiptId = expenseReportItem.getReceipt().getId();
         this.expenseSubcategory = expenseReportItem.getExpenseSubcategory();
