@@ -1,18 +1,21 @@
 import { PlusOutlined } from "@ant-design/icons";
 import { Flex, Form, InputNumber, Modal, Select, Upload, message } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import Title from "antd/es/typography/Title";
 import usePostExpenseReportItem from "../hooks/usePostExpenseReportItem";
 import {
   ExpenseReportItemControllerApiCreateExpenseReportItemRequest,
+  ExpenseReportItemControllerApiUpdateExpenseReportItemRequest,
   ExpenseReportItemDTOCurrencyEnum,
+  ExpenseReportItemWithSubcategoryDTO,
 } from "@/api_gen";
 import useGetExpenseReportCategories from "../hooks/useGetExpenseReportCategories";
+import Title from "antd/es/typography/Title";
+import usePutExpenseReportItem from "../hooks/usePutExpenseReportItem";
 
 interface CreateEditExpenseReportItemModalProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  editing: boolean;
+  item?: ExpenseReportItemWithSubcategoryDTO;
 }
 
 interface FormValues {
@@ -26,7 +29,7 @@ interface FormValues {
 export default function CreateEditExpenseReportItemModal({
   open,
   setOpen,
-  editing,
+  item,
 }: CreateEditExpenseReportItemModalProps) {
   const selectCurrencyOptions = Object.values(
     ExpenseReportItemDTOCurrencyEnum
@@ -36,14 +39,15 @@ export default function CreateEditExpenseReportItemModal({
   }));
   const selectCategoryOptions = useGetExpenseReportCategories().data;
   const [form] = Form.useForm<FormValues>();
-  const { mutate } = usePostExpenseReportItem();
+  const { mutate: createMutate } = usePostExpenseReportItem();
+  const { mutate: updateMutate } = usePutExpenseReportItem();
 
   function handleFinish(values: FormValues) {
     const request: ExpenseReportItemControllerApiCreateExpenseReportItemRequest =
       {
         expenseReportItemDTO: {
           expenseReportId: 1,
-          receiptId: 6,
+          receiptId: 8,
           expenseSubcategoryId: values.categoryId,
           description: values.description,
           currency: values.currency as ExpenseReportItemDTOCurrencyEnum,
@@ -52,22 +56,43 @@ export default function CreateEditExpenseReportItemModal({
         },
       };
 
-    mutate(request, {
-      onSuccess: () => {
-        message.success("Expense item saved successfully!");
-        form.resetFields();
-        setOpen(false);
-      },
-      onError: () => {
-        message.error("Failed to save expense item.");
-      },
-    });
+    if (item) {
+      const updateRequest: ExpenseReportItemControllerApiUpdateExpenseReportItemRequest =
+        {
+          id: item?.id,
+          expenseReportItemDTO: request.expenseReportItemDTO,
+        };
+      updateMutate(updateRequest, {
+        onSuccess: () => {
+          message.success("Expense item updated successfully!");
+          form.resetFields();
+          setOpen(false);
+        },
+        onError: () => {
+          message.error("Failed to update expense item.");
+        },
+      });
+    } else {
+      createMutate(request, {
+        onSuccess: () => {
+          message.success("Expense item saved successfully!");
+          form.resetFields();
+          setOpen(false);
+        },
+        onError: () => {
+          message.error("Failed to save expense item.");
+        },
+      });
+    }
   }
 
   return (
     <Modal
       open={open}
-      onCancel={() => setOpen(false)}
+      onCancel={() => {
+        form.resetFields();
+        setOpen(false);
+      }}
       okText="Save"
       onOk={() => form.submit()}
     >
@@ -77,8 +102,14 @@ export default function CreateEditExpenseReportItemModal({
         wrapperCol={{ span: 14 }}
         layout="horizontal"
         onFinish={handleFinish}
+        initialValues={{
+          categoryId: item?.expenseSubcategory.id,
+          cost: item?.currencyValue,
+          currency: item?.currency,
+          description: item?.description,
+        }}
       >
-        <Title>{editing ? "Edit " : "Add "}Expense Item</Title>
+        <Title>{item ? "Edit " : "Add "}Expense Item</Title>
         <Form.Item
           label="Upload"
           name="attachment"
@@ -124,7 +155,8 @@ export default function CreateEditExpenseReportItemModal({
               <Select
                 options={selectCurrencyOptions}
                 placeholder="Currency"
-                style={{ flex: 1 }}
+                className="flex-1"
+                value={item?.currency}
               />
             </Form.Item>
           </Flex>
