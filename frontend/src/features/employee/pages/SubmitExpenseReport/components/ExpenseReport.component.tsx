@@ -4,15 +4,18 @@ import ExpenseReportItem from "./ExpenseReportItem";
 import { Button, Flex, List } from "antd";
 import CreateEditExpenseReportItemModal from "./CreateEditExpenseReportItemModal";
 import { useState } from "react";
+import { ExpenseReportItemWithSubcategoryDTO } from "@/api_gen";
 
 export default function ExpenseReport() {
   const { data } = useGetExpenseReportItems();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [currentItem, setCurrentItem] = useState<
+    ExpenseReportItemWithSubcategoryDTO | undefined
+  >(undefined);
 
-  function onEdit() {
-    setIsEditing(true);
+  function onEdit(item: ExpenseReportItemWithSubcategoryDTO) {
+    setCurrentItem(item);
     setIsOpen(true);
   }
 
@@ -26,8 +29,8 @@ export default function ExpenseReport() {
         <Title>Submit expense report</Title>
         <Button
           onClick={() => {
+            setCurrentItem(undefined);
             setIsOpen(true);
-            setIsEditing(false);
           }}
         >
           Add
@@ -37,7 +40,7 @@ export default function ExpenseReport() {
       <List
         dataSource={data}
         renderItem={(item) => (
-          <List.Item key={item.receiptId}>
+          <List.Item key={item.id}>
             <ExpenseReportItem item={item} onEdit={onEdit} />
           </List.Item>
         )}
@@ -45,7 +48,7 @@ export default function ExpenseReport() {
       <CreateEditExpenseReportItemModal
         open={isOpen}
         setOpen={setIsOpen}
-        editing={isEditing}
+        item={currentItem}
       />
     </div>
   );

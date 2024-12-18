@@ -5,7 +5,7 @@ import { Card, Flex } from "antd";
 
 interface ExpenseReportItemProps {
   item: ExpenseReportItemWithSubcategoryDTO;
-  onEdit: () => void;
+  onEdit: (item: ExpenseReportItemWithSubcategoryDTO) => void;
 }
 
 export default function ExpenseReportItem({
@@ -13,7 +13,12 @@ export default function ExpenseReportItem({
   onEdit,
 }: ExpenseReportItemProps) {
   const actions = [
-    <EditOutlined key="edit" onClick={() => onEdit()} />,
+    <EditOutlined
+      key="edit"
+      onClick={() => {
+        onEdit(item);
+      }}
+    />,
     <DeleteOutlined key="delete" />,
     <Link>View bill</Link>,
   ];
