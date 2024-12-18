@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 
 export default function useGetExpenseReportItems() {
   return useQuery({
-    queryKey: ["user"],
+    queryKey: ["expense report items"],
     queryFn: async () => {
       const response = await expenseReportApi.getExpenseReportItems({ id: 1 });
       return response.data;
