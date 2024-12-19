@@ -1,16 +1,14 @@
 import { NotificationDTO } from "@/api_gen";
-import actionBasedOnTripStatus from "@/utils/actionBasedOnTripStatus";
 import formatStatus from "@/utils/formatStatus";
-import { Button, Card, Flex } from "antd";
+import { Card, Flex } from "antd";
 import { format } from "date-fns";
+import ActionButton from "./ActionButton.component";
 
 interface NotificationProps {
   notification: NotificationDTO;
 }
 
 export default function Notification({ notification }: NotificationProps) {
-  const action = actionBasedOnTripStatus(notification.nextTripStatus.status);
-
   return (
     <Card className="w-full">
       <Flex justify="space-between" className="mb-7">
@@ -42,7 +40,10 @@ export default function Notification({ notification }: NotificationProps) {
             notification.trip.city
           }, ${notification.trip.country.name}`}
         </div>
-        {action && <Button>{action}</Button>}
+        <ActionButton
+          status={notification.nextTripStatus.status}
+          tripId={notification.trip.id}
+        />
       </Flex>
     </Card>
   );
