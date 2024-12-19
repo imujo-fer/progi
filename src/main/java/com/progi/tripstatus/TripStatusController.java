@@ -20,7 +20,7 @@ public class TripStatusController {
 
     @GetMapping("/notifications")
     public ResponseEntity<List<NotificationDTO>> getNotifications(){
-        return ResponseEntity.ok(tripStatusService.getNotifications());
+        return ResponseEntity.ok(tripStatusService.getNotificationsByUser());
     }
 
 }

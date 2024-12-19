@@ -3,8 +3,11 @@ package com.progi.tripstatus;
 import static com.progi.Enum.Status.PENDING_DEPARTMENT_APPROVAL;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -81,5 +84,34 @@ public class TripStatusService {
     }
     
     return notifications;
+    }
+
+    public List<NotificationDTO> getNotificationsByUser() {
+        User user = userSessionService.getCurrentAuthenticatedUser();
+        List<TripStatus> tripStatuses = tripStatusRepository.findAllByUser(user.getId());
+
+        Map<Integer, List<TripStatus>> statusesByTrip = tripStatuses.stream()
+            .collect(Collectors.groupingBy(ts -> ts.getTrip().getId()));
+
+        List<NotificationDTO> notifications = new ArrayList<>();
+        for (Map.Entry<Integer, List<TripStatus>> entry : statusesByTrip.entrySet()) {
+            List<TripStatus> statuses = entry.getValue();
+
+            statuses.sort(Comparator.comparing(TripStatus::getCreatedAt));
+
+            for (int i = 1; i < statuses.size(); i++) {
+                TripStatus prevStatus = statuses.get(i - 1);
+                TripStatus currStatus = statuses.get(i);
+
+                NotificationDTO notification = new NotificationDTO();
+                notification.setTrip(new TripNotificationDTO(currStatus.getTrip()));
+                notification.setPreviousTripStatusStatus(prevStatus.getStatus());
+                notification.setNextTripStatus(currStatus);
+
+                notifications.add(notification);
+            }
+        }
+
+        return notifications;
     }
 }
