@@ -43,7 +43,7 @@ export default function ActionButton({ status, tripId }: ActionButtonProps) {
     <>
       {statusItem ? (
         <Link to={statusItem.link}>
-          <Button>{statusItem.action}</Button>
+          <Button className="w-48">{statusItem.action}</Button>
         </Link>
       ) : (
         <></>
