@@ -6,16 +6,13 @@ export default function useGetTripsByStatus(
   status?: GetEmployeeTripsByStatusStatusEnum | undefined
 ) {
   return useQuery({
-    queryKey: ["trips", "status"],
+    queryKey: ["trips", "status", status],
     queryFn: async () => {
       const response = await tripApi.getEmployeeTripsByStatus({
         status: status,
       });
 
       return response.data;
-    },
-    retry(failureCount) {
-      return failureCount < 2;
     },
   });
 }
