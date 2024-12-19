@@ -2,8 +2,9 @@ spring:
   application:
     name: api
   datasource:
-    url: jdbc:postgresql://localhost:5432/progi
-    username: ivomujo
+    url: jdbc:postgresql://localhost:5432/PutniNalog
+    username: postgres
+    password: postgres
   jpa:
     hibernate:
       ddl-auto: update
@@ -26,8 +27,9 @@ spring:
             authorization-uri: https://accounts.google.com/o/oauth2/auth
             token-uri: https://oauth2.googleapis.com/token
             user-info-uri: https://openidconnect.googleapis.com/v1/userinfo
+  servlet:
+    multipart:
+      max-request-size: 10MB
+      max-file-size: 10MB
 server:
   port: 8082
-# http://localhost:8082/oauth2/authorization/google
-# AIzaSyBt-GRg51zN6Wgq51FKhgV0fm_rgpDeG7E
-# postgres://postgres:postgres@161.35.76.200:5432/progi
