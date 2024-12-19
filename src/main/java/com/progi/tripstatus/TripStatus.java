@@ -1,6 +1,5 @@
 package com.progi.tripstatus;
 
-
 import java.sql.Timestamp;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -40,7 +39,6 @@ public class TripStatus {
     @Column(nullable = false)
     @NotNull
     private Status status;
-
 
     @ManyToOne
     @JoinColumn(name = "trip_id")
