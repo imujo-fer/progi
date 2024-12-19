@@ -9,6 +9,7 @@ import com.progi.receipt.ReceiptService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.NoSuchElementException;
 
@@ -29,6 +30,7 @@ public class ExpenseReportItemService {
         return expenseReportItemRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Expense report item not found with id " + id));
     }
 
+
     public void deleteExpenseReportItem(Integer id) {
         ExpenseReportItem expenseReportItem = getExpenseReportItemById(id);
         Receipt receipt = expenseReportItem.getReceipt();
@@ -40,13 +42,16 @@ public class ExpenseReportItemService {
         }
     }
 
+
+
     public ExpenseReportItem createExpenseReportItem(ExpenseReportItemDTO expenseReportItemDTO) {
         ExpenseReportItem expenseReportItem = new ExpenseReportItem();
 
         ExpenseReport expenseReport = expenseReportService.getExpenseReportById(expenseReportItemDTO.getExpenseReportId());
         expenseReportItem.setExpenseReport(expenseReport);
 
-        Receipt receipt = receiptService.getReceiptById(expenseReportItemDTO.getReceiptId());
+        Receipt receipt = new Receipt();
+        receipt = receiptService.getReceiptById(expenseReportItemDTO.getReceiptId());
         expenseReportItem.setReceipt(receipt);
 
         ExpenseSubcategory expenseSubcategory = expenseSubcategoryService.getExpenseSubcategoryById(expenseReportItemDTO.getExpenseSubcategoryId());
@@ -66,7 +71,8 @@ public class ExpenseReportItemService {
         ExpenseReport expenseReport = expenseReportService.getExpenseReportById(expenseReportItemDTO.getExpenseReportId());
         expenseReportItem.setExpenseReport(expenseReport);
 
-        Receipt receipt = receiptService.getReceiptById(expenseReportItemDTO.getReceiptId());
+        Receipt receipt = new Receipt();
+        receipt = receiptService.getReceiptById(expenseReportItemDTO.getReceiptId());
         expenseReportItem.setReceipt(receipt);
 
         ExpenseSubcategory expenseSubcategory = expenseSubcategoryService.getExpenseSubcategoryById(expenseReportItemDTO.getExpenseSubcategoryId());
@@ -79,6 +85,5 @@ public class ExpenseReportItemService {
 
         return expenseReportItemRepository.save(expenseReportItem);
     }
-
 
 }

@@ -15,4 +15,14 @@ public class ExpenseCategoryService {
     public List<ExpenseCategory> getAllExpenseCategories() {
         return expenseCategoryRepository.findAll();
     }
+
+    public ExpenseCategory getExpenseCategoryById(int id) {
+        return expenseCategoryRepository.findById(id).orElseThrow();
+    }
+
+    public ExpenseCategory createExpenseCategory(String name) {
+        ExpenseCategory expenseCategory = new ExpenseCategory();
+        expenseCategory.setName(name);
+        return expenseCategoryRepository.save(expenseCategory);
+    }
 }

@@ -38,7 +38,6 @@ public class ExpenseReport {
 
     @OneToMany(mappedBy = "expenseReport")
     @JsonManagedReference
-    @NotNull
     private List<ExpenseReportItem> expenseReportItems;
 
     @PrePersist
