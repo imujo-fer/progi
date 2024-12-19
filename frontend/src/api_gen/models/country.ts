@@ -28,7 +28,7 @@ export interface Country {
      * @type {string}
      * @memberof Country
      */
-    'code': string;
+    'code'?: string;
     /**
      * 
      * @type {string}

@@ -4,19 +4,22 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.progi.Enum.Status;
-import com.progi.auth.UserSessionService;
-import com.progi.department.DepartmentService;
 import com.progi.tripstatus.TripStatus;
-import com.progi.user.User;
-import com.progi.user.UserDTO;
+import com.progi.tripstatus.TripStatusService;
 
 import jakarta.validation.Valid;
 
@@ -28,15 +31,7 @@ public class TripController {
     private TripService tripService;
 
     @Autowired
-    private DepartmentService departmentService;
-
-    @Autowired
-    private UserSessionService userSessionService;
-
-    @GetMapping
-    public List<Trip> getAllTrips() {
-        return tripService.getAllTrips();
-    }
+    private TripStatusService tripStatusService;
 
     @GetMapping("/{id}")
     public ResponseEntity<TripWithCountryDTO> getTripById(@PathVariable Integer id) {
@@ -47,6 +42,12 @@ public class TripController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
     }
+
+    @GetMapping("tmp")
+    public ResponseEntity<List<TripResponseDTO>> tmpGetAllTrips() {
+        return ResponseEntity.ok(tripService.getAllTrips());
+    }
+
 
     @PostMapping
     public ResponseEntity<Trip> createTrip(@RequestBody TripDTO trip) {
@@ -68,8 +69,9 @@ public class TripController {
 
     @GetMapping("{id}/status")
     public ResponseEntity<TripStatus> getTripStatus(@PathVariable Integer id) {
-        return ResponseEntity.ok(tripService.getCurrentTripStatus(id));
+        return ResponseEntity.ok(tripStatusService.getCurrentTripStatus(id));
     }
+
 
     @GetMapping("/employee")
     public ResponseEntity<Page<TripResponseDTO>> getEmployeeTripsByStatus(
@@ -77,13 +79,43 @@ public class TripController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
 
-        PageRequest pageRequest = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
-        Page<Trip> tripsPage = tripService.getTripsByUserAndStatus( status, pageRequest);
+        return ResponseEntity.ok(tripService.getTripsByUserAndStatus( status, page, size));
+    }
 
-        // Mapiranje Trip entiteta na TripResponseDTO
-        Page<TripResponseDTO> tripResponsePage = tripsPage.map(TripResponseDTO::new);
+    @GetMapping("/department-head")
+    public ResponseEntity<Page<TripResponseDTO>> getDepartmentApprovalTrips(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        
 
-        return ResponseEntity.ok(tripResponsePage);
+        return ResponseEntity.ok(tripService.getDepartmentApprovalTrip(page, size));
+    }
+
+    @GetMapping("/accountant-expense")
+    public ResponseEntity<Page<TripResponseDTO>> getExpenseApprovalTrips(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        
+
+        return ResponseEntity.ok(tripService.getExpenseApprovalTrip(page, size));
+    }
+
+    @GetMapping("/accountant-payment")
+    public ResponseEntity<Page<TripResponseDTO>> getPaymentApprovalTrips(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        
+
+        return ResponseEntity.ok(tripService.getPaymentApprovalTrip(page, size));
+    }
+
+    @GetMapping("/director")
+    public ResponseEntity<Page<TripResponseDTO>> getDirectorApprovalTrips(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        
+
+        return ResponseEntity.ok(tripService.getDirectorApprovalTrip(page, size));
     }
 
 

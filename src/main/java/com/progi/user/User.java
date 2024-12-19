@@ -1,7 +1,6 @@
 package com.progi.user;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -10,6 +9,7 @@ import com.progi.department.Department;
 import com.progi.role.Role;
 import com.progi.trip.Trip;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,14 +24,18 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "users")
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Schema(requiredProperties = {"id"})
 public class User {
 
     @Id
@@ -54,17 +58,9 @@ public class User {
     @NotNull
     private String iban;
 
-    @Column(nullable = false)
-    @NotNull
-    private String passwordHash;
-
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     @NotNull
     private String registrationHash;
-
-    @Column(nullable = false)
-    @NotNull
-    private boolean hasRegistered;
 
     @Column
     private String provider;
@@ -91,11 +87,39 @@ public class User {
     @JsonManagedReference
     private List<Trip> trips;
 
-    public boolean isUserDepartmentHead () {
-        List<User> departmentHeads =  department.getUsers().stream()
-                .filter(user -> user.getRoles().stream().anyMatch(role -> role.getName().equals(RoleType.DEPARTMENT_HEAD)))
-                .toList();
 
-        return departmentHeads.contains(this);
+    public boolean hasRegistered() {
+        return provider != null
+            && !provider.isBlank()
+            && providerId != null
+            && !providerId.isBlank();
     }
+
+    public boolean isUserDepartmentHead() {
+        this.roles.stream().forEach(System.out::println);
+        return this.roles.stream().anyMatch(role -> role.getRoleType().equals(RoleType.DEPARTMENT_HEAD));
+    }
+
+    public boolean isUserDepartmentHead(Department targetDepartment) {
+
+        if (targetDepartment == null) return false;
+
+        boolean isUserInDepartment = this.department.getId() == targetDepartment.getId();
+        boolean isUserDepartmentHead = this.isUserDepartmentHead(); 
+
+        return isUserInDepartment && isUserDepartmentHead;
+    }
+
+    public boolean isUserAdmin() {
+        return this.roles.stream().anyMatch(role -> role.getRoleType().equals("ADMIN"));
+    }
+
+    public boolean isUserAccountant(){
+        return this.roles.stream().anyMatch(role -> role.getRoleType().equals(RoleType.ACCOUNTANT));
+    }
+
+    public boolean isUserDirector(){
+        return this.roles.stream().anyMatch(role -> role.getRoleType().equals(RoleType.DIRECTOR));
+    }
+    
 }

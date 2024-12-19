@@ -1,8 +1,4 @@
 HELP.md
-target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
 
 ### STS ###
 .apt_generated
@@ -37,7 +33,6 @@ build/
 *.iml
 *.ipr
 *.iws
-*.jar
 *.sw?
 *~
 .#*
@@ -69,7 +64,6 @@ lib/
 manifest.yml
 out
 overridedb.*
-target
 .flattened-pom.xml
 secrets.yml
 .gradletasknamecache
@@ -77,6 +71,5 @@ secrets.yml
 .git-hooks/
 node_modules
 
-src/main/resources/application-local.yaml
-src/main/resources/static
+src/main/resources/application-*.yaml
 .env

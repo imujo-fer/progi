@@ -41,7 +41,9 @@ export default defineConfig(({ mode }) => {
       assetsInlineLimit: 0,
     },
     resolve: {
-      alias: {},
+      alias: {
+        "@": "/frontend/src",
+      },
     },
     server: {
       port: 5171,

@@ -18,7 +18,7 @@
 import type { CountryDTO } from './country-dto';
 // May contain unused imports in some cases
 // @ts-ignore
-import type { UserDTO } from './user-dto';
+import type { UserDetailsDTO } from './user-details-dto';
 
 /**
  * 
@@ -34,6 +34,12 @@ export interface TripWithCountryDTO {
     'id': number;
     /**
      * 
+     * @type {string}
+     * @memberof TripWithCountryDTO
+     */
+    'requestNumber': string;
+    /**
+     * 
      * @type {number}
      * @memberof TripWithCountryDTO
      */
@@ -44,6 +50,12 @@ export interface TripWithCountryDTO {
      * @memberof TripWithCountryDTO
      */
     'coordinatesLon': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof TripWithCountryDTO
+     */
+    'address': string;
     /**
      * 
      * @type {string}
@@ -76,9 +88,9 @@ export interface TripWithCountryDTO {
     'reason': string;
     /**
      * 
-     * @type {UserDTO}
+     * @type {UserDetailsDTO}
      * @memberof TripWithCountryDTO
      */
-    'user': UserDTO;
+    'user': UserDetailsDTO;
 }
 

@@ -6,7 +6,8 @@ import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,7 @@ import com.progi.Enum.Status;
 import com.progi.auth.UserSessionService;
 import com.progi.country.Country;
 import com.progi.country.CountryService;
-import com.progi.tripstatus.TripStatus;
+import com.progi.department.Department;
 import com.progi.tripstatus.TripStatusService;
 import com.progi.user.User;
 
@@ -37,8 +38,8 @@ public class TripService {
     @Autowired
     private UserSessionService userSessionService;
 
-    public List<Trip> getAllTrips() {
-        return tripRepository.findAll();
+    public List<TripResponseDTO> getAllTrips() {
+        return tripRepository.findAll().stream().map(TripResponseDTO::new).toList();
     }
 
     public Trip getTripById(Integer id) {
@@ -48,7 +49,6 @@ public class TripService {
     }
 
     public Trip createTrip(TripDTO tripDetails) {
-        System.out.println("createTrip");
         User user = userSessionService.getCurrentAuthenticatedUser();
         Trip trip = new Trip();
 
@@ -63,7 +63,13 @@ public class TripService {
         trip.setDatetimeTo(tripDetails.getDatetimeTo());
         trip.setReason(tripDetails.getReason());
         trip.setUser(user);
-        return tripRepository.save(trip);    }
+        trip.setAddress(tripDetails.getAddress());
+        trip =  tripRepository.save(trip);
+
+        tripStatusService.createFirstTripStatus(trip.getId());
+
+        return trip;
+    }
 
     public Trip updateTrip(Integer id, TripDTO tripDetails) {
         Trip trip = getTripById(id);
@@ -75,9 +81,15 @@ public class TripService {
         if (country != null) {
             trip.setCountry(country);
         }
+
+        Country newCountry = new Country();
+        newCountry.setCode(tripDetails.getCountryCode());
+        trip.setCountry(newCountry);
+
         trip.setDatetimeFrom(tripDetails.getDatetimeFrom());
         trip.setDatetimeTo(tripDetails.getDatetimeTo());
         trip.setReason(tripDetails.getReason());
+        trip.setAddress(tripDetails.getAddress());
 
         return tripRepository.save(trip);
     }
@@ -90,14 +102,65 @@ public class TripService {
         tripRepository.deleteById(id);
     }
 
-    public TripStatus getCurrentTripStatus(Integer id) {
-        return tripStatusService.getCurrentTripStatus(id);
+
+    public Page<TripResponseDTO> getTripsByUserAndStatus( Status status, int page, int size) {
+        User user = userSessionService.getCurrentAuthenticatedUser();
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
+
+        Page<Trip> trips =  tripRepository.findByUserIdAndStatus(user.getId(), status, pageRequest);
+
+        return trips.map(TripResponseDTO::new);
     }
 
-    public Page<Trip> getTripsByUserAndStatus( Status status, Pageable pageable) {
+    public Page<TripResponseDTO> getDepartmentApprovalTrip(int page, int size) {
         User user = userSessionService.getCurrentAuthenticatedUser();
 
-        return tripRepository.findByUserIdAndStatus(user.getId(), status, pageable);
+        if (!user.isUserDepartmentHead()) throw new IllegalArgumentException("User is not department head");
+
+        Department department = user.getDepartment();
+
+        PageRequest pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
+
+        Page<Trip> trips = tripRepository.findDepartmentHeadReviewTrips(department.getId(), pageable);
+
+        return trips.map(TripResponseDTO::new);
+    }
+
+
+    public Page<TripResponseDTO> getExpenseApprovalTrip(int page, int size) {
+        User user = userSessionService.getCurrentAuthenticatedUser();
+
+        if (!user.isUserAccountant()) throw new IllegalArgumentException("User is not accountant");
+
+        PageRequest pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
+
+        Page<Trip> trips = tripRepository.findExpenseReviewTrips(pageable);
+
+        return trips.map(TripResponseDTO::new);
+    }
+
+    public Page<TripResponseDTO> getPaymentApprovalTrip(int page, int size) {
+        User user = userSessionService.getCurrentAuthenticatedUser();
+
+        if (!user.isUserAccountant()) throw new IllegalArgumentException("User is not accountant");
+
+        PageRequest pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
+
+        Page<Trip> trips = tripRepository.findPaymentReviewTrips(pageable);
+
+        return trips.map(TripResponseDTO::new);
+    }
+
+    public Page<TripResponseDTO> getDirectorApprovalTrip(int page, int size) {
+        User user = userSessionService.getCurrentAuthenticatedUser();
+
+        if (!user.isUserDirector()) throw new IllegalArgumentException("User is not director");
+
+        PageRequest pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
+
+        Page<Trip> trips = tripRepository.findDirectorReviewTrips(pageable);
+
+        return trips.map(TripResponseDTO::new);
     }
 
     public List<Trip> getTripByUserId(Integer userId) {
@@ -126,4 +189,5 @@ public class TripService {
 
         return isUserTripOwner || isUserDepartmentHead;
     }
+
 }

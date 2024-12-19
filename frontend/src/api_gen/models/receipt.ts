@@ -25,7 +25,7 @@ export interface Receipt {
      * @type {number}
      * @memberof Receipt
      */
-    'id': number;
+    'id'?: number;
     /**
      * 
      * @type {string}

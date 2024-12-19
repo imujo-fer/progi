@@ -28,7 +28,7 @@ export interface TripStatus {
      * @type {number}
      * @memberof TripStatus
      */
-    'id': number;
+    'id'?: number;
     /**
      * 
      * @type {string}

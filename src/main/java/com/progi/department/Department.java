@@ -2,6 +2,7 @@ package com.progi.department;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.progi.user.User;
 
@@ -36,6 +37,7 @@ public class Department {
 
     @OneToMany(mappedBy = "department")
     @JsonManagedReference
+    @JsonIgnore
     private List<User> users;
 
 }

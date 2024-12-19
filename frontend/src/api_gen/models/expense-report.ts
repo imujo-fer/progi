@@ -31,7 +31,7 @@ export interface ExpenseReport {
      * @type {number}
      * @memberof ExpenseReport
      */
-    'id': number;
+    'id'?: number;
     /**
      * 
      * @type {Trip}

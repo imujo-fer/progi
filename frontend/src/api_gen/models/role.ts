@@ -22,25 +22,19 @@
 export interface Role {
     /**
      * 
-     * @type {number}
-     * @memberof Role
-     */
-    'id': number;
-    /**
-     * 
      * @type {string}
      * @memberof Role
      */
-    'name': RoleNameEnum;
+    'roleType': RoleRoleTypeEnum;
 }
 
-export const RoleNameEnum = {
+export const RoleRoleTypeEnum = {
     Employee: 'EMPLOYEE',
     Accountant: 'ACCOUNTANT',
     DepartmentHead: 'DEPARTMENT_HEAD',
     Director: 'DIRECTOR'
 } as const;
 
-export type RoleNameEnum = typeof RoleNameEnum[keyof typeof RoleNameEnum];
+export type RoleRoleTypeEnum = typeof RoleRoleTypeEnum[keyof typeof RoleRoleTypeEnum];
 
 

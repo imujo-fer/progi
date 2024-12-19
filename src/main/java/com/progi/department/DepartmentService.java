@@ -1,16 +1,16 @@
 package com.progi.department;
 
-import com.progi.Enum.RoleType;
-import com.progi.user.User;
-import com.progi.user.UserRepository;
-import jakarta.transaction.Transactional;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import com.progi.Enum.RoleType;
+import com.progi.user.User;
+
+import jakarta.transaction.Transactional;
 
 @Service
 @Transactional
@@ -18,9 +18,6 @@ public class DepartmentService {
 
     @Autowired
     private DepartmentRepository departmentRepository;
-
-    @Autowired
-    private UserRepository userRepository;
 
     public Department getDepartmentById(Integer id) {
         return departmentRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Department not found with id " + id));
@@ -30,7 +27,7 @@ public class DepartmentService {
         Department department = getDepartmentById(departmentId);
 
         return department.getUsers().stream()
-                .filter(user -> user.getRoles().stream().anyMatch(role -> role.getName().equals(RoleType.DEPARTMENT_HEAD)))
+                .filter(user -> user.getRoles().stream().anyMatch(role -> role.getRoleType().equals(RoleType.DEPARTMENT_HEAD)))
                 .collect(Collectors.toList());
     }
 }

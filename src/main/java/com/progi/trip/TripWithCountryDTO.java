@@ -1,7 +1,8 @@
 package com.progi.trip;
 
 import com.progi.country.CountryDTO;
-import com.progi.user.UserDTO;
+import com.progi.user.dto.UserDetailsDTO;
+
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -12,9 +13,13 @@ public class TripWithCountryDTO {
     @NotNull
     Integer id;
     @NotNull
+    private String requestNumber;
+    @NotNull
     private Double coordinatesLat;
     @NotNull
     private Double coordinatesLon;
+    @NotNull
+    private String address;
     @NotNull
     private String city;
     @NotNull
@@ -26,7 +31,7 @@ public class TripWithCountryDTO {
     @NotNull
     private String reason;
     @NotNull
-    private UserDTO user;
+    private UserDetailsDTO user;
 
     public TripWithCountryDTO(Trip trip) {
         this.id = trip.getId();
@@ -37,6 +42,8 @@ public class TripWithCountryDTO {
         this.datetimeFrom = trip.getDatetimeFrom();
         this.datetimeTo = trip.getDatetimeTo();
         this.reason = trip.getReason();
-        this.user = new UserDTO(trip.getUser());
+        this.user = new UserDetailsDTO(trip.getUser());
+        this.requestNumber = trip.getRequestNumber();
+        this.address = trip.getAddress();
     }
 }
