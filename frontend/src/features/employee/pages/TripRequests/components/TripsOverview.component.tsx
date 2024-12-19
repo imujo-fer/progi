@@ -1,10 +1,11 @@
 import { Link } from "@tanstack/react-router";
 import { Button, Flex, Select, Table } from "antd";
 import Title from "antd/es/typography/Title";
-import { tripRequestsCreateRoute } from "../routes/employee.routes";
+import { tripRequestsCreateRoute } from "../../../routes/employee.routes";
 import useGetTripsByStatus from "@/hooks/useGetTripsByStatus";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { GetEmployeeTripsByStatusStatusEnum } from "@/api_gen/apis/trip-controller-api";
+import { format } from "date-fns";
 
 export default function TripsOverview() {
   const [status, setStatus] = useState<
@@ -49,12 +50,42 @@ export default function TripsOverview() {
     },
     { value: GetEmployeeTripsByStatusStatusEnum.Paid, label: "Paid" },
   ];
+  const columns = [
+    {
+      title: "Request number",
+      dataIndex: "requestNumber",
+      key: "requestNumber",
+    },
+    {
+      title: "Date range",
+      dataIndex: "dateRange",
+      key: "dateRange",
+    },
+    {
+      title: "Location",
+      dataIndex: "location",
+      key: "location",
+    },
+    {
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+    },
+  ];
 
   const { data } = useGetTripsByStatus(status);
 
-  useEffect(() => {
-    console.log(data);
-  }, [status, data]);
+  const extractedData = data?.content?.map((trip) => {
+    return {
+      requestNumber: trip.requestNumber,
+      dateRange: `${format(new Date(trip.dateFrom), "dd.MM.yyyy")} - ${format(
+        new Date(trip.dateTo),
+        "dd.MM.yyyy"
+      )}`,
+      location: `${trip.address}, ${trip.city}, ${trip.country?.name || ""}`,
+      status: trip.status,
+    };
+  });
 
   return (
     <>
@@ -63,7 +94,7 @@ export default function TripsOverview() {
         <div className="flex flex-col">
           <div>Status</div>
           <Select
-            onChange={(value: GetEmployeeTripsByStatusStatusEnum) => {
+            onChange={(value) => {
               setStatus(value);
             }}
             options={options}
@@ -74,7 +105,7 @@ export default function TripsOverview() {
           <Button>Create trip request</Button>
         </Link>
       </Flex>
-      <Table></Table>
+      <Table dataSource={extractedData} columns={columns}></Table>
     </>
   );
 }
