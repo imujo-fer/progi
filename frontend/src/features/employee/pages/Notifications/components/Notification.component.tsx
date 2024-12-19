@@ -1,5 +1,6 @@
 import { NotificationDTO } from "@/api_gen";
 import actionBasedOnTripStatus from "@/utils/actionBasedOnTripStatus";
+import formatStatus from "@/utils/formatStatus";
 import { Button, Card, Flex } from "antd";
 import { format } from "date-fns";
 
@@ -16,12 +17,14 @@ export default function Notification({ notification }: NotificationProps) {
         <div className="max-w-3/4">
           {`Status changed from `}
           <span className="font-bold">
-            {notification.previousTripStatusStatus}
+            {formatStatus(notification.previousTripStatusStatus)}
           </span>
           {` to `}
           <span className="font-bold">
-            {notification.nextTripStatus.status}
+            {formatStatus(notification.nextTripStatus.status)}
           </span>
+          {` on request #`}
+          {String(notification.trip.requestNumber).padStart(3, "0")}
         </div>
         <div>
           {format(
