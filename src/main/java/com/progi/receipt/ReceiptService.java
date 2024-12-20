@@ -1,7 +1,5 @@
 package com.progi.receipt;
 
-import com.progi.expensereportitem.ExpenseReportItem;
-import com.progi.expensereportitem.ExpenseReportItemService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +11,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.function.BiFunction;
 import java.util.function.Function;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
@@ -22,13 +19,14 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 @Transactional
 public class ReceiptService {
 
-    public static final String RECEIPT_DIRECTORY = System.getProperty("user.home") + "/Downloads/receipts";
+    public static final String RECEIPT_DIRECTORY = Paths.get(System.getProperty("user.dir"), "receipts").toString();
 
     @Autowired
     private ReceiptRepository receiptRepository;
 
     public Receipt getReceiptById(Integer id) {
-        return receiptRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Receipt not found with id " + id));
+        return receiptRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Receipt not found with id " + id));
     }
 
     public void deleteReceipt(Integer id) {
@@ -55,20 +53,23 @@ public class ReceiptService {
             .orElse(".pdf");
 
     private final Function<MultipartFile, String> receiptFunction = (file) -> {
-        String filename =  System.currentTimeMillis() + fileExtension.apply(file.getOriginalFilename());
+        String filename = System.currentTimeMillis() + fileExtension.apply(file.getOriginalFilename());
         try {
             Path fileStorageLocation = Paths.get(RECEIPT_DIRECTORY).toAbsolutePath().normalize();
 
+            // Ensure the directory exists
             if (!Files.exists(fileStorageLocation))
                 Files.createDirectories(fileStorageLocation);
 
+            // Save the file in the 'receipts' folder in the project root
             Files.copy(file.getInputStream(), fileStorageLocation.resolve(filename), REPLACE_EXISTING);
 
+            // Return the URL for accessing the receipt
             return ServletUriComponentsBuilder.fromCurrentContextPath()
                     .path("/receipt/" + filename)
                     .toUriString();
         } catch (Exception e) {
-            throw new RuntimeException("Unable to save receipt");
+            throw new RuntimeException("Unable to save receipt", e);
         }
     };
 }
