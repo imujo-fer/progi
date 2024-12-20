@@ -105,7 +105,12 @@ public class TripService {
         User user = userSessionService.getCurrentAuthenticatedUser();
         PageRequest pageRequest = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
 
-        Page<Trip> trips = tripRepository.findByUserIdAndStatus(user.getId(), status, pageRequest);
+        Page<Trip> trips;
+        if (status == null) {
+            trips = tripRepository.findByUserId(user.getId(), pageRequest);
+        } else {
+            trips = tripRepository.findByUserIdAndStatus(user.getId(), status, pageRequest);
+        }
 
         return trips.map(TripResponseDTO::new);
     }
@@ -164,8 +169,9 @@ public class TripService {
         return trips.map(TripResponseDTO::new);
     }
 
-    public List<Trip> getTripByUserId(Integer userId) {
-        return tripRepository.findByUserId(userId);
+    public Page<Trip> getTripByUserId(Integer userId, int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
+        return tripRepository.findByUserId(userId, pageRequest);
     }
 
     public TripWithCountryDTO getTripByIdIfAccessible(Integer tripId) {

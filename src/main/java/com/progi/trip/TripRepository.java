@@ -39,5 +39,5 @@ public interface TripRepository extends JpaRepository<Trip, Integer> {
     Page<Trip> findDirectorReviewTrips(Pageable pageable);
 
     @Query("SELECT t FROM Trip t WHERE t.user.id = :userId")
-    List<Trip> findByUserId(@Param("userId") Integer userId);
+    Page<Trip> findByUserId(@Param("userId") Integer userId, Pageable pageable);
 }
