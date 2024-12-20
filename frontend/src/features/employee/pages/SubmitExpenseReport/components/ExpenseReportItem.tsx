@@ -35,7 +35,7 @@ export default function ExpenseReportItem({ item }: ExpenseReportItemProps) {
     />,
     <Link>View bill</Link>,
   ];
-  console.log(item);
+
   return (
     <>
       <Card actions={actions} className="my-3 w-full">
