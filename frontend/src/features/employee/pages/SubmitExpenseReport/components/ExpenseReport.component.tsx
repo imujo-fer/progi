@@ -5,9 +5,13 @@ import { Button, Flex, List } from "antd";
 import CreateEditExpenseReportItemModal from "./CreateEditExpenseReportItemModal";
 import { useState } from "react";
 import { ExpenseReportItemWithSubcategoryDTO } from "@/api_gen";
+import { useMatch } from "@tanstack/react-router";
 
 export default function ExpenseReport() {
-  const { data } = useGetExpenseReportItems();
+  const match = useMatch({ from: "/expense-report/$id" });
+  const id = match?.params.id;
+
+  const { data } = useGetExpenseReportItems(Number(id));
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [currentItem, setCurrentItem] = useState<
