@@ -11,22 +11,22 @@ export default function ActionButton({ status, tripId }: ActionButtonProps) {
   const statusList = [
     {
       status: "DepartmentApprovalRejected",
-      action: "edit trip",
+      action: "Edit Trip",
       link: `/trip-requests/${tripId}/edit`,
     },
     {
       status: "TravelApproved",
-      action: "create expense report",
+      action: "Create Expense Report",
       link: "../expense-review-requests",
     },
     {
       status: "ExpenseApprovalRejected",
-      action: "edit expense report",
+      action: "Edit Expense Report",
       link: "../expense-review-requests",
     },
     {
       status: "DirectorApprovalRejected",
-      action: "edit expense report",
+      action: "Edit Expense Report",
       link: "../expense-review-requests",
     },
   ];

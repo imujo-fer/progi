@@ -43,8 +43,8 @@ public class TripService {
     }
 
     public Trip getTripById(Integer id) {
-        return tripRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Trip not found with id " + id));
-
+        return tripRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Trip not found with id " + id));
 
     }
 
@@ -64,7 +64,7 @@ public class TripService {
         trip.setReason(tripDetails.getReason());
         trip.setUser(user);
         trip.setAddress(tripDetails.getAddress());
-        trip =  tripRepository.save(trip);
+        trip = tripRepository.save(trip);
 
         tripStatusService.createFirstTripStatus(trip.getId());
 
@@ -94,7 +94,6 @@ public class TripService {
         return tripRepository.save(trip);
     }
 
-
     public void deleteTrip(Integer id) {
         if (!tripRepository.existsById(id)) {
             throw new NoSuchElementException("Trip not found with id " + id);
@@ -102,12 +101,16 @@ public class TripService {
         tripRepository.deleteById(id);
     }
 
-
-    public Page<TripResponseDTO> getTripsByUserAndStatus( Status status, int page, int size) {
+    public Page<TripResponseDTO> getTripsByUserAndStatus(Status status, int page, int size) {
         User user = userSessionService.getCurrentAuthenticatedUser();
         PageRequest pageRequest = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
 
-        Page<Trip> trips =  tripRepository.findByUserIdAndStatus(user.getId(), status, pageRequest);
+        Page<Trip> trips;
+        if (status == null) {
+            trips = tripRepository.findByUserId(user.getId(), pageRequest);
+        } else {
+            trips = tripRepository.findByUserIdAndStatus(user.getId(), status, pageRequest);
+        }
 
         return trips.map(TripResponseDTO::new);
     }
@@ -115,7 +118,8 @@ public class TripService {
     public Page<TripResponseDTO> getDepartmentApprovalTrip(int page, int size) {
         User user = userSessionService.getCurrentAuthenticatedUser();
 
-        if (!user.isUserDepartmentHead()) throw new IllegalArgumentException("User is not department head");
+        if (!user.isUserDepartmentHead())
+            throw new IllegalArgumentException("User is not department head");
 
         Department department = user.getDepartment();
 
@@ -126,11 +130,11 @@ public class TripService {
         return trips.map(TripResponseDTO::new);
     }
 
-
     public Page<TripResponseDTO> getExpenseApprovalTrip(int page, int size) {
         User user = userSessionService.getCurrentAuthenticatedUser();
 
-        if (!user.isUserAccountant()) throw new IllegalArgumentException("User is not accountant");
+        if (!user.isUserAccountant())
+            throw new IllegalArgumentException("User is not accountant");
 
         PageRequest pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
 
@@ -142,7 +146,8 @@ public class TripService {
     public Page<TripResponseDTO> getPaymentApprovalTrip(int page, int size) {
         User user = userSessionService.getCurrentAuthenticatedUser();
 
-        if (!user.isUserAccountant()) throw new IllegalArgumentException("User is not accountant");
+        if (!user.isUserAccountant())
+            throw new IllegalArgumentException("User is not accountant");
 
         PageRequest pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
 
@@ -154,7 +159,8 @@ public class TripService {
     public Page<TripResponseDTO> getDirectorApprovalTrip(int page, int size) {
         User user = userSessionService.getCurrentAuthenticatedUser();
 
-        if (!user.isUserDirector()) throw new IllegalArgumentException("User is not director");
+        if (!user.isUserDirector())
+            throw new IllegalArgumentException("User is not director");
 
         PageRequest pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
 
@@ -163,8 +169,9 @@ public class TripService {
         return trips.map(TripResponseDTO::new);
     }
 
-    public List<Trip> getTripByUserId(Integer userId) {
-        return tripRepository.findByUserId(userId);
+    public Page<Trip> getTripByUserId(Integer userId, int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
+        return tripRepository.findByUserId(userId, pageRequest);
     }
 
     public TripWithCountryDTO getTripByIdIfAccessible(Integer tripId) {
