@@ -118,7 +118,30 @@ export default function CreateEditExpenseReportItemModal({
           valuePropName="fileList"
           getValueFromEvent={(e) => e?.fileList}
         >
-          <Upload listType="picture-card">
+          <Upload
+            customRequest={(options) => {
+              const { file } = options;
+              const formData = new FormData();
+              formData.append("file", file);
+              fetch("http://localhost:8082/api/receipts", {
+                method: "POST",
+                body: formData,
+              })
+                .then(async (response) => {
+                  if (!response.ok) {
+                    throw new Error("Upload failed");
+                  }
+                  const data = await response.json();
+                  message.success("Upload successful!");
+                  console.log("Response:", data);
+                })
+                .catch((error) => {
+                  message.error("Upload failed!");
+                  console.error("Error:", error);
+                });
+            }}
+            listType="picture-card"
+          >
             <div>
               <PlusOutlined />
               <div>Upload</div>
