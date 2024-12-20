@@ -10,8 +10,5 @@ export default function usePutExpenseReportItem() {
       const response = await expenseReportItemApi.updateExpenseReportItem(item);
       return response.data;
     },
-    onSuccess: (data) => {
-      console.log("Mutation successful:", data);
-    },
   });
 }

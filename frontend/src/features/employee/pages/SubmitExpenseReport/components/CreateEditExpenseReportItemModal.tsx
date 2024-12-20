@@ -11,6 +11,7 @@ import {
 import Title from "antd/es/typography/Title";
 import usePutExpenseReportItem from "../hooks/usePutExpenseReportItem";
 import useGetExpenseReportCategories from "../hooks/useGetExpenseReportCategories";
+import { queryClient } from "@/providers/Providers";
 
 interface CreateEditExpenseReportItemModalProps {
   open: boolean;
@@ -46,8 +47,8 @@ export default function CreateEditExpenseReportItemModal({
     const request: ExpenseReportItemControllerApiCreateExpenseReportItemRequest =
       {
         expenseReportItemDTO: {
-          expenseReportId: 1,
-          receiptId: 8,
+          expenseReportId: 2,
+          receiptId: 9,
           expenseSubcategoryId: values.categoryId,
           description: values.description,
           currency: values.currency as ExpenseReportItemDTOCurrencyEnum,
@@ -64,6 +65,7 @@ export default function CreateEditExpenseReportItemModal({
         };
       updateMutate(updateRequest, {
         onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ["expense report items"] });
           message.success("Expense item updated successfully!");
           form.resetFields();
           setOpen(false);
