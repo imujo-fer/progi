@@ -1,0 +1,10 @@
+com\progi\ProgiApplication.class
+com\progi\GoogleMaps\GeoApiContextSingleton$GeoApiContextHolder.class
+com\progi\GoogleMaps\GeoApiContextShutdown.class
+com\progi\Enum\RoleType.class
+com\progi\Enum\Currency.class
+com\progi\Enum\Continent.class
+com\progi\Enum\Status.class
+com\progi\Statistics\StatisticsController.class
+com\progi\GoogleMaps\GeoApiContextSingleton.class
+com\progi\GoogleMaps\GoogleMapsController.class
