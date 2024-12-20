@@ -1,15 +1,12 @@
 import { expenseReportApi } from "@/apiClient";
 import { useQuery } from "@tanstack/react-query";
 
-export default function useGetExpenseReportItems() {
+export default function useGetExpenseReportItems(id: number) {
   return useQuery({
     queryKey: ["expense report items"],
     queryFn: async () => {
-      const response = await expenseReportApi.getExpenseReportItems({ id: 1 });
+      const response = await expenseReportApi.getExpenseReportItems({ id: id });
       return response.data;
-    },
-    retry: (failureCount) => {
-      return failureCount < 1;
     },
   });
 }

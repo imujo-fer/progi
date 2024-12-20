@@ -49,6 +49,6 @@ export const notificationsRoute = createRoute({
 
 export const expenseReportRoute = createRoute({
   getParentRoute: () => layoutRoute,
-  path: "/expense-report",
+  path: "/expense-report/$id",
   component: SubmitExpenseReport,
 });
