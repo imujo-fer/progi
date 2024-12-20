@@ -1,9 +1,11 @@
 import { ExpenseReportItemWithSubcategoryDTO } from "@/api_gen";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Link } from "@tanstack/react-router";
-import { Card, Flex } from "antd";
+import { Card, Flex, message } from "antd";
 import CreateEditExpenseReportItemModal from "./CreateEditExpenseReportItemModal";
 import { useState } from "react";
+import useDeleteExpenseReportItem from "../hooks/useDeleteExpenseReportItem";
+import { queryClient } from "@/providers/Providers";
 
 interface ExpenseReportItemProps {
   item: ExpenseReportItemWithSubcategoryDTO;
@@ -11,9 +13,26 @@ interface ExpenseReportItemProps {
 
 export default function ExpenseReportItem({ item }: ExpenseReportItemProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { mutate } = useDeleteExpenseReportItem();
+
   const actions = [
     <EditOutlined key="edit" onClick={() => setIsOpen(true)} />,
-    <DeleteOutlined key="delete" />,
+    <DeleteOutlined
+      key="delete"
+      onClick={() => {
+        mutate(item.id, {
+          onSuccess: () => {
+            queryClient.invalidateQueries({
+              queryKey: ["expense report items"],
+            });
+            message.success("Expense item deleted successfully!");
+          },
+          onError: () => {
+            message.error("Failed to delete expense item.");
+          },
+        });
+      }}
+    />,
     <Link>View bill</Link>,
   ];
   console.log(item);
