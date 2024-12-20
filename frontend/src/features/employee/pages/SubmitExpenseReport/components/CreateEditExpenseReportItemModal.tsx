@@ -8,9 +8,9 @@ import {
   ExpenseReportItemDTOCurrencyEnum,
   ExpenseReportItemWithSubcategoryDTO,
 } from "@/api_gen";
-import useGetExpenseReportCategories from "../hooks/useGetExpenseReportCategories";
 import Title from "antd/es/typography/Title";
 import usePutExpenseReportItem from "../hooks/usePutExpenseReportItem";
+import useGetExpenseReportCategories from "../hooks/useGetExpenseReportCategories";
 
 interface CreateEditExpenseReportItemModalProps {
   open: boolean;
@@ -37,7 +37,7 @@ export default function CreateEditExpenseReportItemModal({
     value: currency,
     label: currency,
   }));
-  const selectCategoryOptions = useGetExpenseReportCategories().data;
+  const { data: selectCategoryOptions = [] } = useGetExpenseReportCategories();
   const [form] = Form.useForm<FormValues>();
   const { mutate: createMutate } = usePostExpenseReportItem();
   const { mutate: updateMutate } = usePutExpenseReportItem();
