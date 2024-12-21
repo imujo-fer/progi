@@ -1,7 +1,7 @@
 package com.progi.department;
 
 
-import com.progi.user.User;
+
 import com.progi.user.dto.UserDetailsDTO;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @RestController
 @RequestMapping("/api/departments")
