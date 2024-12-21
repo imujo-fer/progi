@@ -8,7 +8,7 @@ interface ActionButtonProps {
 export default function ActionButton({ requestNumber }: ActionButtonProps) {
   const statusItem = {
     action: "Review Request",
-    link: `/trip-requests/${requestNumber}/edit`,
+    link: `${requestNumber}/review`,
   };
 
   return (
