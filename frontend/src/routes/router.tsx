@@ -15,6 +15,7 @@ import {
   expenseReviewRequestsRoute,
 } from "../features/accountant/routes/accountant.routes";
 import {
+  departmentApprovalRequestReviewRoute,
   departmentApprovalRequestsRoute,
   departmentStatisticsRoute,
 } from "../features/departmentHead/routes/departmentHead.routes";
@@ -66,7 +67,9 @@ export const routeTree = rootRoute.addChildren([
     ]),
     pastTripsRoute,
     notificationsRoute,
-    departmentApprovalRequestsRoute,
+    departmentApprovalRequestsRoute.addChildren([
+      departmentApprovalRequestReviewRoute,
+    ]),
     departmentStatisticsRoute,
     awaitingPaymentRoute,
     expenseReviewRequestsRoute,
