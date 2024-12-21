@@ -1,9 +1,10 @@
 package com.progi.expensereport;
 
-
 import java.util.List;
 
+import com.progi.expensereportitem.ExpenseReportItemInfoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +23,6 @@ public class ExpenseReportController {
     @Autowired
     private ExpenseReportService expenseReportService;
 
-
     @GetMapping("/{id}/items")
     public ResponseEntity<List<ExpenseReportItemWithSubcategoryDTO>> getExpenseReportItems(@PathVariable Integer id) {
         return ResponseEntity.ok(expenseReportService.getExpenseReportItems(id));
@@ -37,5 +37,10 @@ public class ExpenseReportController {
     @PostMapping
     public ResponseEntity<ExpenseReport> createExpenseReport(@RequestParam Integer tripId) {
         return ResponseEntity.ok(expenseReportService.createExpenseReport(tripId));
+    }
+
+    @GetMapping("/{id}/info")
+    public ResponseEntity<ExpenseReportInfoDTO> getExpenseReportInfo(@PathVariable Integer id) {
+        return ResponseEntity.ok(expenseReportService.getExpenseReportItemInfo(id));
     }
 }
