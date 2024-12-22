@@ -40,6 +40,11 @@ public class Department {
     @JsonIgnore
     private List<User> users;
 
+    public Department(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
 }
 
 

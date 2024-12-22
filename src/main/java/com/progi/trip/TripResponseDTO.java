@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 
 import com.progi.Enum.Status;
 import com.progi.country.CountryDTO;
+import com.progi.user.dto.UserDetailsDTO;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -28,6 +29,8 @@ public class TripResponseDTO {
     private Status status;
     @NotNull
     private Integer expenseReportId;
+    @NotNull
+    private UserDetailsDTO user;
 
     public TripResponseDTO(Trip trip) {
         this.id = trip.getId();
@@ -39,5 +42,6 @@ public class TripResponseDTO {
         this.status = trip.getTripStatuses().isEmpty() ? null : trip.getTripStatuses().get(trip.getTripStatuses().size() - 1).getStatus();
         this.expenseReportId = trip.getExpenseReport() != null ? trip.getExpenseReport().getId() : null;
         this.address = trip.getAddress();
+        this.user = new UserDetailsDTO(trip.getUser());
     }
 }

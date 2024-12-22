@@ -3,6 +3,7 @@ package com.progi.user.dto;
 import java.util.List;
 
 import com.progi.Enum.RoleType;
+import com.progi.department.Department;
 import com.progi.user.User;
 
 import jakarta.validation.constraints.NotNull;
@@ -29,6 +30,8 @@ public class UserDetailsDTO {
 
     private List<RoleType> roles;
 
+    private Department department;
+
     public UserDetailsDTO(User user) {
         this.id = user.getId();
         this.email = user.getEmail();
@@ -36,13 +39,15 @@ public class UserDetailsDTO {
         this.lastName = user.getLastName();
         this.iban = user.getIban();
         this.roles = user.getRoles().stream().map(role -> role.getRoleType()).toList();
+        this.department = user.getDepartment();
     }
 
-    public UserDetailsDTO(Integer id, String email, String firstName, String lastName, String iban) {
+    public UserDetailsDTO(Integer id, String email, String firstName, String lastName, String iban, Integer departmentId, String departmentName) {
         this.id = id;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.iban = iban;
+        this.department = new Department(departmentId, departmentName);
     }
 }
