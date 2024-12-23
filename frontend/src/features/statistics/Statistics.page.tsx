@@ -1,6 +1,7 @@
 import { Tabs, TabsProps } from "antd";
 import { directorStatisticsRoute } from "../director/routes/director.routes";
 import { Link } from "@tanstack/react-router";
+import CostStatistics from "./CostStatistics.component";
 
 export const StatisticsTabEnum = {
   COST_PER_MONTH: "cost-per-month",
@@ -26,6 +27,7 @@ export default function Statistics() {
           Cost per month
         </Link>
       ),
+      children: <CostStatistics />,
     },
     {
       key: StatisticsTabEnum.TRIPS_PER_MONTH,
