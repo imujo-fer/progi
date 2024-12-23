@@ -11,12 +11,19 @@ import { AnyRoute, Link, Navigate, useMatches } from "@tanstack/react-router";
 import { Menu } from "antd";
 import { ItemType } from "antd/es/menu/interface";
 import { UserDetailsDTORolesEnum } from "../../api_gen/models/user-details-dto";
+
 import {
   awaitingPaymentRoute,
   expenseReviewRequestsRoute,
 } from "../../features/accountant/routes/accountant.routes";
+
 import { departmentApprovalRequestsRoute } from "../../features/departmentHead/routes/departmentHead.routes";
-import { reviewTripsRoute } from "../../features/director/routes/director.routes";
+
+import {
+  reviewTripsRoute,
+  directorStatisticsRoute,
+} from "../../features/director/routes/director.routes";
+
 import {
   notificationsRoute,
   tripRequestsRoute,
