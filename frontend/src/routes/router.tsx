@@ -20,7 +20,7 @@ import {
 } from "../features/departmentHead/routes/departmentHead.routes";
 import {
   reviewTripsRoute,
-  statisticsRoute,
+  directorStatisticsRoute,
 } from "../features/director/routes/director.routes";
 import {
   _tripRequestsRoute,
@@ -71,7 +71,7 @@ export const routeTree = rootRoute.addChildren([
     awaitingPaymentRoute,
     expenseReviewRequestsRoute,
     reviewTripsRoute,
-    statisticsRoute,
+    directorStatisticsRoute,
   ]),
   exportRoute,
   loginRoute,

@@ -16,7 +16,7 @@ import {
 } from "../../features/accountant/routes/accountant.routes";
 import {
   reviewTripsRoute,
-  statisticsRoute,
+  directorStatisticsRoute,
 } from "../../features/director/routes/director.routes";
 import useUser from "@/providers/UserProvider";
 
@@ -69,7 +69,7 @@ export default function Sidebar() {
     });
     roles.push({
       key: "9",
-      label: <Link to={statisticsRoute.to}>Statistics</Link>,
+      label: <Link to={directorStatisticsRoute.to}>Statistics</Link>,
     });
   }
 

@@ -1,7 +1,10 @@
 import { createRoute } from "@tanstack/react-router";
 import { layoutRoute } from "../../../routes/router";
 import ReviewTrips from "../pages/ReviewTrips/ReviewTrips.page";
-import Statistics from "../pages/Statistics/Statistics.page";
+import Statistics, {
+  StatisticsTabEnum,
+} from "@/features/statistics/Statistics.page";
+import { z } from "zod";
 
 export const reviewTripsRoute = createRoute({
   getParentRoute: () => layoutRoute,
@@ -9,8 +12,16 @@ export const reviewTripsRoute = createRoute({
   component: ReviewTrips,
 });
 
-export const statisticsRoute = createRoute({
+const statisticsRouteSearchValidate = z.object({
+  tab: z
+    .nativeEnum(StatisticsTabEnum)
+    .default(StatisticsTabEnum.COST_PER_MONTH)
+    .optional(),
+});
+
+export const directorStatisticsRoute = createRoute({
   getParentRoute: () => layoutRoute,
   path: "/statistics",
   component: Statistics,
+  validateSearch: statisticsRouteSearchValidate,
 });
