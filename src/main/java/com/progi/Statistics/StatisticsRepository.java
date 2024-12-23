@@ -22,6 +22,7 @@ public interface StatisticsRepository extends JpaRepository<Trip, Long> {
     "JOIN t.tripStatuses ts " +
     "JOIN t.user o " +
     "WHERE ts.status = 'PAID' " +
+    "AND ts.id = (SELECT MAX(ts2.id) FROM t.tripStatuses ts2) " +
     "AND EXTRACT(YEAR FROM t.datetimeTo) = :year " +
     "AND (:departmentId IS NULL OR o.department.id = :departmentId) " +
     "GROUP BY EXTRACT(MONTH FROM t.datetimeTo)")
@@ -43,7 +44,7 @@ public interface StatisticsRepository extends JpaRepository<Trip, Long> {
     @Query("SELECT new com.progi.Statistics.dto.UserStatisticsDTO(" +
         "   new com.progi.user.dto.UserDetailsDTO(u.id, u.email, u.firstName, u.lastName, u.iban, dep.id, dep.name ), " +
         "   SUM(e.eurTotalCost), " +
-        "   COUNT(t) " +
+        "   COUNT(DISTINCT t.id) " +
         ") " +
         "FROM Trip t " +
         "JOIN t.user u " +
@@ -51,8 +52,8 @@ public interface StatisticsRepository extends JpaRepository<Trip, Long> {
         "JOIN t.tripStatuses ts " +
         "JOIN t.user o " +
         "JOIN t.expenseReport e " +
-        "LEFT JOIN u.roles r " + 
         "WHERE ts.status = 'PAID' " +
+        "AND ts.id = (SELECT MAX(ts2.id) FROM t.tripStatuses ts2) " +
         "AND (:departmentId IS NULL OR o.department.id = :departmentId) " +
         "AND (:dateFrom IS NULL OR :dateFrom = '' OR t.datetimeTo >= CAST(:dateFrom AS timestamp)) " +
         "AND (:dateTo IS NULL OR :dateTo = '' OR t.datetimeTo <= CAST(:dateTo AS timestamp)) " +
