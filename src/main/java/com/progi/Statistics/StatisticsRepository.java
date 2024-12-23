@@ -22,6 +22,7 @@ public interface StatisticsRepository extends JpaRepository<Trip, Long> {
     "JOIN t.tripStatuses ts " +
     "JOIN t.user o " +
     "WHERE ts.status = 'PAID' " +
+    "AND ts.id = (SELECT MAX(ts2.id) FROM t.tripStatuses ts2) " +
     "AND EXTRACT(YEAR FROM t.datetimeTo) = :year " +
     "AND (:departmentId IS NULL OR o.department.id = :departmentId) " +
     "GROUP BY EXTRACT(MONTH FROM t.datetimeTo)")
