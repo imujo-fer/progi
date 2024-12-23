@@ -19,10 +19,7 @@ import {
 
 import { departmentApprovalRequestsRoute } from "../../features/departmentHead/routes/departmentHead.routes";
 
-import {
-  reviewTripsRoute,
-  directorStatisticsRoute,
-} from "../../features/director/routes/director.routes";
+import { reviewTripsRoute } from "../../features/director/routes/director.routes";
 
 import {
   notificationsRoute,

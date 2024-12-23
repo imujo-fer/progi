@@ -1,7 +1,7 @@
-import { Tabs, TabsProps } from "antd";
-import { directorStatisticsRoute } from "../director/routes/director.routes";
 import { Link } from "@tanstack/react-router";
+import { Tabs, TabsProps } from "antd";
 import CostStatistics from "./CostStatistics.component";
+import { statisticsRoute } from "./statistics.routes";
 
 export const StatisticsTabEnum = {
   COST_PER_MONTH: "cost-per-month",
@@ -13,14 +13,14 @@ export type StatisticsTabEnum =
   (typeof StatisticsTabEnum)[keyof typeof StatisticsTabEnum];
 
 export default function Statistics() {
-  const { tab } = directorStatisticsRoute.useSearch();
+  const { tab } = statisticsRoute.useSearch();
 
   const tabItems: TabsProps["items"] = [
     {
       key: StatisticsTabEnum.COST_PER_MONTH,
       label: (
         <Link
-          from={directorStatisticsRoute.id}
+          from={statisticsRoute.id}
           replace
           search={{ tab: StatisticsTabEnum.COST_PER_MONTH }}
         >
@@ -33,7 +33,7 @@ export default function Statistics() {
       key: StatisticsTabEnum.TRIPS_PER_MONTH,
       label: (
         <Link
-          from={directorStatisticsRoute.id}
+          from={statisticsRoute.id}
           replace
           search={{ tab: StatisticsTabEnum.TRIPS_PER_MONTH }}
         >
@@ -45,7 +45,7 @@ export default function Statistics() {
       key: StatisticsTabEnum.PER_EMPLOYEE,
       label: (
         <Link
-          from={directorStatisticsRoute.id}
+          from={statisticsRoute.id}
           replace
           search={{ tab: StatisticsTabEnum.PER_EMPLOYEE }}
         >
