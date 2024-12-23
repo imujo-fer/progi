@@ -3,6 +3,7 @@ import { directorStatisticsRoute } from "../director/routes/director.routes";
 import { Link } from "@tanstack/react-router";
 import CostStatistics from "./CostStatistics.component";
 import TripStatistics from "./TripStatistics.component";
+import EmployeeStatistics from "./EmployeeStatistics.component";
 
 export const StatisticsTabEnum = {
   COST_PER_MONTH: "cost-per-month",
@@ -54,6 +55,7 @@ export default function Statistics() {
           Per employee
         </Link>
       ),
+      children: <EmployeeStatistics />,
     },
   ];
   return (
