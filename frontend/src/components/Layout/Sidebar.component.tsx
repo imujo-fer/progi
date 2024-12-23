@@ -1,14 +1,20 @@
-import { statisticsRoute } from "@/features/statistics/statistics.routes";
 import useUser from "@/providers/UserProvider";
 import { Link } from "@tanstack/react-router";
 import { Menu } from "antd";
 import { UserDetailsDTORolesEnum } from "../../api_gen/models/user-details-dto";
+
 import {
   awaitingPaymentRoute,
   expenseReviewRequestsRoute,
 } from "../../features/accountant/routes/accountant.routes";
+
 import { departmentApprovalRequestsRoute } from "../../features/departmentHead/routes/departmentHead.routes";
-import { reviewTripsRoute } from "../../features/director/routes/director.routes";
+
+import {
+  reviewTripsRoute,
+  directorStatisticsRoute,
+} from "../../features/director/routes/director.routes";
+
 import {
   notificationsRoute,
   pastTripsRoute,
@@ -65,7 +71,7 @@ export default function Sidebar() {
   ) {
     roles.push({
       key: "9",
-      label: <Link to={statisticsRoute.to}>Statistics</Link>,
+      label: <Link to={directorStatisticsRoute.to}>Statistics</Link>,
     });
   }
 

@@ -18,7 +18,10 @@ import {
   expenseReviewRequestsRoute,
 } from "../features/accountant/routes/accountant.routes";
 import { departmentApprovalRequestsRoute } from "../features/departmentHead/routes/departmentHead.routes";
-import { reviewTripsRoute } from "../features/director/routes/director.routes";
+import {
+  reviewTripsRoute,
+  directorStatisticsRoute,
+} from "../features/director/routes/director.routes";
 import {
   _tripRequestsRoute,
   expenseReportRoute,
@@ -28,7 +31,6 @@ import {
   tripRequestsEditRoute,
   tripRequestsRoute,
 } from "../features/employee/routes/employee.routes";
-import { statisticsRoute } from "@/features/statistics/statistics.routes";
 
 export const rootRoute = createRootRouteWithContext<RootRouteContext>()();
 
@@ -66,8 +68,8 @@ export const routeTree = rootRoute.addChildren([
     awaitingPaymentRoute,
     expenseReviewRequestsRoute,
     reviewTripsRoute,
-    statisticsRoute,
     expenseReportRoute,
+    directorStatisticsRoute,
   ]),
   exportRoute,
   loginRoute,
