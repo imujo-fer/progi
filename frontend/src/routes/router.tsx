@@ -68,7 +68,6 @@ export const routeTree = rootRoute.addChildren([
     reviewTripsRoute,
     expenseReportRoute,
     statisticsRoute,
-    expenseReportRoute,
   ]),
   exportRoute,
   loginRoute,
