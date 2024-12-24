@@ -1,32 +1,14 @@
-<<<<<<< HEAD
-=======
 import { statisticsRoute } from "@/features/statistics/statistics.routes";
->>>>>>> d1eac32 (merge director and deparmtment head statistics into one)
 import useUser from "@/providers/UserProvider";
 import { Link } from "@tanstack/react-router";
 import { Menu } from "antd";
 import { UserDetailsDTORolesEnum } from "../../api_gen/models/user-details-dto";
-<<<<<<< HEAD
-
-=======
->>>>>>> d1eac32 (merge director and deparmtment head statistics into one)
 import {
   awaitingPaymentRoute,
   expenseReviewRequestsRoute,
 } from "../../features/accountant/routes/accountant.routes";
-<<<<<<< HEAD
-
-import { departmentApprovalRequestsRoute } from "../../features/departmentHead/routes/departmentHead.routes";
-
-import {
-  reviewTripsRoute,
-  directorStatisticsRoute,
-} from "../../features/director/routes/director.routes";
-
-=======
 import { departmentApprovalRequestsRoute } from "../../features/departmentHead/routes/departmentHead.routes";
 import { reviewTripsRoute } from "../../features/director/routes/director.routes";
->>>>>>> d1eac32 (merge director and deparmtment head statistics into one)
 import {
   notificationsRoute,
   pastTripsRoute,

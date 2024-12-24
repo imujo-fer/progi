@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 com\progi\ProgiApplication.class
 com\progi\GoogleMaps\GeoApiContextSingleton$GeoApiContextHolder.class
 com\progi\GoogleMaps\GeoApiContextShutdown.class
@@ -10,4 +8,3 @@ com\progi\Enum\Status.class
 com\progi\Statistics\StatisticsController.class
 com\progi\GoogleMaps\GeoApiContextSingleton.class
 com\progi\GoogleMaps\GoogleMapsController.class
->>>>>>> 04c2af5 (- fix receipt upload)
