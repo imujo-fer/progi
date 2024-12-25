@@ -18,6 +18,8 @@ export default function ExpenseReport() {
     return <></>;
   }
 
+  console.log(data);
+
   return (
     <div className="w-1/2 min-w-96 m-auto">
       <Flex justify="space-between" align="center">

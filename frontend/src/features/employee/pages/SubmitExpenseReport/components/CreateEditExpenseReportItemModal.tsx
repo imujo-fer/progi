@@ -1,17 +1,28 @@
-import { PlusOutlined } from "@ant-design/icons";
-import { Flex, Form, InputNumber, Modal, Select, Upload, message } from "antd";
-import TextArea from "antd/es/input/TextArea";
-import usePostExpenseReportItem from "../hooks/usePostExpenseReportItem";
 import {
   ExpenseReportItemControllerApiCreateExpenseReportItemRequest,
   ExpenseReportItemControllerApiUpdateExpenseReportItemRequest,
   ExpenseReportItemDTOCurrencyEnum,
   ExpenseReportItemWithSubcategoryDTO,
 } from "@/api_gen";
-import Title from "antd/es/typography/Title";
-import usePutExpenseReportItem from "../hooks/usePutExpenseReportItem";
-import useGetExpenseReportCategories from "../hooks/useGetExpenseReportCategories";
+import { expenseReportRoute } from "@/features/employee/routes/employee.routes";
 import { queryClient } from "@/providers/Providers";
+import { PlusOutlined } from "@ant-design/icons";
+import {
+  Button,
+  Flex,
+  Form,
+  InputNumber,
+  Modal,
+  Select,
+  Upload,
+  UploadFile,
+  message,
+} from "antd";
+import TextArea from "antd/es/input/TextArea";
+import Title from "antd/es/typography/Title";
+import useGetExpenseReportCategories from "../hooks/useGetExpenseReportCategories";
+import usePostExpenseReportItem from "../hooks/usePostExpenseReportItem";
+import usePutExpenseReportItem from "../hooks/usePutExpenseReportItem";
 
 interface CreateEditExpenseReportItemModalProps {
   open: boolean;
@@ -24,15 +35,7 @@ interface FormValues {
   cost: number;
   currency: string;
   description: string;
-  attachment: string;
-}
-
-interface FormValues {
-  category: string;
-  cost: number;
-  currency: string;
-  description: string;
-  attachment: string;
+  attachment: Array<UploadFile>;
 }
 
 export default function CreateEditExpenseReportItemModal({
@@ -46,17 +49,22 @@ export default function CreateEditExpenseReportItemModal({
     value: currency,
     label: currency,
   }));
+  const { id: expenseReportId } = expenseReportRoute.useParams();
   const { data: selectCategoryOptions = [] } = useGetExpenseReportCategories();
   const [form] = Form.useForm<FormValues>();
   const { mutate: createMutate } = usePostExpenseReportItem();
   const { mutate: updateMutate } = usePutExpenseReportItem();
 
   function handleFinish(values: FormValues) {
+    const receiptId = values.attachment[0]?.response
+      ? values.attachment[0]?.response.id
+      : undefined;
+
     const request: ExpenseReportItemControllerApiCreateExpenseReportItemRequest =
       {
         expenseReportItemDTO: {
-          expenseReportId: 2,
-          receiptId: 9,
+          expenseReportId: parseInt(expenseReportId),
+          receiptId,
           expenseSubcategoryId: values.categoryId,
           description: values.description,
           currency: values.currency as ExpenseReportItemDTOCurrencyEnum,
@@ -73,9 +81,10 @@ export default function CreateEditExpenseReportItemModal({
         };
       updateMutate(updateRequest, {
         onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: ["expense report items"] });
+          queryClient.invalidateQueries({
+            queryKey: ["expense report items", expenseReportId],
+          });
           message.success("Expense item updated successfully!");
-          form.resetFields();
           setOpen(false);
         },
         onError: () => {
@@ -85,6 +94,9 @@ export default function CreateEditExpenseReportItemModal({
     } else {
       createMutate(request, {
         onSuccess: () => {
+          queryClient.invalidateQueries({
+            queryKey: ["expense report items"],
+          });
           message.success("Expense item saved successfully!");
           form.resetFields();
           setOpen(false);
@@ -103,6 +115,7 @@ export default function CreateEditExpenseReportItemModal({
         form.resetFields();
         setOpen(false);
       }}
+      destroyOnClose
       okText="Save"
       onOk={() => form.submit()}
     >
@@ -124,36 +137,27 @@ export default function CreateEditExpenseReportItemModal({
           label="Upload"
           name="attachment"
           valuePropName="fileList"
-          getValueFromEvent={(e) => e?.fileList}
+          getValueFromEvent={(field: { fileList: Array<UploadFile> }) =>
+            field.fileList
+          }
         >
           <Upload
-            customRequest={(options) => {
-              const { file } = options;
-              const formData = new FormData();
-              formData.append("file", file);
-              fetch("http://localhost:8082/api/receipts", {
-                method: "POST",
-                body: formData,
-              })
-                .then(async (response) => {
-                  if (!response.ok) {
-                    throw new Error("Upload failed");
-                  }
-                  const data = await response.json();
-                  message.success("Upload successful!");
-                  console.log("Response:", data);
-                })
-                .catch((error) => {
-                  message.error("Upload failed!");
-                  console.error("Error:", error);
-                });
-            }}
-            listType="picture-card"
+            action="/api/receipts"
+            accept="application/pdf"
+            maxCount={1}
+            defaultFileList={
+              item?.receiptId
+                ? [
+                    {
+                      name: "receipt",
+                      uid: "receipt",
+                      url: `/api/receipts/${item?.receiptId}`,
+                    },
+                  ]
+                : []
+            }
           >
-            <div>
-              <PlusOutlined />
-              <div>Upload</div>
-            </div>
+            <Button icon={<PlusOutlined />}>Upload</Button>
           </Upload>
         </Form.Item>
 
