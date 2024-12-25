@@ -20,6 +20,8 @@ import {
 } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import Title from "antd/es/typography/Title";
+import { useState } from "react";
+import useGetExchangeRate from "../hooks/useGetExchangeRate";
 import useGetExpenseReportCategories from "../hooks/useGetExpenseReportCategories";
 import usePostExpenseReportItem from "../hooks/usePostExpenseReportItem";
 import usePutExpenseReportItem from "../hooks/usePutExpenseReportItem";
@@ -35,7 +37,7 @@ interface FormValues {
   cost: number;
   currency: string;
   description: string;
-  attachment: Array<UploadFile>;
+  attachment?: Array<UploadFile>;
 }
 
 export default function CreateEditExpenseReportItemModal({
@@ -49,6 +51,14 @@ export default function CreateEditExpenseReportItemModal({
     value: currency,
     label: currency,
   }));
+  const [currency, setCurrency] = useState(
+    item?.currency || ExpenseReportItemDTOCurrencyEnum.Eur
+  );
+  const [cost, setCost] = useState(item?.currencyValue || 0);
+  const { eurValue } = useGetExchangeRate({
+    currency,
+    currencyValue: cost,
+  });
   const { id: expenseReportId } = expenseReportRoute.useParams();
   const { data: selectCategoryOptions = [] } = useGetExpenseReportCategories();
   const [form] = Form.useForm<FormValues>();
@@ -56,7 +66,8 @@ export default function CreateEditExpenseReportItemModal({
   const { mutate: updateMutate } = usePutExpenseReportItem();
 
   function handleFinish(values: FormValues) {
-    const receiptId = values.attachment[0]?.response
+    console.log({ values });
+    const receiptId = values.attachment?.[0]?.response
       ? values.attachment[0]?.response.id
       : undefined;
 
@@ -69,7 +80,7 @@ export default function CreateEditExpenseReportItemModal({
           description: values.description,
           currency: values.currency as ExpenseReportItemDTOCurrencyEnum,
           currencyValue: values.cost,
-          eurValue: 40,
+          eurValue,
         },
       };
 
@@ -82,7 +93,7 @@ export default function CreateEditExpenseReportItemModal({
       updateMutate(updateRequest, {
         onSuccess: () => {
           queryClient.invalidateQueries({
-            queryKey: ["expense report items", expenseReportId],
+            queryKey: ["expense report items"],
           });
           message.success("Expense item updated successfully!");
           setOpen(false);
@@ -130,6 +141,16 @@ export default function CreateEditExpenseReportItemModal({
           cost: item?.currencyValue,
           currency: item?.currency,
           description: item?.description,
+          attachment: item?.receiptId
+            ? [
+                {
+                  name: "receipt",
+                  uid: "receipt",
+                  url: `/api/receipts/${item?.receiptId}`,
+                  response: { id: item?.receiptId },
+                },
+              ]
+            : [],
         }}
       >
         <Title>{item ? "Edit " : "Add "}Expense Item</Title>
@@ -152,6 +173,7 @@ export default function CreateEditExpenseReportItemModal({
                       name: "receipt",
                       uid: "receipt",
                       url: `/api/receipts/${item?.receiptId}`,
+                      response: { id: item?.receiptId },
                     },
                   ]
                 : []
@@ -176,13 +198,20 @@ export default function CreateEditExpenseReportItemModal({
         </Form.Item>
 
         <Form.Item label="Cost" required>
-          <Flex>
+          <Flex gap={8} align="center">
             <Form.Item
               name="cost"
               noStyle
               rules={[{ required: true, message: "Please enter the cost" }]}
             >
-              <InputNumber min={0} placeholder="0" style={{ flex: 2 }} />
+              <InputNumber
+                value={cost}
+                type="number"
+                onChange={(e) => setCost(e || 0)}
+                min={0}
+                placeholder="0"
+                style={{ flex: 2 }}
+              />
             </Form.Item>
             <Form.Item
               name="currency"
@@ -190,11 +219,17 @@ export default function CreateEditExpenseReportItemModal({
               rules={[{ required: true, message: "Please select a currency" }]}
             >
               <Select
+                defaultValue={ExpenseReportItemDTOCurrencyEnum.Eur}
                 options={selectCurrencyOptions}
                 placeholder="Currency"
                 className="flex-1"
-                value={item?.currency}
+                value={currency}
+                onChange={setCurrency}
               />
+            </Form.Item>
+            <span>=</span>
+            <Form.Item name="eurValue" noStyle>
+              {eurValue.toFixed(2)} EUR
             </Form.Item>
           </Flex>
         </Form.Item>

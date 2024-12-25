@@ -46,7 +46,9 @@ export default function ExpenseReportItem({ item }: ExpenseReportItemProps) {
               <div className="flex flex-col w-1/4">
                 <div className="ml-auto">
                   {`${item.currencyValue} ${item.currency} =   `}
-                  <span className="font-semibold text-lg">{`${item.eurValue} EUR`}</span>
+                  <span className="font-semibold text-lg">{`${item.eurValue.toFixed(
+                    2
+                  )} EUR`}</span>
                 </div>
                 <div className="ml-auto">{item.expenseSubcategory.name}</div>
               </div>

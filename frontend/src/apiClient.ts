@@ -5,11 +5,12 @@ import {
   ExpenseReportControllerApi,
   ExpenseReportItemControllerApi,
   GoogleMapsControllerApi,
+  HnbProxyControllerApi,
   StatisticsControllerApi,
   TripControllerApi,
   TripStatusControllerApi,
   UserControllerApi,
-  DepartmentControllerApi
+  DepartmentControllerApi,
 } from "./api_gen";
 
 export const baseApiRoute = window.location.origin;
@@ -36,3 +37,4 @@ export const userApi = new UserControllerApi(apiConfig);
 export const tripStatusApi = new TripStatusControllerApi(apiConfig);
 export const statisticsApi = new StatisticsControllerApi(apiConfig);
 export const departmentApi = new DepartmentControllerApi(apiConfig);
+export const exchangeRateApi = new HnbProxyControllerApi(apiConfig);
