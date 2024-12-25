@@ -16,5 +16,16 @@ spring:
     multipart:
       max-request-size: 10MB
       max-file-size: 10MB
+  mail:
+    host: smtp.sendgrid.net
+    port: 587
+    username: apikey
+    password: API_KEY_HERE
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 server:
   port: 8082

@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import com.progi.auth.UserSessionService;
+import com.progi.email.EmailService;
 import com.progi.trip.Trip;
 import com.progi.trip.TripNotificationDTO;
 import com.progi.trip.TripService;
@@ -27,6 +28,8 @@ public class TripStatusService {
 
     @Autowired
     private TripStatusRepository tripStatusRepository;
+    @Autowired
+    private EmailService emailService;
     @Lazy
     @Autowired
     private TripService tripService;
@@ -47,6 +50,11 @@ public class TripStatusService {
 
         tripStatus.setStatus(tripStatusDTO.getStatus());
         tripStatus.setMessage(tripStatusDTO.getMessage());
+
+        List<TripStatus> previousTripStatuses = tripStatusRepository.findTripStatusSorted(trip.getId());
+
+        emailService.sendEmail(trip.getUser().getEmail(), "Trip " + trip.getRequestNumber() + " status change", "Your trip status has been changed from " + previousTripStatuses.get(0).getStatus() +" to " + tripStatus.getStatus()
+        + ".\n Message: " + tripStatus.getMessage());
 
         return tripStatusRepository.save(tripStatus);
     }

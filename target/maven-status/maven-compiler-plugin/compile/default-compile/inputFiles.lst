@@ -27,6 +27,8 @@
 /Users/ivomujo/Development/Personal/progi/src/main/java/com/progi/department/Department.java
 /Users/ivomujo/Development/Personal/progi/src/main/java/com/progi/department/DepartmentRepository.java
 /Users/ivomujo/Development/Personal/progi/src/main/java/com/progi/department/DepartmentService.java
+/Users/ivomujo/Development/Personal/progi/src/main/java/com/progi/email/EmailController.java
+/Users/ivomujo/Development/Personal/progi/src/main/java/com/progi/email/EmailService.java
 /Users/ivomujo/Development/Personal/progi/src/main/java/com/progi/exceptions/GlobalExceptionHandler.java
 /Users/ivomujo/Development/Personal/progi/src/main/java/com/progi/exceptions/UserNotInvitedException.java
 /Users/ivomujo/Development/Personal/progi/src/main/java/com/progi/expensecategory/ExpenseCategory.java

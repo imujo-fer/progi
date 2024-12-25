@@ -24,4 +24,8 @@ public interface TripStatusRepository extends JpaRepository<TripStatus, Integer>
         ORDER BY ts.trip.id, ts.createdAt
         """)
     List<TripStatus> findAllByUser(@Param("userId") Integer userId);
+
+
+    @Query("SELECT ts FROM TripStatus ts WHERE ts.trip.id = :tripId ORDER BY ts.createdAt DESC")
+    List<TripStatus> findTripStatusSorted(@Param("tripId") Integer tripId);
 }
