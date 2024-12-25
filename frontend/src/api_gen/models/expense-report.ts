@@ -55,6 +55,6 @@ export interface ExpenseReport {
      * @type {Array<ExpenseReportItem>}
      * @memberof ExpenseReport
      */
-    'expenseReportItems': Array<ExpenseReportItem>;
+    'expenseReportItems'?: Array<ExpenseReportItem>;
 }
 

@@ -29,6 +29,7 @@
 /Users/ivomujo/Development/Personal/progi/src/main/java/com/progi/department/DepartmentService.java
 /Users/ivomujo/Development/Personal/progi/src/main/java/com/progi/exceptions/GlobalExceptionHandler.java
 /Users/ivomujo/Development/Personal/progi/src/main/java/com/progi/exceptions/UserNotInvitedException.java
+/Users/ivomujo/Development/Personal/progi/src/main/java/com/progi/exchangeRate/HnbProxyController.java
 /Users/ivomujo/Development/Personal/progi/src/main/java/com/progi/expensecategory/ExpenseCategory.java
 /Users/ivomujo/Development/Personal/progi/src/main/java/com/progi/expensecategory/ExpenseCategoryController.java
 /Users/ivomujo/Development/Personal/progi/src/main/java/com/progi/expensecategory/ExpenseCategoryRepository.java

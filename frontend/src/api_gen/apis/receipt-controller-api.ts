@@ -64,13 +64,13 @@ export const ReceiptControllerApiAxiosParamCreator = function (configuration?: C
         },
         /**
          * 
-         * @param {File} receipt 
+         * @param {File} file 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        uploadReceipt: async (receipt: File, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'receipt' is not null or undefined
-            assertParamExists('uploadReceipt', 'receipt', receipt)
+        uploadReceipt: async (file: File, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'file' is not null or undefined
+            assertParamExists('uploadReceipt', 'file', file)
             const localVarPath = `/api/receipts`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -85,8 +85,8 @@ export const ReceiptControllerApiAxiosParamCreator = function (configuration?: C
             const localVarFormParams = new ((configuration && configuration.formDataCtor) || FormData)();
 
 
-            if (receipt !== undefined) { 
-                localVarFormParams.append('receipt', receipt as any);
+            if (file !== undefined) { 
+                localVarFormParams.append('file', file as any);
             }
     
     
@@ -126,12 +126,12 @@ export const ReceiptControllerApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @param {File} receipt 
+         * @param {File} file 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async uploadReceipt(receipt: File, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Receipt>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.uploadReceipt(receipt, options);
+        async uploadReceipt(file: File, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Receipt>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.uploadReceipt(file, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['ReceiptControllerApi.uploadReceipt']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -162,7 +162,7 @@ export const ReceiptControllerApiFactory = function (configuration?: Configurati
          * @throws {RequiredError}
          */
         uploadReceipt(requestParameters: ReceiptControllerApiUploadReceiptRequest, options?: RawAxiosRequestConfig): AxiosPromise<Receipt> {
-            return localVarFp.uploadReceipt(requestParameters.receipt, options).then((request) => request(axios, basePath));
+            return localVarFp.uploadReceipt(requestParameters.file, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -192,7 +192,7 @@ export interface ReceiptControllerApiUploadReceiptRequest {
      * @type {File}
      * @memberof ReceiptControllerApiUploadReceipt
      */
-    readonly receipt: File
+    readonly file: File
 }
 
 /**
@@ -221,7 +221,7 @@ export class ReceiptControllerApi extends BaseAPI {
      * @memberof ReceiptControllerApi
      */
     public uploadReceipt(requestParameters: ReceiptControllerApiUploadReceiptRequest, options?: RawAxiosRequestConfig) {
-        return ReceiptControllerApiFp(this.configuration).uploadReceipt(requestParameters.receipt, options).then((request) => request(this.axios, this.basePath));
+        return ReceiptControllerApiFp(this.configuration).uploadReceipt(requestParameters.file, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

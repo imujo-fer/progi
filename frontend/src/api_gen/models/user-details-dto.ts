@@ -13,6 +13,9 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import type { Department } from './department';
 
 /**
  * 
@@ -56,6 +59,12 @@ export interface UserDetailsDTO {
      * @memberof UserDetailsDTO
      */
     'roles'?: Array<UserDetailsDTORolesEnum>;
+    /**
+     * 
+     * @type {Department}
+     * @memberof UserDetailsDTO
+     */
+    'department'?: Department;
 }
 
 export const UserDetailsDTORolesEnum = {

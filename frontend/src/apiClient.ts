@@ -5,6 +5,7 @@ import {
   ExpenseReportControllerApi,
   ExpenseReportItemControllerApi,
   GoogleMapsControllerApi,
+  HnbProxyControllerApi,
   StatisticsControllerApi,
   TripControllerApi,
   TripStatusControllerApi,
@@ -34,3 +35,4 @@ export const expenseCategoryApi = new ExpenseCategoryControllerApi(apiConfig);
 export const userApi = new UserControllerApi(apiConfig);
 export const tripStatusApi = new TripStatusControllerApi(apiConfig);
 export const statisticsApi = new StatisticsControllerApi(apiConfig);
+export const exchangeRateApi = new HnbProxyControllerApi(apiConfig);
