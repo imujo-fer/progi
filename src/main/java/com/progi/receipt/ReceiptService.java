@@ -37,6 +37,7 @@ public class ReceiptService {
     }
 
     public Receipt uploadReceipt(MultipartFile file) {
+        System.out.println("Uploading receipt");
 
         Receipt receipt = new Receipt();
         String receiptUrl = receiptFunction.apply(file);
