@@ -4,12 +4,11 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
-import com.progi.user.UserRepository;
+import com.progi.user.UserService;
 import com.progi.user.dto.UserDetailsDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.progi.Enum.RoleType;
 import com.progi.user.User;
 
 import jakarta.transaction.Transactional;
@@ -22,14 +21,14 @@ public class DepartmentService {
     private DepartmentRepository departmentRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     public List<DepartmentDTO> getAllDepartments() {
         return departmentRepository.findAll().stream()
                 .map(department -> new DepartmentDTO(
                         department.getId(),
                         department.getName(),
-                        department.getUsers().size()))
+                        userService.countUsersByDepartment(department.getId()))) // Delegate user-related logic to UserService
                 .collect(Collectors.toList());
     }
 
@@ -38,8 +37,7 @@ public class DepartmentService {
     }
 
     public List<UserDetailsDTO> getEmployeesByDepartmentId(Integer departmentId) {
-        Department department = departmentRepository.findById(departmentId)
-                .orElseThrow(() -> new IllegalStateException("Department not found with id " + departmentId));
+        Department department = getDepartmentById(departmentId);
 
         return department.getUsers().stream()
                 .map(UserDetailsDTO::new)  // Convert User entity to UserDetailsDTO
@@ -48,25 +46,6 @@ public class DepartmentService {
 
     public Department createDepartment(Department department) {
             return departmentRepository.save(department);
-    }
-
-
-    public void deleteEmployeeById(Integer employeeId) {
-        // Fetch the user by ID
-        User user = userRepository.findById(Long.valueOf(employeeId))
-                .orElseThrow(() -> new NoSuchElementException("Employee not found with id " + employeeId));
-
-        // Check if the user belongs to a department
-        Department department = user.getDepartment();
-        if (department == null) {
-            throw new IllegalStateException("Employee does not belong to any department.");
-        }
-
-        // Remove the user from the department's user list (optional, depending on cascade settings)
-        department.getUsers().remove(user);
-
-        // Delete the user
-        userRepository.delete(user);
     }
 
 
@@ -79,14 +58,6 @@ public class DepartmentService {
         departmentRepository.delete(department);
     }
 
-    public List<User> getDepartmentHeadsByDepartmentId(Integer departmentId) {
-        Department department = getDepartmentById(departmentId);
-
-        return department.getUsers().stream()
-                .filter(user -> user.getRoles().stream().anyMatch(role -> role.getRoleType().equals(RoleType.DEPARTMENT_HEAD)))
-                .collect(Collectors.toList());
-    }
-
 
     public Department updateDepartmentName(Integer id, String name) {
         Department department = getDepartmentById(id);
@@ -95,4 +66,24 @@ public class DepartmentService {
 
         return departmentRepository.save(department);
     }
+
+    public void deleteEmployeeFromDepartment(Integer departmentId, Integer employeeId) {
+        // Fetch the department by ID
+        Department department = getDepartmentById(departmentId);
+
+        // Find and validate the employee in the department
+        User user = department.getUsers().stream()
+                .filter(emp -> emp.getId().equals(employeeId))
+                .findFirst()
+                .orElseThrow(() -> new NoSuchElementException("Employee not found in the department"));
+
+        department.getUsers().remove(user);
+
+        departmentRepository.save(department);
+
+        userService.deleteUser(employeeId);
+    }
+
+
+
 }
