@@ -1,6 +1,7 @@
 package com.progi.expensesubcategory;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.progi.expensecategory.ExpenseCategory;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -28,6 +29,7 @@ public class ExpenseSubcategory {
     @JoinColumn(name = "expense_category_id", nullable = false)
     @JsonBackReference
     @NotNull
+    @JsonIgnore
     private ExpenseCategory expenseCategory;
 
 }

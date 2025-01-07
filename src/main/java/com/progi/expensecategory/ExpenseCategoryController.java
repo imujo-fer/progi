@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.progi.expensecategory.dto.ExpenseCategoryWithSubcategories;
+
 import java.util.List;
 
 @RestController
@@ -14,7 +16,7 @@ public class ExpenseCategoryController {
     private ExpenseCategoryService expenseCategoryService;
 
     @GetMapping
-    public ResponseEntity<List<ExpenseCategory>> getAllExpenseCategories() {
+    public ResponseEntity<List<ExpenseCategoryWithSubcategories>> getAllExpenseCategories() {
         return ResponseEntity.ok(expenseCategoryService.getAllExpenseCategories());
     }
 

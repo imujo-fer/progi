@@ -31,6 +31,4 @@ public class ExpenseCategory {
     @JsonManagedReference
     @JsonIgnore
     private List<ExpenseSubcategory> expenseSubcategories;
-
-
 }
