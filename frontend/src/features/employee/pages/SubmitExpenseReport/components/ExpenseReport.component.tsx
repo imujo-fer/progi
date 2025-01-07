@@ -2,12 +2,12 @@ import Title from "antd/es/typography/Title";
 import useGetExpenseReportItems from "../hooks/useGetExpenseReportItems";
 import ExpenseReportItem from "./ExpenseReportItem";
 import { Button, Flex, List } from "antd";
-import CreateEditExpenseReportItemModal from "./CreateEditExpenseReportItemModal";
 import { useState } from "react";
 import { useMatch } from "@tanstack/react-router";
+import CreateEditExpenseReportItemModal from "./CreateEditExpenseReportItemModal";
 
 export default function ExpenseReport() {
-  const match = useMatch({ from: "/expense-report/$id" });
+  const match = useMatch({ from: "/$tripId/expense-report/$id" });
   const id = match?.params.id;
 
   const { data } = useGetExpenseReportItems(Number(id));
