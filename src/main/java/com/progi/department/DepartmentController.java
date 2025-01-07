@@ -3,8 +3,6 @@ package com.progi.department;
 
 
 import com.progi.user.dto.UserDetailsDTO;
-import io.grpc.Deadline;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +29,7 @@ public class DepartmentController {
         return ResponseEntity.ok(departments);
     }
 
-    @GetMapping("{id}/employees")
+    @GetMapping("/employees/{id}")
     public ResponseEntity<List<UserDetailsDTO>> getEmployeesByDepartmentId(@PathVariable Integer id) {
         List<UserDetailsDTO> employees = departmentService.getEmployeesByDepartmentId(id);
         return ResponseEntity.ok(employees);
@@ -61,10 +59,10 @@ public class DepartmentController {
     }
 
     @DeleteMapping("/employees/{id}")
-    public ResponseEntity<Void> deleteEmployeeById(@PathVariable Integer id) {
-        // Call the service to handle the deletion
-        departmentService.deleteEmployeeById(id);
-        // Return a no-content response
+    public ResponseEntity<Void> deleteEmployeeById(
+            @RequestParam Integer departmentId,
+            @PathVariable Integer id) {
+        departmentService.deleteEmployeeFromDepartment(departmentId, id);
         return ResponseEntity.noContent().build();
     }
 
