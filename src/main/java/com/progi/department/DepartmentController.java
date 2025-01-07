@@ -3,6 +3,7 @@ package com.progi.department;
 
 
 import com.progi.user.dto.UserDetailsDTO;
+import io.grpc.Deadline;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -40,8 +41,12 @@ public class DepartmentController {
 
     // Post /api/departments
     @PostMapping
-    public ResponseEntity<Department> createDepartment(@Valid @RequestBody Department department) {
+    public ResponseEntity<Department> createDepartment(@RequestBody CreateDepartmentDTO createDepartmentDTO) {
+        Department department = new Department();
+        department.setName(createDepartmentDTO.getName());
+
         Department newDepartment = departmentService.createDepartment(department);
+
         return ResponseEntity.ok(newDepartment);
     }
 
