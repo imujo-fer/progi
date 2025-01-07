@@ -19,7 +19,6 @@ public class DepartmentController {
     @Autowired
     private DepartmentService departmentService;
 
-    // Get /api/departments/{id}
     @GetMapping("{id}")
     public ResponseEntity<Department> getDepartmentById(@PathVariable Integer id) {
         Department department = departmentService.getDepartmentById(id);
@@ -32,14 +31,19 @@ public class DepartmentController {
         return ResponseEntity.ok(departments);
     }
 
-    // GET /api/departments/{id}/employees
     @GetMapping("{id}/employees")
     public ResponseEntity<List<UserDetailsDTO>> getEmployeesByDepartmentId(@PathVariable Integer id) {
         List<UserDetailsDTO> employees = departmentService.getEmployeesByDepartmentId(id);
         return ResponseEntity.ok(employees);
     }
 
-    // Post /api/departments
+    @PatchMapping("/{id}")
+    public ResponseEntity<Department> updateDepartment(@PathVariable Integer id, @RequestParam String name) {
+        Department updatedDepartment = departmentService.updateDepartmentName(id, name);
+        return ResponseEntity.ok(updatedDepartment);
+    }
+
+
     @PostMapping
     public ResponseEntity<Department> createDepartment(@RequestBody CreateDepartmentDTO createDepartmentDTO) {
         Department department = new Department();
@@ -50,21 +54,12 @@ public class DepartmentController {
         return ResponseEntity.ok(newDepartment);
     }
 
-    // Patch /api/departments/{id}
-    @PatchMapping("/{id}")
-    public ResponseEntity<Department> updateDepartment(@PathVariable Integer id, @RequestBody Department updateDepartment) {
-        Department department = departmentService.updateDepartment(id, updateDepartment);
-        return ResponseEntity.ok(department);
-    }
-
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Department> deleteDepartment(@PathVariable Integer id) {
         departmentService.deleteDepartment(id);
         return ResponseEntity.noContent().build();
     }
 
-    // DELETE /api/employees/{id}
     @DeleteMapping("/employees/{id}")
     public ResponseEntity<Void> deleteEmployeeById(@PathVariable Integer id) {
         // Call the service to handle the deletion

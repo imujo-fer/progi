@@ -46,15 +46,6 @@ public class DepartmentService {
                 .collect(Collectors.toList());
     }
 
-    public Department updateDepartment(Integer id, Department updateDepartment) {
-        Department department = getDepartmentById(id);
-
-        if(updateDepartment.getName() != null) {
-            department.setName(updateDepartment.getName());
-        }
-        return departmentRepository.save(department);
-    }
-
     public Department createDepartment(Department department) {
             return departmentRepository.save(department);
     }
@@ -94,5 +85,14 @@ public class DepartmentService {
         return department.getUsers().stream()
                 .filter(user -> user.getRoles().stream().anyMatch(role -> role.getRoleType().equals(RoleType.DEPARTMENT_HEAD)))
                 .collect(Collectors.toList());
+    }
+
+
+    public Department updateDepartmentName(Integer id, String name) {
+        Department department = getDepartmentById(id);
+
+        department.setName(name);
+
+        return departmentRepository.save(department);
     }
 }
