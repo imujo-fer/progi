@@ -3,7 +3,6 @@
 .openapi-generator-ignore
 api.ts
 apis/company-controller-api.ts
-apis/department-controller-api.ts
 apis/email-controller-api.ts
 apis/expense-category-controller-api.ts
 apis/expense-report-controller-api.ts
@@ -30,7 +29,6 @@ models/create-department-dto.ts
 models/daily-wage-dto.ts
 models/department-dto.ts
 models/department.ts
-models/expense-category-dto.ts
 models/expense-category-with-subcategories.ts
 models/expense-category.ts
 models/expense-report-info-dto.ts

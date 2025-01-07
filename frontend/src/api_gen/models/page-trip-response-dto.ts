@@ -42,7 +42,31 @@ export interface PageTripResponseDTO {
   totalElements?: number;
   /**
    *
+   * @type {PageableObject}
+   * @memberof PageTripResponseDTO
+   */
+  pageable?: PageableObject;
+  /**
+   *
    * @type {boolean}
+   * @memberof PageTripResponseDTO
+   */
+  first?: boolean;
+  /**
+   *
+   * @type {boolean}
+   * @memberof PageTripResponseDTO
+   */
+  last?: boolean;
+  /**
+   *
+   * @type {number}
+   * @memberof PageTripResponseDTO
+   */
+  numberOfElements?: number;
+  /**
+   *
+   * @type {number}
    * @memberof PageTripResponseDTO
    */
   size?: number;
@@ -64,18 +88,6 @@ export interface PageTripResponseDTO {
    * @memberof PageTripResponseDTO
    */
   sort?: Array<SortObject>;
-  /**
-   *
-   * @type {PageableObject}
-   * @memberof PageTripResponseDTO
-   */
-  pageable?: PageableObject;
-  /**
-   *
-   * @type {number}
-   * @memberof PageTripResponseDTO
-   */
-  numberOfElements?: number;
   /**
    *
    * @type {boolean}

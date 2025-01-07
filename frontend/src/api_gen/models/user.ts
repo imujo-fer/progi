@@ -99,7 +99,7 @@ export interface User {
    * @type {boolean}
    * @memberof User
    */
-  userAdmin?: boolean;
+  userDepartmentHead?: boolean;
   /**
    *
    * @type {boolean}
@@ -111,11 +111,11 @@ export interface User {
    * @type {boolean}
    * @memberof User
    */
-  userDepartmentHead?: boolean;
+  userAccountant?: boolean;
   /**
    *
    * @type {boolean}
    * @memberof User
    */
-  userDepartmentHead?: boolean;
+  userAdmin?: boolean;
 }

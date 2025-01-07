@@ -38,6 +38,7 @@ interface FormValues {
   currency: string;
   description: string;
   attachment?: Array<UploadFile>;
+  expenseSubcategoryId: number;
 }
 
 export default function CreateEditExpenseReportItemModal({
@@ -60,7 +61,7 @@ export default function CreateEditExpenseReportItemModal({
     currencyValue: cost,
   });
   const { id: expenseReportId } = expenseReportRoute.useParams();
-  const { data: selectCategoryOptions = [] } = useGetExpenseReportCategories();
+  const { data: selectCategoryOptions } = useGetExpenseReportCategories();
   const [form] = Form.useForm<FormValues>();
   const { mutate: createMutate } = usePostExpenseReportItem();
   const { mutate: updateMutate } = usePutExpenseReportItem();
@@ -76,7 +77,7 @@ export default function CreateEditExpenseReportItemModal({
         expenseReportItemDTO: {
           expenseReportId: parseInt(expenseReportId),
           receiptId,
-          expenseSubcategoryId: values.categoryId,
+          expenseSubcategoryId: values.expenseSubcategoryId,
           description: values.description,
           currency: values.currency as ExpenseReportItemDTOCurrencyEnum,
           currencyValue: values.cost,
@@ -132,12 +133,12 @@ export default function CreateEditExpenseReportItemModal({
     >
       <Form
         form={form}
-        labelCol={{ span: 5 }}
+        labelCol={{ span: 6 }}
         wrapperCol={{ span: 14 }}
         layout="horizontal"
         onFinish={handleFinish}
         initialValues={{
-          categoryId: item?.expenseSubcategory.id,
+          expenseSubcategoryId: item?.expenseSubcategory.id,
           cost: item?.currencyValue,
           currency: item?.currency,
           description: item?.description,
@@ -161,6 +162,7 @@ export default function CreateEditExpenseReportItemModal({
           getValueFromEvent={(field: { fileList: Array<UploadFile> }) =>
             field.fileList
           }
+          rules={[{ required: true, message: "Please upload the receipt" }]}
         >
           <Upload
             action="/api/receipts"
@@ -182,18 +184,20 @@ export default function CreateEditExpenseReportItemModal({
             <Button icon={<PlusOutlined />}>Upload</Button>
           </Upload>
         </Form.Item>
-
         <Form.Item
-          label="Category"
-          name="categoryId"
+          label="Subcategory"
+          name="expenseSubcategoryId"
           rules={[{ required: true, message: "Please select a subcategory" }]}
         >
           <Select
-            options={selectCategoryOptions?.map((category) => ({
-              value: category.id,
-              label: category.name,
-            }))}
             placeholder="Select subcategory"
+            options={selectCategoryOptions?.map((category) => ({
+              label: category.name,
+              options: category.expenseSubcategories?.map((subcategory) => ({
+                value: subcategory.id,
+                label: subcategory.name,
+              })),
+            }))}
           />
         </Form.Item>
 
@@ -219,12 +223,9 @@ export default function CreateEditExpenseReportItemModal({
               rules={[{ required: true, message: "Please select a currency" }]}
             >
               <Select
-                defaultValue={ExpenseReportItemDTOCurrencyEnum.Eur}
                 options={selectCurrencyOptions}
                 placeholder="Currency"
                 className="flex-1"
-                value={currency}
-                onChange={setCurrency}
               />
             </Form.Item>
             <span>=</span>
