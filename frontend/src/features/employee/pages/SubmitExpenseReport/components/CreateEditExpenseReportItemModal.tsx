@@ -226,6 +226,8 @@ export default function CreateEditExpenseReportItemModal({
                 options={selectCurrencyOptions}
                 placeholder="Currency"
                 className="flex-1"
+                value={currency}
+                onChange={setCurrency}
               />
             </Form.Item>
             <span>=</span>
