@@ -28,6 +28,7 @@ import {
   tripRequestsRoute,
 } from "../features/employee/routes/employee.routes";
 import { statisticsRoute } from "@/features/statistics/statistics.routes";
+import { inviteUserRoute } from "@/features/admin/routes/admin.rutes";
 
 export const rootRoute = createRootRouteWithContext<RootRouteContext>()();
 
@@ -66,6 +67,7 @@ export const routeTree = rootRoute.addChildren([
     expenseReviewRequestsRoute,
     reviewTripsRoute,
     statisticsRoute,
+    inviteUserRoute,
   ]),
   exportRoute,
   loginRoute,
