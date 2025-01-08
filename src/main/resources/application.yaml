@@ -2,9 +2,7 @@ spring:
   application:
     name: api
   datasource:
-    url: jdbc:postgresql://localhost:5432/progi
-    username: postgres
-    password: postgres
+    url: postgresql://progi_aejq_user:7094b39MaWQyMfWVmEhO85XCPNe9ggvc@dpg-ctv7s4d2ng1s73dp0tj0-a.oregon-postgres.render.com/progi_aejq
   jpa:
     hibernate:
       ddl-auto: validate
