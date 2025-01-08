@@ -1,13 +1,11 @@
 package com.progi.expensesubcategory;
 
-
 import com.progi.expensecategory.ExpenseCategoryService;
 import com.progi.receipt.Receipt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import jakarta.transaction.Transactional;
 import java.util.NoSuchElementException;
-
 
 @Service
 @Transactional
@@ -28,8 +26,7 @@ public class ExpenseSubcategoryService {
         ExpenseSubcategory expenseSubcategory = new ExpenseSubcategory();
         expenseSubcategory.setName(expenseSubcategoryDTO.getName());
         expenseSubcategory.setExpenseCategory(
-                expenseCategoryService.getExpenseCategoryById(expenseSubcategoryDTO.getExpenseCategoryId())
-        );
+                expenseCategoryService.getExpenseCategoryById(expenseSubcategoryDTO.getExpenseCategoryId()));
 
         return expenseSubcategoryRepository.save(expenseSubcategory);
     }

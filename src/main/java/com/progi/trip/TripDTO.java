@@ -23,4 +23,16 @@ public class TripDTO {
     private Timestamp datetimeTo;
     @NotNull
     private String reason;
+
+    public TripDTO(Double coordinatesLat, Double coordinatesLon, String address, String city, String countryCode,
+            Timestamp datetimeFrom, Timestamp datetimeTo, String reason) {
+        this.coordinatesLat = coordinatesLat;
+        this.coordinatesLon = coordinatesLon;
+        this.address = address;
+        this.city = city;
+        this.countryCode = countryCode;
+        this.datetimeFrom = datetimeFrom;
+        this.datetimeTo = datetimeTo;
+        this.reason = reason;
+    }
 }

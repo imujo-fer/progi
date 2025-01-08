@@ -42,12 +42,21 @@ public class UserDetailsDTO {
         this.department = user.getDepartment();
     }
 
-    public UserDetailsDTO(Integer id, String email, String firstName, String lastName, String iban, Integer departmentId, String departmentName) {
+    public UserDetailsDTO(Integer id, String email, String firstName, String lastName, String iban,
+            Integer departmentId, String departmentName) {
         this.id = id;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.iban = iban;
         this.department = new Department(departmentId, departmentName);
+    }
+
+    public UserDetailsDTO(Integer id, String email, String firstName, String lastName, String iban) {
+        this.id = id;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.iban = iban;
     }
 }

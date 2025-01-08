@@ -21,7 +21,8 @@ public class ExpenseReportItemController {
     private ExpenseReportItemService expenseReportItemService;
 
     @PostMapping
-    public ResponseEntity<ExpenseReportItem> createExpenseReportItem(@RequestBody ExpenseReportItemDTO expenseReportItemDTO) {
+    public ResponseEntity<ExpenseReportItem> createExpenseReportItem(
+            @RequestBody ExpenseReportItemDTO expenseReportItemDTO) {
         return ResponseEntity.ok(expenseReportItemService.createExpenseReportItem(expenseReportItemDTO));
     }
 
@@ -38,7 +39,5 @@ public class ExpenseReportItemController {
 
         return ResponseEntity.noContent().build();
     }
-
-
 
 }
