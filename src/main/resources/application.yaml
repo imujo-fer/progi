@@ -39,5 +39,7 @@ spring:
           auth: true
           starttls:
             enable: true
+google:
+  api_key: ${VITE_GOOGLE_API_KEY}
 server:
   port: ${PORT}

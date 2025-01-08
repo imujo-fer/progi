@@ -3,15 +3,13 @@ package com.progi.GoogleMaps;
 import com.google.maps.GeoApiContext;
 import com.google.maps.GeocodingApi;
 import com.google.maps.model.GeocodingResult;
-import io.github.cdimascio.dotenv.Dotenv;
 
 public class GeoApiContextSingleton {
-    private static final String API_KEY;
+
 
     static {
-        Dotenv dotenv = Dotenv.load();
-        API_KEY = dotenv.get("VITE_GOOGLE_API_KEY"); 
-        System.out.println("API_KEY: " + API_KEY);
+
+        String API_KEY = Env.getGoogleApiKey();
 
         if (API_KEY == null || API_KEY.isEmpty()) {
             throw new IllegalStateException("Google API key is not set in the .env file");
@@ -22,7 +20,7 @@ public class GeoApiContextSingleton {
 
     private static class GeoApiContextHolder {
         private static final GeoApiContext INSTANCE = new GeoApiContext.Builder()
-            .apiKey(API_KEY)
+            .apiKey(Env.getGoogleApiKey())
             .build();
     }
 
@@ -39,3 +37,4 @@ public class GeoApiContextSingleton {
         return GeocodingApi.geocode(context, location).await();
     }
 }
+
