@@ -106,13 +106,13 @@ export interface User {
      * @type {boolean}
      * @memberof User
      */
-    'userDirector'?: boolean;
+    'userAccountant'?: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof User
      */
-    'userAccountant'?: boolean;
+    'userDirector'?: boolean;
     /**
      * 
      * @type {boolean}

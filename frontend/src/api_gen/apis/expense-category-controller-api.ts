@@ -31,6 +31,42 @@ export const ExpenseCategoryControllerApiAxiosParamCreator = function (configura
     return {
         /**
          * 
+         * @param {string} name 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createExpenseCategory: async (name: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'name' is not null or undefined
+            assertParamExists('createExpenseCategory', 'name', name)
+            const localVarPath = `/api/expense-categories`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (name !== undefined) {
+                localVarQueryParameter['name'] = name;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -70,6 +106,18 @@ export const ExpenseCategoryControllerApiFp = function(configuration?: Configura
     return {
         /**
          * 
+         * @param {string} name 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createExpenseCategory(name: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ExpenseCategory>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createExpenseCategory(name, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['ExpenseCategoryControllerApi.createExpenseCategory']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -91,6 +139,15 @@ export const ExpenseCategoryControllerApiFactory = function (configuration?: Con
     return {
         /**
          * 
+         * @param {ExpenseCategoryControllerApiCreateExpenseCategoryRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createExpenseCategory(requestParameters: ExpenseCategoryControllerApiCreateExpenseCategoryRequest, options?: RawAxiosRequestConfig): AxiosPromise<ExpenseCategory> {
+            return localVarFp.createExpenseCategory(requestParameters.name, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -101,12 +158,37 @@ export const ExpenseCategoryControllerApiFactory = function (configuration?: Con
 };
 
 /**
+ * Request parameters for createExpenseCategory operation in ExpenseCategoryControllerApi.
+ * @export
+ * @interface ExpenseCategoryControllerApiCreateExpenseCategoryRequest
+ */
+export interface ExpenseCategoryControllerApiCreateExpenseCategoryRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof ExpenseCategoryControllerApiCreateExpenseCategory
+     */
+    readonly name: string
+}
+
+/**
  * ExpenseCategoryControllerApi - object-oriented interface
  * @export
  * @class ExpenseCategoryControllerApi
  * @extends {BaseAPI}
  */
 export class ExpenseCategoryControllerApi extends BaseAPI {
+    /**
+     * 
+     * @param {ExpenseCategoryControllerApiCreateExpenseCategoryRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ExpenseCategoryControllerApi
+     */
+    public createExpenseCategory(requestParameters: ExpenseCategoryControllerApiCreateExpenseCategoryRequest, options?: RawAxiosRequestConfig) {
+        return ExpenseCategoryControllerApiFp(this.configuration).createExpenseCategory(requestParameters.name, options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * 
      * @param {*} [options] Override http request option.

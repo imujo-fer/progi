@@ -15,10 +15,13 @@
 
 
 export * from './apis/company-controller-api';
+export * from './apis/email-controller-api';
 export * from './apis/expense-category-controller-api';
 export * from './apis/expense-report-controller-api';
 export * from './apis/expense-report-item-controller-api';
+export * from './apis/expense-subcategory-controller-api';
 export * from './apis/google-maps-controller-api';
+export * from './apis/receipt-controller-api';
 export * from './apis/statistics-controller-api';
 export * from './apis/trip-controller-api';
 export * from './apis/trip-status-controller-api';

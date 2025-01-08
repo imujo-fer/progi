@@ -17,25 +17,20 @@
 /**
  * 
  * @export
- * @interface Role
+ * @interface ExpenseSubcategoryDTO
  */
-export interface Role {
+export interface ExpenseSubcategoryDTO {
     /**
      * 
      * @type {string}
-     * @memberof Role
+     * @memberof ExpenseSubcategoryDTO
      */
-    'roleType': RoleRoleTypeEnum;
+    'name': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ExpenseSubcategoryDTO
+     */
+    'expenseCategoryId': number;
 }
-
-export const RoleRoleTypeEnum = {
-    Employee: 'EMPLOYEE',
-    Accountant: 'ACCOUNTANT',
-    DepartmentHead: 'DEPARTMENT_HEAD',
-    Director: 'DIRECTOR',
-    Administrator: 'ADMINISTRATOR'
-} as const;
-
-export type RoleRoleTypeEnum = typeof RoleRoleTypeEnum[keyof typeof RoleRoleTypeEnum];
-
 

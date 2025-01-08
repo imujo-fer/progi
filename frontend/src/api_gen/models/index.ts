@@ -11,6 +11,7 @@ export * from './expense-report-item';
 export * from './expense-report-item-dto';
 export * from './expense-report-item-with-subcategory-dto';
 export * from './expense-subcategory';
+export * from './expense-subcategory-dto';
 export * from './geocoding-result';
 export * from './geometry';
 export * from './lat-lng';

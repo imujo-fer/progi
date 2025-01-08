@@ -62,7 +62,8 @@ export const UserInviteDTORolesEnum = {
     Employee: 'EMPLOYEE',
     Accountant: 'ACCOUNTANT',
     DepartmentHead: 'DEPARTMENT_HEAD',
-    Director: 'DIRECTOR'
+    Director: 'DIRECTOR',
+    Administrator: 'ADMINISTRATOR'
 } as const;
 
 export type UserInviteDTORolesEnum = typeof UserInviteDTORolesEnum[keyof typeof UserInviteDTORolesEnum];
