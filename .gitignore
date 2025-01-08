@@ -73,3 +73,5 @@ node_modules
 
 src/main/resources/application-*.yaml
 .env
+
+target/
