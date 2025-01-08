@@ -1,22 +1,33 @@
-# Importing JDK and copying required files
-FROM openjdk:21-jdk AS build
+FROM node:18 AS frontend
+WORKDIR /app
+RUN npm install -g pnpm
+COPY package.json pnpm-lock.yaml tsconfig.json vite.config.mjs ./
+COPY frontend ./frontend
+RUN pnpm install
+RUN pnpm run build
+RUN echo "Build Frontend Done"
+RUN ls frontend
+
+# Stage 2: Build Spring Boot App
+FROM openjdk:21-jdk AS backend
 WORKDIR /app
 COPY pom.xml .
 COPY src src
-
-# Copy Maven wrapper
 COPY mvnw .
 COPY .mvn .mvn
-
-# Set execution permission for the Maven wrapper
 RUN chmod +x ./mvnw
 RUN ./mvnw clean package -DskipTests
 
-# Stage 2: Create the final Docker image using OpenJDK 19
+# Stage 3: Combine Frontend and Backend
 FROM openjdk:21-jdk
+WORKDIR /app
 VOLUME /tmp
 
-# Copy the JAR from the build stage
-COPY --from=build /app/target/*.jar app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+# Copy Spring Boot JAR
+COPY --from=backend /app/target/*.jar app.jar
+
+# Copy Frontend Build to Static Folder
+COPY --from=frontend /app/frontend/dist /target/classes/static
+
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
 EXPOSE 8082
