@@ -13,24 +13,33 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import type { ExpenseSubcategory } from './expense-subcategory';
 
 /**
  * 
  * @export
- * @interface ExpenseSubcategory
+ * @interface ExpenseCategoryWithSubcategories
  */
-export interface ExpenseSubcategory {
+export interface ExpenseCategoryWithSubcategories {
     /**
      * 
      * @type {number}
-     * @memberof ExpenseSubcategory
+     * @memberof ExpenseCategoryWithSubcategories
      */
     'id'?: number;
     /**
      * 
      * @type {string}
-     * @memberof ExpenseSubcategory
+     * @memberof ExpenseCategoryWithSubcategories
      */
-    'name': string;
+    'name'?: string;
+    /**
+     * 
+     * @type {Array<ExpenseSubcategory>}
+     * @memberof ExpenseCategoryWithSubcategories
+     */
+    'expenseSubcategories'?: Array<ExpenseSubcategory>;
 }
 

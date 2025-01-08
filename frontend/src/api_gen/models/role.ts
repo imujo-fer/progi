@@ -32,7 +32,8 @@ export const RoleRoleTypeEnum = {
     Employee: 'EMPLOYEE',
     Accountant: 'ACCOUNTANT',
     DepartmentHead: 'DEPARTMENT_HEAD',
-    Director: 'DIRECTOR'
+    Director: 'DIRECTOR',
+    Administrator: 'ADMINISTRATOR'
 } as const;
 
 export type RoleRoleTypeEnum = typeof RoleRoleTypeEnum[keyof typeof RoleRoleTypeEnum];

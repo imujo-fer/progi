@@ -17,20 +17,26 @@
 /**
  * 
  * @export
- * @interface ExpenseSubcategory
+ * @interface DepartmentDTO
  */
-export interface ExpenseSubcategory {
+export interface DepartmentDTO {
     /**
      * 
      * @type {number}
-     * @memberof ExpenseSubcategory
+     * @memberof DepartmentDTO
      */
     'id'?: number;
     /**
      * 
      * @type {string}
-     * @memberof ExpenseSubcategory
+     * @memberof DepartmentDTO
      */
-    'name': string;
+    'name'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof DepartmentDTO
+     */
+    'employeeCount'?: number;
 }
 

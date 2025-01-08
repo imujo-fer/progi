@@ -17,20 +17,26 @@
 /**
  * 
  * @export
- * @interface ExpenseSubcategory
+ * @interface DailyWageDTO
  */
-export interface ExpenseSubcategory {
+export interface DailyWageDTO {
     /**
      * 
      * @type {number}
-     * @memberof ExpenseSubcategory
+     * @memberof DailyWageDTO
      */
-    'id'?: number;
+    'tripLengthInDays': number;
     /**
      * 
-     * @type {string}
-     * @memberof ExpenseSubcategory
+     * @type {number}
+     * @memberof DailyWageDTO
      */
-    'name': string;
+    'eurDailyWage': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof DailyWageDTO
+     */
+    'eurTotalWage': number;
 }
 

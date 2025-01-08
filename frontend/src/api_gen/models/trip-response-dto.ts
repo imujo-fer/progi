@@ -16,6 +16,9 @@
 // May contain unused imports in some cases
 // @ts-ignore
 import type { CountryDTO } from './country-dto';
+// May contain unused imports in some cases
+// @ts-ignore
+import type { UserDetailsDTO } from './user-details-dto';
 
 /**
  * 
@@ -77,6 +80,12 @@ export interface TripResponseDTO {
      * @memberof TripResponseDTO
      */
     'expenseReportId': number;
+    /**
+     * 
+     * @type {UserDetailsDTO}
+     * @memberof TripResponseDTO
+     */
+    'user': UserDetailsDTO;
 }
 
 export const TripResponseDTOStatusEnum = {
