@@ -73,5 +73,7 @@ node_modules
 
 src/main/resources/application-*.yaml
 .env
+target/classes/application-local.yaml
 
-target/
+/target/
+/receipts/
