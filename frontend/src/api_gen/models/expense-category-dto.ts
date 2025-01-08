@@ -15,46 +15,37 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import type { ExpenseReportItem } from './expense-report-item';
-// May contain unused imports in some cases
-// @ts-ignore
-import type { Trip } from './trip';
+import type { ExpenseReportItemInfoDTO } from './expense-report-item-info-dto';
 
 /**
  * 
  * @export
- * @interface ExpenseReport
+ * @interface ExpenseCategoryDTO
  */
-export interface ExpenseReport {
+export interface ExpenseCategoryDTO {
     /**
      * 
      * @type {number}
-     * @memberof ExpenseReport
+     * @memberof ExpenseCategoryDTO
      */
-    'id'?: number;
-    /**
-     * 
-     * @type {Trip}
-     * @memberof ExpenseReport
-     */
-    'trip': Trip;
-    /**
-     * 
-     * @type {number}
-     * @memberof ExpenseReport
-     */
-    'eurTotalCost'?: number;
+    'id': number;
     /**
      * 
      * @type {string}
-     * @memberof ExpenseReport
+     * @memberof ExpenseCategoryDTO
      */
-    'createdAt': string;
+    'name': string;
     /**
      * 
-     * @type {Array<ExpenseReportItem>}
-     * @memberof ExpenseReport
+     * @type {number}
+     * @memberof ExpenseCategoryDTO
      */
-    'expenseReportItems'?: Array<ExpenseReportItem>;
+    'eurTotalCost': number;
+    /**
+     * 
+     * @type {Array<ExpenseReportItemInfoDTO>}
+     * @memberof ExpenseCategoryDTO
+     */
+    'expenseReportItemInfo': Array<ExpenseReportItemInfoDTO>;
 }
 

@@ -14,6 +14,7 @@ import {
   pastTripsRoute,
   tripRequestsRoute,
 } from "../../features/employee/routes/employee.routes";
+import { inviteUserRoute } from "@/features/admin/routes/admin.rutes";
 
 export default function Sidebar() {
   const user = useUser();
@@ -66,6 +67,13 @@ export default function Sidebar() {
     roles.push({
       key: "9",
       label: <Link to={statisticsRoute.to}>Statistics</Link>,
+    });
+  }
+
+  if (roleList.includes(UserDetailsDTORolesEnum.Administrator)) {
+    roles.push({
+      key: "10",
+      label: <Link to={inviteUserRoute.to}>Invite User</Link>,
     });
   }
 

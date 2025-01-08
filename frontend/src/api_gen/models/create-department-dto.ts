@@ -17,19 +17,13 @@
 /**
  * 
  * @export
- * @interface ExpenseSubcategory
+ * @interface CreateDepartmentDTO
  */
-export interface ExpenseSubcategory {
-    /**
-     * 
-     * @type {number}
-     * @memberof ExpenseSubcategory
-     */
-    'id'?: number;
+export interface CreateDepartmentDTO {
     /**
      * 
      * @type {string}
-     * @memberof ExpenseSubcategory
+     * @memberof CreateDepartmentDTO
      */
     'name': string;
 }

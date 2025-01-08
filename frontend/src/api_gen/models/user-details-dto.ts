@@ -13,6 +13,9 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import type { Department } from './department';
 
 /**
  * 
@@ -56,13 +59,20 @@ export interface UserDetailsDTO {
      * @memberof UserDetailsDTO
      */
     'roles'?: Array<UserDetailsDTORolesEnum>;
+    /**
+     * 
+     * @type {Department}
+     * @memberof UserDetailsDTO
+     */
+    'department'?: Department;
 }
 
 export const UserDetailsDTORolesEnum = {
     Employee: 'EMPLOYEE',
     Accountant: 'ACCOUNTANT',
     DepartmentHead: 'DEPARTMENT_HEAD',
-    Director: 'DIRECTOR'
+    Director: 'DIRECTOR',
+    Administrator: 'ADMINISTRATOR'
 } as const;
 
 export type UserDetailsDTORolesEnum = typeof UserDetailsDTORolesEnum[keyof typeof UserDetailsDTORolesEnum];

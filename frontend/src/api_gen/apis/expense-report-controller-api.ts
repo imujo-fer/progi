@@ -24,6 +24,8 @@ import { BASE_PATH, COLLECTION_FORMATS, type RequestArgs, BaseAPI, RequiredError
 // @ts-ignore
 import type { ExpenseReport } from '../models';
 // @ts-ignore
+import type { ExpenseReportInfoDTO } from '../models';
+// @ts-ignore
 import type { ExpenseReportItemWithSubcategoryDTO } from '../models';
 /**
  * ExpenseReportControllerApi - axios parameter creator
@@ -109,6 +111,39 @@ export const ExpenseReportControllerApiAxiosParamCreator = function (configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+        getExpenseReportInfo: async (id: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('getExpenseReportInfo', 'id', id)
+            const localVarPath = `/api/expense-reports/{id}/info`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
         getExpenseReportItems: async (id: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('getExpenseReportItems', 'id', id)
@@ -176,6 +211,18 @@ export const ExpenseReportControllerApiFp = function(configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+        async getExpenseReportInfo(id: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ExpenseReportInfoDTO>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getExpenseReportInfo(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['ExpenseReportControllerApi.getExpenseReportInfo']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
         async getExpenseReportItems(id: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ExpenseReportItemWithSubcategoryDTO>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getExpenseReportItems(id, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
@@ -209,6 +256,15 @@ export const ExpenseReportControllerApiFactory = function (configuration?: Confi
          */
         deleteExpenseReport(requestParameters: ExpenseReportControllerApiDeleteExpenseReportRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.deleteExpenseReport(requestParameters.id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {ExpenseReportControllerApiGetExpenseReportInfoRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getExpenseReportInfo(requestParameters: ExpenseReportControllerApiGetExpenseReportInfoRequest, options?: RawAxiosRequestConfig): AxiosPromise<ExpenseReportInfoDTO> {
+            return localVarFp.getExpenseReportInfo(requestParameters.id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -246,6 +302,20 @@ export interface ExpenseReportControllerApiDeleteExpenseReportRequest {
      * 
      * @type {number}
      * @memberof ExpenseReportControllerApiDeleteExpenseReport
+     */
+    readonly id: number
+}
+
+/**
+ * Request parameters for getExpenseReportInfo operation in ExpenseReportControllerApi.
+ * @export
+ * @interface ExpenseReportControllerApiGetExpenseReportInfoRequest
+ */
+export interface ExpenseReportControllerApiGetExpenseReportInfoRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof ExpenseReportControllerApiGetExpenseReportInfo
      */
     readonly id: number
 }
@@ -291,6 +361,17 @@ export class ExpenseReportControllerApi extends BaseAPI {
      */
     public deleteExpenseReport(requestParameters: ExpenseReportControllerApiDeleteExpenseReportRequest, options?: RawAxiosRequestConfig) {
         return ExpenseReportControllerApiFp(this.configuration).deleteExpenseReport(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {ExpenseReportControllerApiGetExpenseReportInfoRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ExpenseReportControllerApi
+     */
+    public getExpenseReportInfo(requestParameters: ExpenseReportControllerApiGetExpenseReportInfoRequest, options?: RawAxiosRequestConfig) {
+        return ExpenseReportControllerApiFp(this.configuration).getExpenseReportInfo(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

@@ -7,6 +7,7 @@ import {
   TripControllerApi,
   TripStatusControllerApi,
   UserControllerApi,
+  DepartmentControllerApi
 } from "./api_gen";
 
 export const baseApiRoute = window.location.origin;
@@ -27,3 +28,4 @@ export const expenseReportApi = new ExpenseReportControllerApi(apiConfig);
 export const userApi = new UserControllerApi(apiConfig);
 export const tripStatusApi = new TripStatusControllerApi(apiConfig);
 export const statisticsApi = new StatisticsControllerApi(apiConfig);
+export const departmentApi = new DepartmentControllerApi(apiConfig);
