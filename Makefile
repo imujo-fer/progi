@@ -5,10 +5,7 @@ typescript-types:
 	pnpm dlx @openapitools/openapi-generator-cli generate -i ${DEMO_PATH}/v3/api-docs  -g typescript-axios -o frontend/src/api_gen --additional-properties=withSeparateModelsAndApi=true,supportsES6=true,useSingleRequestParameter=true,apiPackage="apis",modelPackage="models"
 
 be-dev:
-	./mvnw spring-boot:run -Dspring-boot.run.profiles=local
-
-be-prod:
-	./mvnw spring-boot:run
+	./mvnw spring-boot:run	
 
 build:
 	. ~/.nvm/nvm.sh && nvm use && pnpm install --frozen-lockfile && pnpm run build && ./mvnw clean package
