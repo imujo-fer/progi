@@ -33,7 +33,12 @@ export default function ExpenseReportItem({ item }: ExpenseReportItemProps) {
         });
       }}
     />,
-    <Link>View bill</Link>,
+  <Link
+    key="view-bill"
+    onClick={() => window.open(`/receipts/1734726833237.pdf`, '_blank')}
+  >
+    View bill
+  </Link>
   ];
 
   return (
