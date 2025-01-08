@@ -1,12 +1,11 @@
+# Stage 1: Build React App
 FROM node:18 AS frontend
 WORKDIR /app
 RUN npm install -g pnpm
-COPY package.json pnpm-lock.yaml tsconfig.json vite.config.mjs ./
+COPY package.json pnpm-lock.yaml tsconfig.json vite.config.mjs .env ./
 COPY frontend ./frontend
 RUN pnpm install
 RUN pnpm run build
-RUN echo "Build Frontend Done"
-RUN ls frontend
 
 # Stage 2: Build Spring Boot App
 FROM openjdk:21-jdk AS backend
