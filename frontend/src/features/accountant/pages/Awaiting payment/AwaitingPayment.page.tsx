@@ -49,6 +49,7 @@ export default function TripsOverview() {
   const extractedData = data?.content?.map((trip) => {
     return {
       requestNumber: trip.requestNumber,
+      employee:trip.user?.firstName + " " + trip.user?.lastName,
       dateRange: `${format(new Date(trip.dateFrom), "dd.MM.yyyy")} - ${format(
         new Date(trip.dateTo),
         "dd.MM.yyyy"
@@ -61,11 +62,11 @@ export default function TripsOverview() {
 
   return (
     <>
-      <Title>Active Trip Requests</Title>
+      <Title>Awaiting Payment</Title>
       <Table
         dataSource={extractedData}
         columns={columns}
-        locale={{ emptyText: "There are no trips with this status" }}
+        locale={{ emptyText: "There are no trips awaiting payment" }}
       ></Table>
     </>
   );

@@ -100,6 +100,18 @@ export interface User {
      * @type {boolean}
      * @memberof User
      */
+    'userAccountant'?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof User
+     */
+    'userDepartmentHead'?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof User
+     */
     'userDirector'?: boolean;
     /**
      * 
@@ -112,12 +124,5 @@ export interface User {
      * @type {boolean}
      * @memberof User
      */
-    'userDepartmentHead'?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof User
-     */
-    'userAccountant'?: boolean;
 }
 
