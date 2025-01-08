@@ -3,6 +3,7 @@ package com.progi.user;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,5 +85,13 @@ public class UserService {
     }
 
 
+    public Integer countUsersByDepartment(Integer id) {
+        return userRepository.countByDepartmentId(id);
+    }
 
+    public void deleteUser(Integer userId) {
+        User user = userRepository.findById(Long.valueOf(userId))
+                .orElseThrow(() -> new NoSuchElementException("User not found with id " + userId));
+        userRepository.delete(user);
+    }
 }

@@ -75,7 +75,7 @@ public class Trip {
     @JsonManagedReference
     private ExpenseReport expenseReport;
 
-    @OneToMany(mappedBy = "trip")
+    @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<TripStatus> tripStatuses;
 
