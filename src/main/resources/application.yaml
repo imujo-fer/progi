@@ -4,23 +4,34 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/progi
     username: postgres
-    password: 12345678
+    password: postgres
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     show-sql: true
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-  servlet:
-    multipart:
-      max-request-size: 10MB
-      max-file-size: 10MB
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 1015105553133-72mv61lsi2o8cj4fgvp9654flm0ah288.apps.googleusercontent.com
+            client-secret: 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
+            redirect-uri: "https://progi-progi.pro/login/oauth2/code/google"
+            scope: email, profile
+            client-name: Google
+        provider:
+          google:
+            authorization-uri: https://accounts.google.com/o/oauth2/auth
+            token-uri: https://oauth2.googleapis.com/token
+            user-info-uri: https://openidconnect.googleapis.com/v1/userinfo
   mail:
     host: smtp.sendgrid.net
     port: 587
     username: apikey
-    password: API_KEY_HERE
+    password: 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
     properties:
       mail:
         smtp:
