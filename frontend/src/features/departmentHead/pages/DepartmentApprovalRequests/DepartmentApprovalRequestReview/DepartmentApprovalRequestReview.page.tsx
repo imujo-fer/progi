@@ -1,3 +1,5 @@
+import TripRequestEditPage from "@/features/employee/pages/TripRequestForm/TripRequestEdit.page";
+
 export default function DepartmentApprovalRequestReview() {
-  return <>Review page</>;
+  return <><TripRequestEditPage disabled/></>;
 }

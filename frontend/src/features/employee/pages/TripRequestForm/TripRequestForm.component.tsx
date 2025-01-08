@@ -27,6 +27,7 @@ type TripRequestFormProps = {
   onSubmit: NonNullable<FormProps<TripRequestFormType>["onFinish"]>;
   isPending: boolean;
   onDiscard: () => void;
+  disabled?: boolean;
 };
 
 export default function TripRequestForm({
@@ -35,6 +36,7 @@ export default function TripRequestForm({
   onDiscard,
   onSubmit,
   title,
+  disabled,
 }: TripRequestFormProps) {
   const destination: string | undefined = Form.useWatch("destination", form);
   const destinationLocationInfo = useMemo(() => {
@@ -67,56 +69,60 @@ export default function TripRequestForm({
   return (
     <FormLayout
       onSubmit={onSubmit}
+      submitLabel={disabled ? "Approve" : "Save"}
       title={title}
       onDiscard={onDiscard}
+      discardLabel={disabled ? "Request revision" : "Cancel"}
       form={form}
       isPending={isPending}
+      disabled={disabled}
     >
       <Form.Item
-        label="Destination"
-        name="destination"
-        rules={[{ required: true, message: "Destination is required" }]}
+      label="Destination"
+      name="destination"
+      rules={[{ required: true, message: "Destination is required" }]}
       >
-        <Select
-          showSearch
-          filterOption={false}
-          onSearch={setDestinationSearch}
-          placeholder="Destination"
-          options={destinationOptions}
-          labelRender={(item) => JSON.parse(item.value as string).address}
-          notFoundContent={
-            isLoading ? (
-              <Spin indicator={<LoadingOutlined spin />} size="small" />
-            ) : undefined
-          }
-          loading={isLoading}
-        />
+      <Select
+        showSearch
+        filterOption={false}
+        onSearch={setDestinationSearch}
+        placeholder="Destination"
+        options={destinationOptions}
+        labelRender={(item) => JSON.parse(item.value as string).address}
+        notFoundContent={
+        isLoading ? (
+          <Spin indicator={<LoadingOutlined spin />} size="small" />
+        ) : undefined
+        }
+        loading={isLoading}
+        disabled={disabled}
+      />
       </Form.Item>
 
       <Form.Item
-        label="Duration"
-        name="duration"
-        rules={[{ required: true, message: "Duration is required" }]}
+      label="Duration"
+      name="duration"
+      rules={[{ required: true, message: "Duration is required" }]}
       >
-        <DatePicker.RangePicker showTime />
+      <DatePicker.RangePicker showTime disabled={disabled} />
       </Form.Item>
 
       <Form.Item
-        label="Purpose"
-        name="purpose"
-        rules={[{ required: true, message: "Purpose is required" }]}
+      label="Purpose"
+      name="purpose"
+      rules={[{ required: true, message: "Purpose is required" }]}
       >
-        <TextArea placeholder="Purpose" rows={6} />
+      <TextArea placeholder="Purpose" rows={6} disabled={disabled} />
       </Form.Item>
 
       {destinationLocationInfo && (
-        <GoogleMapsDirections
-          destination={destinationLocationInfo.coordinates}
-          origin={{
-            lat: company.locationCoordLat,
-            lng: company.locationCoordLon,
-          }}
-        />
+      <GoogleMapsDirections
+        destination={destinationLocationInfo.coordinates}
+        origin={{
+        lat: company.locationCoordLat,
+        lng: company.locationCoordLon,
+        }}
+      />
       )}
     </FormLayout>
   );

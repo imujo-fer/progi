@@ -1,5 +1,6 @@
 import { Form, Button, Modal, FormInstance } from "antd";
 import useModal from "../hooks/useModal";
+import TextArea from "antd/es/input/TextArea";
 
 type FormLayoutProps<T extends object> = {
   title?: string;
@@ -7,9 +8,11 @@ type FormLayoutProps<T extends object> = {
   children: React.ReactNode;
   isPending?: boolean;
   onDiscard: () => void;
+  discardLabel?: string;
   submitLabel?: string;
   hideCancel?: boolean;
   form: FormInstance;
+  disabled?:boolean;
 };
 
 export function FormLayout<T extends object>({
@@ -19,8 +22,10 @@ export function FormLayout<T extends object>({
   isPending,
   onDiscard,
   submitLabel,
+  discardLabel,
   hideCancel,
   form,
+  disabled
 }: FormLayoutProps<T>) {
   const discardModal = useModal();
 
@@ -39,26 +44,36 @@ export function FormLayout<T extends object>({
       <div className="mt-14 flex justify-end gap-2">
         {!hideCancel && (
           <Button danger onClick={onCancel}>
-            Cancel
+            {discardLabel || "Cancel"}
           </Button>
         )}
         <Button type="primary" htmlType="submit" loading={isPending}>
           {submitLabel || "Save"}
         </Button>
         <Modal
-          title={"Discard changes?"}
+          title={disabled? "Request Revision":"Discard changes?"}
           open={discardModal.isModalOpen}
           onOk={onDiscard}
           onCancel={discardModal.closeModal}
-          okText={"Discard changes"}
+          okText={disabled ? "Request revision":"Discard changes"}
           okType="danger"
-          cancelText={"Keep editing"}
+          cancelText={disabled? "Review again":"Keep editing"}
           okButtonProps={{ type: "primary" }}
         >
-          <p>
+            {disabled ? (
+            <>
+              <Form.Item
+              name="revisionMessage"
+              rules={[{ required: true, message: 'Please input the required changes!' }]}
+              >
+              <TextArea placeholder="Input required changes" />
+              </Form.Item>
+            </>
+            ) : <p>
             Are you sure you want to discard all changes? Any unsaved
             modifications will be lost.
-          </p>
+          </p>}
+          
         </Modal>
       </div>
     </Form>
