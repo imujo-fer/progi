@@ -35,6 +35,7 @@
 /Users/ivomujo/Development/Personal/progi/src/main/java/com/progi/expensecategory/ExpenseCategoryController.java
 /Users/ivomujo/Development/Personal/progi/src/main/java/com/progi/expensecategory/ExpenseCategoryRepository.java
 /Users/ivomujo/Development/Personal/progi/src/main/java/com/progi/expensecategory/ExpenseCategoryService.java
+/Users/ivomujo/Development/Personal/progi/src/main/java/com/progi/expensecategory/dto/ExpenseCategoryWithSubcategories.java
 /Users/ivomujo/Development/Personal/progi/src/main/java/com/progi/expensereport/ExpenseReport.java
 /Users/ivomujo/Development/Personal/progi/src/main/java/com/progi/expensereport/ExpenseReportController.java
 /Users/ivomujo/Development/Personal/progi/src/main/java/com/progi/expensereport/ExpenseReportDTO.java
