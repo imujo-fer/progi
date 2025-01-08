@@ -11,15 +11,24 @@ public class Env {
     @Value("${google.api_key}")
     private String googleApiKeyEnv;
 
+    @Value("${env}")
+    private String envEnv;
+
     private static String GOOGLE_API_KEY; 
+    private static String ENV; 
 
     @PostConstruct
     public void init() {
         GOOGLE_API_KEY = googleApiKeyEnv;
+        ENV = envEnv;
     }
 
     public static String getGoogleApiKey() {
         return GOOGLE_API_KEY;
+    }
+
+    public static String getEnv() {
+        return ENV;
     }
 
 
