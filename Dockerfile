@@ -2,7 +2,7 @@
 FROM node:18 AS frontend
 WORKDIR /app
 RUN npm install -g pnpm
-COPY package.json pnpm-lock.yaml tsconfig.json vite.config.mjs .env ./
+COPY package.json pnpm-lock.yaml tsconfig.json vite.config.mjs ./
 COPY frontend ./frontend
 RUN pnpm install
 RUN pnpm run build
