@@ -27,9 +27,9 @@ public class ExpenseReportItemService {
     private ExpenseSubcategoryService expenseSubcategoryService;
 
     public ExpenseReportItem getExpenseReportItemById(Integer id) {
-        return expenseReportItemRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Expense report item not found with id " + id));
+        return expenseReportItemRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Expense report item not found with id " + id));
     }
-
 
     public void deleteExpenseReportItem(Integer id) {
         ExpenseReportItem expenseReportItem = getExpenseReportItemById(id);
@@ -42,19 +42,19 @@ public class ExpenseReportItemService {
         }
     }
 
-
-
     public ExpenseReportItem createExpenseReportItem(ExpenseReportItemDTO expenseReportItemDTO) {
         ExpenseReportItem expenseReportItem = new ExpenseReportItem();
 
-        ExpenseReport expenseReport = expenseReportService.getExpenseReportById(expenseReportItemDTO.getExpenseReportId());
+        ExpenseReport expenseReport = expenseReportService
+                .getExpenseReportById(expenseReportItemDTO.getExpenseReportId());
         expenseReportItem.setExpenseReport(expenseReport);
 
         Receipt receipt = new Receipt();
         receipt = receiptService.getReceiptById(expenseReportItemDTO.getReceiptId());
         expenseReportItem.setReceipt(receipt);
 
-        ExpenseSubcategory expenseSubcategory = expenseSubcategoryService.getExpenseSubcategoryById(expenseReportItemDTO.getExpenseSubcategoryId());
+        ExpenseSubcategory expenseSubcategory = expenseSubcategoryService
+                .getExpenseSubcategoryById(expenseReportItemDTO.getExpenseSubcategoryId());
         expenseReportItem.setExpenseSubcategory(expenseSubcategory);
 
         expenseReportItem.setDescription(expenseReportItemDTO.getDescription());
@@ -68,14 +68,16 @@ public class ExpenseReportItemService {
     public ExpenseReportItem updateExpenseReportItem(Integer id, ExpenseReportItemDTO expenseReportItemDTO) {
         ExpenseReportItem expenseReportItem = getExpenseReportItemById(id);
 
-        ExpenseReport expenseReport = expenseReportService.getExpenseReportById(expenseReportItemDTO.getExpenseReportId());
+        ExpenseReport expenseReport = expenseReportService
+                .getExpenseReportById(expenseReportItemDTO.getExpenseReportId());
         expenseReportItem.setExpenseReport(expenseReport);
 
         Receipt receipt = new Receipt();
         receipt = receiptService.getReceiptById(expenseReportItemDTO.getReceiptId());
         expenseReportItem.setReceipt(receipt);
 
-        ExpenseSubcategory expenseSubcategory = expenseSubcategoryService.getExpenseSubcategoryById(expenseReportItemDTO.getExpenseSubcategoryId());
+        ExpenseSubcategory expenseSubcategory = expenseSubcategoryService
+                .getExpenseSubcategoryById(expenseReportItemDTO.getExpenseSubcategoryId());
         expenseReportItem.setExpenseSubcategory(expenseSubcategory);
 
         expenseReportItem.setDescription(expenseReportItemDTO.getDescription());

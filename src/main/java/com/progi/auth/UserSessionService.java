@@ -19,15 +19,16 @@ public class UserSessionService {
         this.userRepository = userRepository;
     }
 
-
     public User getCurrentAuthenticatedUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         System.out.println(authentication);
-        if (authentication != null && authentication.isAuthenticated() && authentication.getPrincipal() instanceof OAuth2User) {
-            OAuth2User oauth2User = (OAuth2User) authentication.getPrincipal();  
-            String email = oauth2User.getAttribute("email");  
-            
-            return userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found in database"));
+        if (authentication != null && authentication.isAuthenticated()
+                && authentication.getPrincipal() instanceof OAuth2User) {
+            OAuth2User oauth2User = (OAuth2User) authentication.getPrincipal();
+            String email = oauth2User.getAttribute("email");
+
+            return userRepository.findByEmail(email)
+                    .orElseThrow(() -> new RuntimeException("User not found in database"));
         }
         System.out.println("not authorize");
         throw new RuntimeException("User is not authenticated.");
