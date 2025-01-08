@@ -18,11 +18,9 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 
-    // Handle other general exceptions
     @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public String handleGenericException(Exception ex, Model model) {
-        model.addAttribute("errorMessage", "An unexpected error occurred: " + ex.getMessage());
-        return "error";  // Return the error page for generic errors
+    public ResponseEntity<String> handleGenericException(Exception ex) {
+        String errorMessage = "An unexpected error occurred: " + ex.getMessage();
+        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }
 }
