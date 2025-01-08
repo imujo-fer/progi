@@ -44,10 +44,12 @@ public class DepartmentService {
                 .collect(Collectors.toList());
     }
 
-    public Department createDepartment(Department department) {
-            return departmentRepository.save(department);
-    }
+    public Department createDepartment(CreateDepartmentDTO createDepartmentDTO) {
+        Department department = new Department();
+        department.setName(createDepartmentDTO.getName());
 
+        return departmentRepository.save(department);
+    }
 
     public void deleteDepartment(Integer id) {
         Department department = getDepartmentById(id);
@@ -77,12 +79,16 @@ public class DepartmentService {
                 .findFirst()
                 .orElseThrow(() -> new NoSuchElementException("Employee not found in the department"));
 
+        // Remove the user from the department's list
         department.getUsers().remove(user);
 
+        // Save updated department (this will update the department without the user)
         departmentRepository.save(department);
 
+        // Delete the user and cascade delete related trips and trip statuses
         userService.deleteUser(employeeId);
     }
+
 
 
 
