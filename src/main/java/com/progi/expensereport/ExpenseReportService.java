@@ -4,21 +4,20 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.progi.expensecategory.ExpenseCategory;
 import com.progi.expensecategory.ExpenseCategoryDTO;
 import com.progi.expensereportitem.ExpenseReportItem;
 import com.progi.expensereportitem.ExpenseReportItemInfoDTO;
-import com.progi.expensesubcategory.ExpenseSubcategoryDTO;
-import com.progi.trip.TripDTO;
-import com.progi.user.User;
-import com.progi.user.UserService;
-import com.progi.user.dto.UserDetailsDTO;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.progi.expensereportitem.ExpenseReportItemWithSubcategoryDTO;
+import com.progi.expensesubcategory.ExpenseSubcategoryDTO;
 import com.progi.trip.Trip;
+import com.progi.trip.TripDTO;
 import com.progi.trip.TripService;
+import com.progi.user.User;
+import com.progi.user.dto.UserDetailsDTO;
 
 import jakarta.transaction.Transactional;
 
@@ -30,9 +29,6 @@ public class ExpenseReportService {
         private ExpenseReportRepository expenseReportRepository;
         @Autowired
         private TripService tripService;
-
-        @Autowired
-        private UserService userService;
 
         public ExpenseReport getExpenseReportById(Integer id) {
                 return expenseReportRepository.findById(id).orElseThrow(
@@ -85,6 +81,7 @@ public class ExpenseReportService {
                                 .mapToDouble(ExpenseReportItem::getEurValue)
                                 .sum();
 
+
                 List<ExpenseCategoryDTO> expenseCategoryDTOs = expenseReport.getExpenseReportItems().stream()
                                 .collect(Collectors
                                                 .groupingBy(item -> item.getExpenseSubcategory().getExpenseCategory()))
@@ -115,7 +112,7 @@ public class ExpenseReportService {
                                                         expenseReportItemInfoDTOs);
                                 })
                                 .collect(Collectors.toList());
-
+                
                 eurExpenseSum += eurTotalWage;
 
                 return new ExpenseReportInfoDTO(
@@ -128,6 +125,17 @@ public class ExpenseReportService {
                                 expenseCategoryDTOs,
                                 dailyWageDTO,
                                 eurExpenseSum);
+        }
+
+        public ExpenseReport updateExpenseReportTotalCost(Integer expenseReportId) {
+                ExpenseReportInfoDTO info = this.getExpenseReportItemInfo(expenseReportId);
+
+                ExpenseReport expenseReport = this.getExpenseReportById(expenseReportId);
+                expenseReport.setEurTotalCost(info.getEurExpenseSum());
+
+                return expenseReportRepository.save(expenseReport);
+
+
         }
 
 }

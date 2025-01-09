@@ -1,17 +1,18 @@
 package com.progi.expensereportitem;
 
+import java.util.NoSuchElementException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.progi.expensereport.ExpenseReport;
+import com.progi.expensereport.ExpenseReportService;
 import com.progi.expensesubcategory.ExpenseSubcategory;
 import com.progi.expensesubcategory.ExpenseSubcategoryService;
 import com.progi.receipt.Receipt;
-import com.progi.expensereport.ExpenseReport;
-import com.progi.expensereport.ExpenseReportService;
 import com.progi.receipt.ReceiptService;
-import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.util.NoSuchElementException;
+import jakarta.transaction.Transactional;
 
 @Service
 @Transactional
@@ -62,7 +63,11 @@ public class ExpenseReportItemService {
         expenseReportItem.setCurrencyValue(expenseReportItemDTO.getCurrencyValue());
         expenseReportItem.setEurValue(expenseReportItemDTO.getEurValue());
 
-        return expenseReportItemRepository.save(expenseReportItem);
+        ExpenseReportItem newExpenseReportItem = expenseReportItemRepository.save(expenseReportItem);
+
+        expenseReportService.updateExpenseReportTotalCost(expenseReport.getId());
+
+        return newExpenseReportItem;
     }
 
     public ExpenseReportItem updateExpenseReportItem(Integer id, ExpenseReportItemDTO expenseReportItemDTO) {
@@ -85,7 +90,11 @@ public class ExpenseReportItemService {
         expenseReportItem.setCurrencyValue(expenseReportItemDTO.getCurrencyValue());
         expenseReportItem.setEurValue(expenseReportItemDTO.getEurValue());
 
-        return expenseReportItemRepository.save(expenseReportItem);
+        ExpenseReportItem updatedExpenseReportItem = expenseReportItemRepository.save(expenseReportItem);
+
+        expenseReportService.updateExpenseReportTotalCost(expenseReport.getId());
+
+        return updatedExpenseReportItem;
     }
 
 }
