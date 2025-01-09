@@ -28,9 +28,7 @@ export default function Sidebar() {
 
   const { data: departments, isLoading: isLoadingDepartments } =
     useGetDepartments({
-      onSuccess: (data) => {
-        console.log("Fetched departments:", data);
-      },
+      onSuccess: () => {},
     });
 
   const roles: ItemType[] = [
