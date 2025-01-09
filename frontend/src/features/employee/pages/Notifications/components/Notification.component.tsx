@@ -35,7 +35,7 @@ export default function Notification({ notification }: NotificationProps) {
           <span className="font-bold">{previousStatusLabel}</span>
           {` to `}
           <span className="font-bold">{nextStatusLabel}</span>
-          {` on request #`}
+          {` on request `}
           {String(notification.trip.requestNumber).padStart(3, "0")}
         </div>
         <div>

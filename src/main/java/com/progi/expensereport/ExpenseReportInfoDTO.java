@@ -1,17 +1,16 @@
 package com.progi.expensereport;
 
-import com.progi.expensecategory.ExpenseCategoryDTO;
+import java.util.List;
 
+import com.progi.expensecategory.ExpenseCategoryDTO;
 import com.progi.trip.TripDTO;
 import com.progi.user.dto.UserDetailsDTO;
+
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.List;
 
 @Data
 @Getter

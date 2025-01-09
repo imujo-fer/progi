@@ -120,6 +120,6 @@ public class TripStatusService {
             }
         }
 
-        return notifications;
+        return notifications.reversed();
     }
 }

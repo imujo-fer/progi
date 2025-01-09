@@ -29,6 +29,9 @@ public class TripResponseDTO {
     private Status status;
     @NotNull
     private Integer expenseReportId;
+    
+    private Double eurTotalCost;
+
     @NotNull
     private UserDetailsDTO user;
 
@@ -41,6 +44,7 @@ public class TripResponseDTO {
         this.country = new CountryDTO(trip.getCountry());
         this.status = trip.getTripStatuses().isEmpty() ? null : trip.getTripStatuses().get(trip.getTripStatuses().size() - 1).getStatus();
         this.expenseReportId = trip.getExpenseReport() != null ? trip.getExpenseReport().getId() : null;
+        this.eurTotalCost = trip.getExpenseReport() != null ? trip.getExpenseReport().getEurTotalCost() : null;
         this.address = trip.getAddress();
         this.user = new UserDetailsDTO(trip.getUser());
     }
