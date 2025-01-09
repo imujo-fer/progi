@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.progi.Enum.RoleType;
+import com.progi.GoogleMaps.Env;
 import com.progi.department.Department;
+import com.progi.email.EmailService;
 import com.progi.role.Role;
 import com.progi.user.dto.UserDetailsDTO;
 import com.progi.user.dto.UserEditDTO;
@@ -26,12 +28,19 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private EmailService emailService;
+
     public UserDetailsDTO inviteUser(UserInviteDTO userInviteDTO) {
         User user = userInviteDTO.toUser();
 
         String randomHash = UUID.randomUUID().toString();
         user.setRegistrationHash(randomHash);
         user = userRepository.save(user);
+
+        System.out.println(Env.getBaseUrl());
+        emailService.sendEmail(user.getEmail(), "Invitation to join Event spot", "You have been invited to join Event spot trip planning application. Please click the following link to register: " + Env.getBaseUrl() + "register/" + randomHash);
+
 
         return new UserDetailsDTO(user);
     }

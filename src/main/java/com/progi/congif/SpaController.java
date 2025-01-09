@@ -10,7 +10,9 @@ public class SpaController {
 
     @GetMapping(value = "/{path:^(?!api|swagger|oauth2|images|index.js|index.css).*$}/**")
     public String forwardIndex(Model model) {
+        // String log = "BASE URL: " + Env.getBaseUrl() + " " + Env.getEnv() + " " + Env.getGoogleApiKey()	;
         model.addAttribute("env", Env.getEnv());
+        // model.addAttribute("log", log);
 
         return "index";
     }
