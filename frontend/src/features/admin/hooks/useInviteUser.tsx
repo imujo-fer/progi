@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
-import { UserInviteDTO } from "../../../../../api_gen";
-import { userApi } from "../../../../../apiClient";
+import { UserInviteDTO } from "../../../api_gen";
+import { userApi } from "../../../apiClient";
 type UseInviteUserProps = {
   onSuccess?: () => void;
   onError?: (error: unknown) => void;

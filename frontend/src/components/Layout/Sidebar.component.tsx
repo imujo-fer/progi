@@ -1,7 +1,14 @@
+import useGetDepartments from "@/features/admin/hooks/useGetDepartments";
+import {
+  departmentEmployeesRoute,
+  inviteUserRoute,
+  departmentRoute,
+} from "@/features/admin/routes/admin.rutes";
 import { statisticsRoute } from "@/features/statistics/statistics.routes";
 import useUser from "@/providers/UserProvider";
 import { Link } from "@tanstack/react-router";
 import { Menu } from "antd";
+import { ItemType } from "antd/es/menu/interface";
 import { UserDetailsDTORolesEnum } from "../../api_gen/models/user-details-dto";
 import {
   awaitingPaymentRoute,
@@ -14,18 +21,22 @@ import {
   pastTripsRoute,
   tripRequestsRoute,
 } from "../../features/employee/routes/employee.routes";
-import { inviteUserRoute } from "@/features/admin/routes/admin.rutes";
 
 export default function Sidebar() {
   const user = useUser();
   const roleList = user?.roles || [];
 
-  const roles = [
+  const { data: departments, isLoading: isLoadingDepartments } =
+    useGetDepartments({
+      onSuccess: () => {},
+    });
+
+  const roles: ItemType[] = [
     {
       key: "1",
-      label: <Link to={tripRequestsRoute.to}> Trips requests </Link>,
+      label: <Link to={tripRequestsRoute.to}>Trips requests</Link>,
     },
-    { key: "2", label: <Link to={pastTripsRoute.to}> Past Trips </Link> },
+    { key: "2", label: <Link to={pastTripsRoute.to}>Past Trips</Link> },
   ];
 
   if (roleList.includes(UserDetailsDTORolesEnum.DepartmentHead)) {
@@ -75,6 +86,34 @@ export default function Sidebar() {
       key: "10",
       label: <Link to={inviteUserRoute.to}>Invite User</Link>,
     });
+
+    roles.push({
+      key: "11",
+      label: (
+        <Link to={departmentRoute.to}>
+          <span>Departments</span>
+        </Link>
+      ),
+      children:
+        isLoadingDepartments || !departments
+          ? [
+              {
+                key: "loading",
+                label: <span>Loading...</span>,
+              },
+            ]
+          : departments.map((department) => ({
+              key: `department-${department.id}`,
+              label: (
+                <Link
+                  to={departmentEmployeesRoute.to}
+                  params={{ id: department.id?.toString() || "" }}
+                >
+                  {department.name}
+                </Link>
+              ),
+            })),
+    });
   }
 
   roles.push({
@@ -82,5 +121,5 @@ export default function Sidebar() {
     label: <Link to={notificationsRoute.to}>Notifications</Link>,
   });
 
-  return <Menu theme="light" items={roles} />;
+  return <Menu theme="light" mode="inline" items={roles} />;
 }

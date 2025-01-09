@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
-import { departmentApi } from "../../../../../apiClient"; // Adjust the path if necessary
+import { departmentApi } from "../../../apiClient"; // Adjust the path if necessary
 import { DepartmentDTO } from "@/api_gen";
 
 type UseGetDepartmentsProps = {
