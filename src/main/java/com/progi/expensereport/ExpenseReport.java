@@ -36,9 +36,10 @@ public class ExpenseReport {
     @NotNull
     private Timestamp createdAt;
 
-    @OneToMany(mappedBy = "expenseReport")
+    @OneToMany(mappedBy = "expenseReport", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<ExpenseReportItem> expenseReportItems;
+
 
     @PrePersist
     protected void onCreate() {

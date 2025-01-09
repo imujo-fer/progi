@@ -71,7 +71,7 @@ public class Trip {
     @NotNull
     private User user;
 
-    @OneToOne(mappedBy = "trip")
+    @OneToOne(mappedBy = "trip", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private ExpenseReport expenseReport;
 

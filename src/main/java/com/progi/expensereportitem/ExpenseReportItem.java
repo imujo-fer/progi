@@ -34,10 +34,9 @@ public class ExpenseReportItem {
     @NotNull
     private ExpenseReport expenseReport;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "receipt_id", referencedColumnName = "id", nullable = false)
     @NotNull
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Receipt receipt;
 
     @ManyToOne
