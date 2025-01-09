@@ -3,13 +3,10 @@
 import React from "react";
 import { Table, Spin } from "antd";
 import useGetDepartmentEmployees from "../../hooks/useGetDepartmentEmloyees";
-type DepartmentEmployeesTableProps = {
-  departmentId: number; // ID departmenta za koji prikazujemo zaposlenike
-};
+import { departmentEmployeesRoute } from "../../routes/admin.rutes";
 
-const DepartmentEmployeesTable: React.FC<DepartmentEmployeesTableProps> = ({
-  departmentId,
-}) => {
+const DepartmentEmployeesTable = () => {
+  const { id: departmentId } = departmentEmployeesRoute.useRouteContext();
   const { data: employees, isLoading } = useGetDepartmentEmployees({
     departmentId,
     onSuccess: (data) => {
