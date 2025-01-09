@@ -80,7 +80,7 @@ export default function Sidebar() {
       label: <Link to={statisticsRoute.to}>Statistics</Link>,
     });
   }
-
+  console.log(roleList);
   if (roleList.includes(UserDetailsDTORolesEnum.Administrator)) {
     roles.push({
       key: "10",
