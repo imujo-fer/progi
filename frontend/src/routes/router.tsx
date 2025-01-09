@@ -29,7 +29,10 @@ import {
 } from "../features/employee/routes/employee.routes";
 import { statisticsRoute } from "@/features/statistics/statistics.routes";
 import { inviteUserRoute } from "@/features/admin/routes/admin.rutes";
-import { departmentEmployeesRoute } from "@/features/admin/routes/admin.rutes";
+import {
+  departmentEmployeesRoute,
+  departmentRoute,
+} from "@/features/admin/routes/admin.rutes";
 
 export const rootRoute = createRootRouteWithContext<RootRouteContext>()();
 
@@ -70,6 +73,7 @@ export const routeTree = rootRoute.addChildren([
     statisticsRoute,
     inviteUserRoute,
     departmentEmployeesRoute,
+    departmentRoute,
   ]),
   exportRoute,
   loginRoute,

@@ -20,6 +20,7 @@ import {
   pastTripsRoute,
   tripRequestsRoute,
 } from "../../features/employee/routes/employee.routes";
+import { departmentRoute } from "@/features/admin/routes/admin.rutes";
 
 export default function Sidebar() {
   const user = useUser();
@@ -90,7 +91,7 @@ export default function Sidebar() {
 
     roles.push({
       key: "11",
-      label: <span>Departments</span>,
+      label: <Link to={departmentRoute.to}>Departments</Link>,
       type: "submenu",
       children:
         isLoadingDepartments || !departments

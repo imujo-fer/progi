@@ -9,6 +9,7 @@ import useGetDepartments from "../../hooks/useGetDepartments";
 interface InviteUserFormProps {
   userDetails?: UserDetailsDTO;
   onFinishSuccess?: () => void;
+  onCancel?: () => void; // Dodano za zatvaranje modala
 }
 
 interface InviteUserFormValues {
@@ -23,6 +24,7 @@ interface InviteUserFormValues {
 export default function InviteUserForm({
   userDetails,
   onFinishSuccess,
+  onCancel, // Dodano
 }: InviteUserFormProps) {
   const [form] = Form.useForm<InviteUserFormValues>();
 
@@ -56,14 +58,13 @@ export default function InviteUserForm({
 
   const roleOptions = Object.entries(UserDetailsDTORolesEnum);
 
-  // Populate form fields with user details if editing
   if (userDetails) {
     form.setFieldsValue({
       email: userDetails.email,
       firstName: userDetails.firstName,
       lastName: userDetails.lastName,
       iban: userDetails.iban,
-      department: userDetails?.department?.name || "", // Prikaži ime departmana
+      department: userDetails?.department?.name || "",
       roles: userDetails.roles || [],
     });
   }
@@ -80,7 +81,7 @@ export default function InviteUserForm({
           firstName: values.firstName,
           lastName: values.lastName,
           iban: values.iban,
-          departmentId: selectedDepartment?.id || 0, // Pretvori ime natrag u ID
+          departmentId: selectedDepartment?.id || 0,
           roles: values.roles as Array<UserDetailsDTORolesEnum>,
         },
       });
@@ -178,13 +179,23 @@ export default function InviteUserForm({
         </Form.Item>
 
         <div className="flex justify-end gap-4 mt-6">
-          <Button onClick={() => form.resetFields()}>Cancel</Button>
+          <Button
+            onClick={() => {
+              if (userDetails) {
+                onCancel?.(); // Zatvori modal ako je edit
+              } else {
+                form.resetFields(); // Resetiraj formu ako je create
+              }
+            }}
+          >
+            Cancel
+          </Button>
           <Button
             type="primary"
             htmlType="submit"
             loading={isInviting || isUpdating}
           >
-            {userDetails ? "Update" : "Save"}
+            Save
           </Button>
         </div>
       </Form>

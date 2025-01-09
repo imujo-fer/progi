@@ -99,7 +99,7 @@ const DepartmentEmployeesTable = () => {
       render: (roles: string[]) => roles.join(", "),
     },
     {
-      title: "Actions",
+      title: "",
       key: "actions",
       render: (_: any, record: UserDetailsDTO) => (
         <div className="flex gap-2">
@@ -135,16 +135,12 @@ const DepartmentEmployeesTable = () => {
         pagination={false}
         scroll={{ x: "1000px" }} // Dodano za responzivnost
       />
-      <Modal
-        title="Edit User"
-        visible={isModalVisible}
-        onCancel={closeModal}
-        footer={null}
-      >
+      <Modal visible={isModalVisible} onCancel={closeModal} footer={null}>
         {editingUser && (
           <InviteUserForm
             userDetails={editingUser}
             onFinishSuccess={onFinishSuccess}
+            onCancel={closeModal}
           />
         )}
       </Modal>
