@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import com.progi.user.UserService;
 import com.progi.user.dto.UserDetailsDTO;
+
+import org.hibernate.validator.internal.util.stereotypes.Lazy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,7 @@ public class DepartmentService {
     private DepartmentRepository departmentRepository;
 
     @Autowired
+    @Lazy
     private UserService userService;
 
     public List<DepartmentDTO> getAllDepartments() {
@@ -28,19 +31,21 @@ public class DepartmentService {
                 .map(department -> new DepartmentDTO(
                         department.getId(),
                         department.getName(),
-                        userService.countUsersByDepartment(department.getId()))) // Delegate user-related logic to UserService
+                        userService.countUsersByDepartment(department.getId()))) // Delegate user-related logic to
+                                                                                 // UserService
                 .collect(Collectors.toList());
     }
 
     public Department getDepartmentById(Integer id) {
-        return departmentRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Department not found with id " + id));
+        return departmentRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Department not found with id " + id));
     }
 
     public List<UserDetailsDTO> getEmployeesByDepartmentId(Integer departmentId) {
         Department department = getDepartmentById(departmentId);
 
         return department.getUsers().stream()
-                .map(UserDetailsDTO::new)  // Convert User entity to UserDetailsDTO
+                .map(UserDetailsDTO::new) // Convert User entity to UserDetailsDTO
                 .collect(Collectors.toList());
     }
 
@@ -54,12 +59,11 @@ public class DepartmentService {
     public void deleteDepartment(Integer id) {
         Department department = getDepartmentById(id);
 
-        if(!department.getUsers().isEmpty()) {
+        if (!department.getUsers().isEmpty()) {
             throw new IllegalStateException("Cannot delete a department with employees.");
         }
         departmentRepository.delete(department);
     }
-
 
     public Department updateDepartmentName(Integer id, String name) {
         Department department = getDepartmentById(id);
@@ -88,8 +92,5 @@ public class DepartmentService {
         // Delete the user and cascade delete related trips and trip statuses
         userService.deleteUser(employeeId);
     }
-
-
-
 
 }

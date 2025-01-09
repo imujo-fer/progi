@@ -32,8 +32,6 @@ export default function Sidebar() {
       },
     });
 
-  console.log(departments);
-
   const roles: ItemType[] = [
     {
       key: "1",
@@ -83,14 +81,13 @@ export default function Sidebar() {
       label: <Link to={statisticsRoute.to}>Statistics</Link>,
     });
   }
-  console.log(roleList);
+
   if (roleList.includes(UserDetailsDTORolesEnum.Administrator)) {
     roles.push({
       key: "10",
       label: <Link to={inviteUserRoute.to}>Invite User</Link>,
     });
 
-    // Add Departments menu item with subitems
     roles.push({
       key: "11",
       label: <span>Departments</span>,

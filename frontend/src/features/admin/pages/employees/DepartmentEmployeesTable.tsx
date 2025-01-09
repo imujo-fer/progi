@@ -1,23 +1,63 @@
 "use client";
 
-import React from "react";
-import { Table, Spin } from "antd";
+import React, { useState } from "react";
+import { Table, Spin, Button, Modal, Popconfirm, message } from "antd";
 import useGetDepartmentEmployees from "../../hooks/useGetDepartmentEmloyees";
+import useGetDepartmentById from "../../hooks/useGetDepartmentById";
+import useDeleteUser from "../../hooks/useDeleteUserFromDepartment";
 import { departmentEmployeesRoute } from "../../routes/admin.rutes";
+import InviteUserForm from "../inviteUser/InviteUserForm";
+import { UserDetailsDTO } from "@/api_gen";
 
 const DepartmentEmployeesTable = () => {
   const { id: departmentId } = departmentEmployeesRoute.useRouteContext();
-  const { data: employees, isLoading } = useGetDepartmentEmployees({
+
+  const [editingUser, setEditingUser] = useState<UserDetailsDTO | null>(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const {
+    data: employees,
+    isLoading: isLoadingEmployees,
+    refetch,
+  } = useGetDepartmentEmployees({
     departmentId,
-    onSuccess: (data) => {
-      console.log(`Fetched employees for department ${departmentId}:`, data);
+  });
+
+  const { data: department, isLoading: isLoadingDepartment } =
+    useGetDepartmentById({
+      id: departmentId,
+    });
+
+  const { mutate: deleteUser } = useDeleteUser({
+    onSuccess: () => {
+      message.success("User deleted successfully!");
+      refetch(); // Automatski osvježava podatke u tablici
+    },
+    onError: (error) => {
+      message.error(`Failed to delete user: ${error}`);
     },
   });
 
-  console.log(departmentId);
-  console.log(employees);
+  const handleEdit = (user: UserDetailsDTO) => {
+    setEditingUser(user);
+    setIsModalVisible(true);
+  };
 
-  if (isLoading) {
+  const closeModal = () => {
+    setIsModalVisible(false);
+    setEditingUser(null);
+  };
+
+  const onFinishSuccess = () => {
+    closeModal();
+    refetch(); // Automatski osvježava podatke u tablici
+  };
+
+  const handleDelete = (userId: number) => {
+    deleteUser({ userId, departmentId });
+  };
+
+  if (isLoadingEmployees || isLoadingDepartment) {
     return (
       <div className="flex justify-center items-center h-full">
         <Spin size="large" />
@@ -26,19 +66,21 @@ const DepartmentEmployeesTable = () => {
   }
 
   if (!employees || employees.length === 0) {
-    return <p>No employees found for this department.</p>;
+    return (
+      <p className="text-center text-gray-600">
+        No employees found for this department.
+      </p>
+    );
   }
 
   const columns = [
     {
-      title: "First Name",
+      title: "Name",
       dataIndex: "firstName",
-      key: "firstName",
-    },
-    {
-      title: "Last Name",
-      dataIndex: "lastName",
-      key: "lastName",
+      key: "name",
+      render: (_: any, record: UserDetailsDTO) => (
+        <span>{`${record.firstName} ${record.lastName}`}</span>
+      ),
     },
     {
       title: "Email",
@@ -51,25 +93,61 @@ const DepartmentEmployeesTable = () => {
       key: "iban",
     },
     {
-      title: "Roles",
+      title: "Role",
       dataIndex: "roles",
       key: "roles",
       render: (roles: string[]) => roles.join(", "),
     },
+    {
+      title: "Actions",
+      key: "actions",
+      render: (_: any, record: UserDetailsDTO) => (
+        <div className="flex gap-2">
+          <Button
+            type="primary"
+            onClick={() => handleEdit(record)}
+            className="bg-blue-500"
+          >
+            Edit
+          </Button>
+          <Popconfirm
+            title="Are you sure you want to delete this user?"
+            onConfirm={() => handleDelete(record.id)}
+            okText="Yes"
+            cancelText="No"
+          >
+            <Button danger>Delete</Button>
+          </Popconfirm>
+        </div>
+      ),
+    },
   ];
 
   return (
-    <div>
-      <h2 className="text-xl font-bold mb-4">
-        Employees in Department {departmentId}
+    <div className="p-4 sm:p-6 lg:p-8">
+      <h2 className="text-xl font-bold mb-6 text-center sm:text-left">
+        Employees in Department: {department?.name || "Unknown Department"}
       </h2>
       <Table
         dataSource={employees}
         columns={columns}
         rowKey={(record) => record.id}
-        className="border shadow-md"
         pagination={false}
+        scroll={{ x: "1000px" }} // Dodano za responzivnost
       />
+      <Modal
+        title="Edit User"
+        visible={isModalVisible}
+        onCancel={closeModal}
+        footer={null}
+      >
+        {editingUser && (
+          <InviteUserForm
+            userDetails={editingUser}
+            onFinishSuccess={onFinishSuccess}
+          />
+        )}
+      </Modal>
     </div>
   );
 };
