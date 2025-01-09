@@ -15,17 +15,28 @@ import {
   tripRequestsRoute,
 } from "../../features/employee/routes/employee.routes";
 import { inviteUserRoute } from "@/features/admin/routes/admin.rutes";
+import { departmentEmployeesRoute } from "@/features/admin/routes/admin.rutes";
+import useGetDepartments from "@/features/admin/hooks/useGetDepartments";
 
 export default function Sidebar() {
   const user = useUser();
   const roleList = user?.roles || [];
 
+  const { data: departments, isLoading: isLoadingDepartments } =
+    useGetDepartments({
+      onSuccess: (data) => {
+        console.log("Fetched departments:", data);
+      },
+    });
+
+  console.log(departments);
+
   const roles = [
     {
       key: "1",
-      label: <Link to={tripRequestsRoute.to}> Trips requests </Link>,
+      label: <Link to={tripRequestsRoute.to}>Trips requests</Link>,
     },
-    { key: "2", label: <Link to={pastTripsRoute.to}> Past Trips </Link> },
+    { key: "2", label: <Link to={pastTripsRoute.to}>Past Trips</Link> },
   ];
 
   if (roleList.includes(UserDetailsDTORolesEnum.DepartmentHead)) {
@@ -69,11 +80,32 @@ export default function Sidebar() {
       label: <Link to={statisticsRoute.to}>Statistics</Link>,
     });
   }
-  console.log(roleList);
+
   if (roleList.includes(UserDetailsDTORolesEnum.Administrator)) {
     roles.push({
       key: "10",
       label: <Link to={inviteUserRoute.to}>Invite User</Link>,
+    });
+
+    // Add Departments menu item with subitems
+    roles.push({
+      key: "11",
+      label: "Departments",
+      children: isLoadingDepartments
+        ? [
+            {
+              key: "loading",
+              label: "Loading...",
+            },
+          ]
+        : departments?.map((department) => ({
+            key: `department-${department.id}`,
+            label: (
+              <Link to={departmentEmployeesRoute.to({ params: department.id })}>
+                {department.name}
+              </Link>
+            ),
+          })),
     });
   }
 
