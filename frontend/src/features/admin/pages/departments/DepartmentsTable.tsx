@@ -111,7 +111,7 @@ const DepartmentsTable = () => {
       dataIndex: "name",
       key: "name",
       className: "font-semibold",
-      ellipsis: true, // Skrati ako tekst prelazi širinu
+      ellipsis: true,
     },
     {
       title: "Employee Count",
@@ -141,7 +141,7 @@ const DepartmentsTable = () => {
           </Popconfirm>
         </div>
       ),
-      align: "right" as "right", // Akcije na desnu stranu
+      align: "right" as "right",
     },
   ];
 
@@ -152,7 +152,7 @@ const DepartmentsTable = () => {
         <Button
           type="primary"
           onClick={handleCreate}
-          className="bg-gray-500 hover:bg-gray-600"
+          className="bg-gray-500 hover:!bg-gray-600"
         >
           Create department
         </Button>

@@ -2,6 +2,7 @@ import useGetDepartments from "@/features/admin/hooks/useGetDepartments";
 import {
   departmentEmployeesRoute,
   inviteUserRoute,
+  departmentRoute,
 } from "@/features/admin/routes/admin.rutes";
 import { statisticsRoute } from "@/features/statistics/statistics.routes";
 import useUser from "@/providers/UserProvider";
@@ -20,7 +21,6 @@ import {
   pastTripsRoute,
   tripRequestsRoute,
 } from "../../features/employee/routes/employee.routes";
-import { departmentRoute } from "@/features/admin/routes/admin.rutes";
 
 export default function Sidebar() {
   const user = useUser();
@@ -91,8 +91,11 @@ export default function Sidebar() {
 
     roles.push({
       key: "11",
-      label: <Link to={departmentRoute.to}>Departments</Link>,
-      type: "submenu",
+      label: (
+        <Link to={departmentRoute.to}>
+          <span>Departments</span>
+        </Link>
+      ),
       children:
         isLoadingDepartments || !departments
           ? [
@@ -101,7 +104,7 @@ export default function Sidebar() {
                 label: <span>Loading...</span>,
               },
             ]
-          : departments?.map((department) => ({
+          : departments.map((department) => ({
               key: `department-${department.id}`,
               label: (
                 <Link
@@ -120,5 +123,5 @@ export default function Sidebar() {
     label: <Link to={notificationsRoute.to}>Notifications</Link>,
   });
 
-  return <Menu theme="light" items={roles} />;
+  return <Menu theme="light" mode="inline" items={roles} />;
 }

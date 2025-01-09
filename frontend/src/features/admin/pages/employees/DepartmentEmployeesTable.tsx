@@ -65,14 +65,6 @@ const DepartmentEmployeesTable = () => {
     );
   }
 
-  if (!employees || employees.length === 0) {
-    return (
-      <p className="text-center text-gray-600">
-        No employees found for this department.
-      </p>
-    );
-  }
-
   const columns = [
     {
       title: "Name",

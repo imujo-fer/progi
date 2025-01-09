@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { userApi } from "../../../apiClient";
 import {
   UserEditDTO,
@@ -14,6 +14,8 @@ export default function useUpdateUser({
   onSuccess,
   onError,
 }: UseUpdateUserProps = {}) {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: async (userUpdate: { userId: number; data: UserEditDTO }) => {
       const { userId, data } = userUpdate;
@@ -24,7 +26,11 @@ export default function useUpdateUser({
       const response = await userApi.updateUser(requestParams);
       return response.data;
     },
-    onSuccess,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["user"] });
+
+      onSuccess?.();
+    },
     onError,
   });
 }
