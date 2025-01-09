@@ -1,7 +1,13 @@
+import useGetDepartments from "@/features/admin/hooks/useGetDepartments";
+import {
+  departmentEmployeesRoute,
+  inviteUserRoute,
+} from "@/features/admin/routes/admin.rutes";
 import { statisticsRoute } from "@/features/statistics/statistics.routes";
 import useUser from "@/providers/UserProvider";
 import { Link } from "@tanstack/react-router";
 import { Menu } from "antd";
+import { ItemType } from "antd/es/menu/interface";
 import { UserDetailsDTORolesEnum } from "../../api_gen/models/user-details-dto";
 import {
   awaitingPaymentRoute,
@@ -14,9 +20,6 @@ import {
   pastTripsRoute,
   tripRequestsRoute,
 } from "../../features/employee/routes/employee.routes";
-import { inviteUserRoute } from "@/features/admin/routes/admin.rutes";
-import { departmentEmployeesRoute } from "@/features/admin/routes/admin.rutes";
-import useGetDepartments from "@/features/admin/hooks/useGetDepartments";
 
 export default function Sidebar() {
   const user = useUser();
@@ -31,7 +34,7 @@ export default function Sidebar() {
 
   console.log(departments);
 
-  const roles = [
+  const roles: ItemType[] = [
     {
       key: "1",
       label: <Link to={tripRequestsRoute.to}>Trips requests</Link>,
@@ -90,22 +93,27 @@ export default function Sidebar() {
     // Add Departments menu item with subitems
     roles.push({
       key: "11",
-      label: "Departments",
-      children: isLoadingDepartments
-        ? [
-            {
-              key: "loading",
-              label: "Loading...",
-            },
-          ]
-        : departments?.map((department) => ({
-            key: `department-${department.id}`,
-            label: (
-              <Link to={departmentEmployeesRoute.to({ params: department.id })}>
-                {department.name}
-              </Link>
-            ),
-          })),
+      label: <span>Departments</span>,
+      type: "submenu",
+      children:
+        isLoadingDepartments || !departments
+          ? [
+              {
+                key: "loading",
+                label: <span>Loading...</span>,
+              },
+            ]
+          : departments?.map((department) => ({
+              key: `department-${department.id}`,
+              label: (
+                <Link
+                  to={departmentEmployeesRoute.to}
+                  params={{ id: department.id?.toString() || "" }}
+                >
+                  {department.name}
+                </Link>
+              ),
+            })),
     });
   }
 
