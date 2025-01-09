@@ -188,7 +188,7 @@ export default function InviteUserForm({
               }
             }}
           >
-            Cancel
+            {userDetails ? "Cancel" : "Reset"}
           </Button>
           <Button
             type="primary"
