@@ -16,6 +16,7 @@ import com.progi.auth.UserSessionService;
 import com.progi.country.Country;
 import com.progi.country.CountryService;
 import com.progi.department.Department;
+import com.progi.tripstatus.TripStatusDTO;
 import com.progi.tripstatus.TripStatusService;
 import com.progi.user.User;
 
@@ -90,6 +91,8 @@ public class TripService {
         trip.setDatetimeTo(tripDetails.getDatetimeTo());
         trip.setReason(tripDetails.getReason());
         trip.setAddress(tripDetails.getAddress());
+
+        tripStatusService.createTripStatus(new TripStatusDTO( Status.PENDING_DEPARTMENT_APPROVAL, id, null));
 
         return tripRepository.save(trip);
     }
