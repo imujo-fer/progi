@@ -41,8 +41,8 @@ export default function DepartmentApprovalRequestsTable() {
 
   const extractedData = data?.content?.map((trip) => {
     return {
-      requestNumber: trip.requestNumber,
-      employee: "",
+      requestNumber: "#" + trip.requestNumber.padStart(3, "0"),
+      employee: trip.user?.firstName + " " + trip.user?.lastName,
       dateRange: `${format(new Date(trip.dateFrom), "dd.MM.yyyy")} - ${format(
         new Date(trip.dateTo),
         "dd.MM.yyyy"
