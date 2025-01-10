@@ -17,8 +17,12 @@ import {
   awaitingPaymentRoute,
   expenseReviewRequestsRoute,
 } from "../features/accountant/routes/accountant.routes";
-import { departmentApprovalRequestsRoute } from "../features/departmentHead/routes/departmentHead.routes";
-import { reviewTripsRoute } from "../features/director/routes/director.routes";
+import {
+  departmentApprovalRequestsRoute,
+} from "../features/departmentHead/routes/departmentHead.routes";
+import {
+  reviewTripsRoute,
+} from "../features/director/routes/director.routes";
 import {
   _tripRequestsRoute,
   notificationsRoute,

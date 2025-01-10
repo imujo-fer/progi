@@ -1,3 +1,11 @@
+import Title from "antd/es/typography/Title";
+import DepartmentApprovalRequestsTable from "./components/DepartmentApprovalRequestsTable.component";
+
 export default function DepartmentApprovalRequests() {
-  return <div>Department Approval Requests</div>;
+  return (
+    <>
+      <Title>Department Approval Requests</Title>
+      <DepartmentApprovalRequestsTable />
+    </>
+  );
 }
