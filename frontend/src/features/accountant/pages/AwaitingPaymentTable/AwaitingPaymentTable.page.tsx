@@ -3,6 +3,7 @@ import { Button, Table } from "antd";
 import Title from "antd/es/typography/Title";
 import { format } from "date-fns";
 import useGetAwaitingPaymentTrips from "./hooks/useGetAwaitingPaymentTrips";
+import { awaitingPaymentRoute } from "../../routes/accountant.routes";
 
 export default function AwaitingPaymentTable() {
   const columns = [
@@ -54,9 +55,15 @@ export default function AwaitingPaymentTable() {
         "dd.MM.yyyy"
       )}`,
       location: `${trip.address}, ${trip.city}, ${trip.country?.name || ""}`,
-      cost: trip.eurTotalCost + "€",
+      cost: trip.eurTotalCost?.toFixed(2) + "€",
       action: (
-        <Link>
+        <Link
+          to={awaitingPaymentRoute.to}
+          params={{
+            tripId: trip.id.toString(),
+            expenseReportId: trip.expenseReportId?.toString(),
+          }}
+        >
           <Button>Review Request</Button>
         </Link>
       ),

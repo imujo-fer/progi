@@ -13,7 +13,7 @@ import { ItemType } from "antd/es/menu/interface";
 import { UserDetailsDTORolesEnum } from "../../api_gen/models/user-details-dto";
 
 import {
-  awaitingPaymentRoute,
+  awaitingPaymentTableRoute,
   expenseReviewRequestsRoute,
 } from "../../features/accountant/routes/accountant.routes";
 
@@ -67,8 +67,8 @@ export default function Sidebar() {
     });
     roles.push({
       key: "7",
-      label: <Link to={awaitingPaymentRoute.to}>Awaiting payment</Link>,
-      route: awaitingPaymentRoute,
+      label: <Link to={awaitingPaymentTableRoute.to}>Awaiting payment</Link>,
+      route: awaitingPaymentTableRoute,
     });
   }
 

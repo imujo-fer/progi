@@ -1,14 +1,16 @@
 import { createRoute } from "@tanstack/react-router";
 import { layoutRoute } from "../../../routes/router";
-import AwaitingPayment from "../pages/Awaiting payment/AwaitingPayment.page";
+
 import ExpenseReivewRequests from "../pages/Expense reivew requests/ExpenseReivewRequests.page";
 import { coerceToNumber } from "@/utils/coerceToNumber";
 import ExpenseReportReview from "../pages/ExpenseReportReview/ExpenseReportReview.page";
+import AwaitingPaymentTable from "../pages/AwaitingPaymentTable/AwaitingPaymentTable.page";
+import AwaitingPayment from "../pages/AwaitingPayment/AwaitingPayment.page";
 
-export const awaitingPaymentRoute = createRoute({
+export const awaitingPaymentTableRoute = createRoute({
   getParentRoute: () => layoutRoute,
   path: "/awaiting-payment",
-  component: AwaitingPayment,
+  component: AwaitingPaymentTable,
 });
 
 export const expenseReviewRequestsRoute = createRoute({
@@ -30,4 +32,19 @@ export const expenseReviewRequestRoute = createRoute({
     };
   },
   component: ExpenseReportReview,
+});
+
+export const awaitingPaymentRoute = createRoute({
+  getParentRoute: () => layoutRoute,
+  path: "/awaiting-payment/$tripId/$expenseReportId",
+  beforeLoad: ({ params }) => {
+    const expenseReportId = coerceToNumber(params.expenseReportId);
+    const tripId = coerceToNumber(params.tripId);
+
+    return {
+      expenseReportId,
+      tripId,
+    };
+  },
+  component: AwaitingPayment,
 });
