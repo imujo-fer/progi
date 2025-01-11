@@ -11,7 +11,10 @@ import useGetTripRequest from "./hooks/useGetTripRequest";
 import useUpdateTrip from "./hooks/useUpdateTripRequest";
 import { LocationInfo } from "./utils/geoLocationToLocationInfo";
 import dayjs from "dayjs";
-import { departmentApprovalRequestReviewRoute } from "@/features/departmentHead/routes/departmentHead.routes";
+import {
+  departmentApprovalRequestReviewRoute,
+  departmentApprovalRequestsRoute,
+} from "@/features/departmentHead/routes/departmentHead.routes";
 import useApproveTripRequest from "@/features/departmentHead/hooks/useApproveTripRequest";
 import useRequestRevision from "@/features/departmentHead/hooks/useRequestRevision";
 
@@ -19,7 +22,9 @@ interface TripRequestEditPageProps {
   disabled?: boolean;
 }
 
-export default function TripRequestEditPage({ disabled }: TripRequestEditPageProps) {
+export default function TripRequestEditPage({
+  disabled,
+}: TripRequestEditPageProps) {
   const navigate = tripRequestsRoute.useNavigate();
 
   let tripId = 0;
@@ -57,28 +62,35 @@ export default function TripRequestEditPage({ disabled }: TripRequestEditPagePro
     },
   });
 
-  const { mutate: approveTrip } = useApproveTripRequest()
+  const { mutate: approveTrip } = useApproveTripRequest();
 
   function handleSubmit(values: TripRequestFormType) {
     if (!disabled) {
       const destination = JSON.parse(values.destination) as LocationInfo;
       mutate({
-      city: destination.city,
-      coordinatesLat: destination.coordinates.lat,
-      coordinatesLon: destination.coordinates.lng,
-      countryCode: destination.country.code,
-      datetimeFrom: values.duration[0].toString(),
-      datetimeTo: values.duration[1].toString(),
-      reason: values.purpose,
-      address: destination.address,
+        city: destination.city,
+        coordinatesLat: destination.coordinates.lat,
+        coordinatesLon: destination.coordinates.lng,
+        countryCode: destination.country.code,
+        datetimeFrom: values.duration[0].toString(),
+        datetimeTo: values.duration[1].toString(),
+        reason: values.purpose,
+        address: destination.address,
       });
     } else {
       approveTrip(trip?.id || 0, {
         onSuccess: () => {
-          message.success(`Trip request ${trip?.requestNumber} approved successfully`);
+          navigate({
+            to: departmentApprovalRequestsRoute.to,
+          });
+          message.success(
+            `Trip request ${trip?.requestNumber} approved successfully`
+          );
         },
         onError: () => {
-          message.error(`Failed to approve trip request ${trip?.requestNumber}`);
+          message.error(
+            `Failed to approve trip request ${trip?.requestNumber}`
+          );
         },
       });
     }
@@ -87,26 +99,35 @@ export default function TripRequestEditPage({ disabled }: TripRequestEditPagePro
   const { mutate } = useUpdateTrip({
     tripId,
     onSuccess: () => {
-      message.success(`Trip request ${trip?.requestNumber} updated successfully`);
+      message.success(
+        `Trip request ${trip?.requestNumber} updated successfully`
+      );
       navigate({
         to: tripRequestsRoute.to,
       });
     },
   });
 
-  const { mutate: RequestRevision } = useRequestRevision();
+  const { mutate: requestRevision, isPending } = useRequestRevision();
   function handleDiscard() {
     if (!disabled) {
       navigate({
         to: tripRequestsRoute.to,
       });
     } else {
-      RequestRevision(trip?.id || 0, {
+      requestRevision(trip?.id || 0, {
         onSuccess: () => {
-          message.success(`Trip request ${trip?.requestNumber} revision requested successfully`);
+          navigate({
+            to: departmentApprovalRequestsRoute.to,
+          });
+          message.success(
+            `Trip request ${trip?.requestNumber} revision requested successfully`
+          );
         },
         onError: () => {
-          message.error(`Failed to request revision for trip request ${trip?.requestNumber}`);
+          message.error(
+            `Failed to request revision for trip request ${trip?.requestNumber}`
+          );
         },
       });
     }
@@ -119,12 +140,16 @@ export default function TripRequestEditPage({ disabled }: TripRequestEditPagePro
       <TripRequestForm
         title={
           disabled
-            ? `Review trip request #${trip.requestNumber.toString().padStart(3, "0")}`
-            : `Edit trip request #${trip.requestNumber.toString().padStart(3, "0")}`
+            ? `Review trip request ${trip.requestNumber
+                .toString()
+                .padStart(3, "0")}`
+            : `Edit trip request ${trip.requestNumber
+                .toString()
+                .padStart(3, "0")}`
         }
         form={form}
         onSubmit={handleSubmit}
-        isPending={false}
+        isPending={isPending}
         onDiscard={handleDiscard}
         disabled={disabled ? true : false}
       />
