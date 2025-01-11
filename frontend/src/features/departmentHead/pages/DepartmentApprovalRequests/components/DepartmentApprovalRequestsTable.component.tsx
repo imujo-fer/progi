@@ -75,5 +75,5 @@ export default function DepartmentApprovalRequestsTable() {
     };
   });
 
-  return <Table dataSource={extractedData} columns={columns} />;
+  return <Table dataSource={extractedData} columns={columns} locale={{ emptyText: "There are no requests to review" }} />;
 }
