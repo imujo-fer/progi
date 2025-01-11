@@ -14,7 +14,6 @@ import {
 } from "@/features/admin/routes/admin.rutes";
 import { loginRoute } from "@/features/auth/Login/login.routes";
 import { registerRoute } from "@/features/auth/Register/register.routes";
-import Export from "@/features/export/Export.page";
 import { statisticsRoute } from "@/features/statistics/statistics.routes";
 import { AuthedProviders, queryClient } from "@/providers/Providers";
 import { protectedRoute } from "@/utils/protectedRoute";
@@ -55,12 +54,6 @@ export const layoutRoute = createRoute({
   ),
 });
 
-const exportRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/pdf",
-  component: Export,
-});
-
 export const routeTree = rootRoute.addChildren([
   layoutRoute.addChildren([
     _tripRequestsRoute.addChildren([
@@ -82,7 +75,6 @@ export const routeTree = rootRoute.addChildren([
     expenseReportRoute,
     expenseReviewRequestRoute,
   ]),
-  exportRoute,
   loginRoute,
   registerRoute,
 ]);

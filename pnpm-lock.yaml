@@ -35,6 +35,9 @@ dependencies:
   dayjs:
     specifier: ^1.11.13
     version: 1.11.13
+  file-saver:
+    specifier: ^2.0.5
+    version: 2.0.5
   react:
     specifier: ^18.3.1
     version: 18.3.1
@@ -61,6 +64,9 @@ devDependencies:
   '@eslint/js':
     specifier: ^9.11.1
     version: 9.11.1
+  '@types/file-saver':
+    specifier: ^2.0.7
+    version: 2.0.7
   '@types/react':
     specifier: ^18.3.10
     version: 18.3.10
@@ -1208,6 +1214,10 @@ packages:
   /@types/estree@1.0.6:
     resolution: {integrity: sha512-AYnb1nQyY49te+VRAVgmzfcgjYS91mY5P0TKUDCLEM+gNnA+3T6rWITXRLYCpahpqSQbN5cE+gHpnPyXjHWxcw==}
 
+  /@types/file-saver@2.0.7:
+    resolution: {integrity: sha512-dNKVfHd/jk0SkR/exKGj2ggkB45MAkzvWCaqLUUgkyjITkGNzH8H+yUwr+BLJUBjZOe9w8X3wgmXhZDRg1ED6A==}
+    dev: true
+
   /@types/google.maps@3.58.1:
     resolution: {integrity: sha512-X9QTSvGJ0nCfMzYOnaVs/k6/4L+7F5uCS+4iUmkLEls6J9S/Phv+m/i3mDeyc49ZBgwab3EFO1HEoBY7k98EGQ==}
     dev: false
@@ -2088,6 +2098,10 @@ packages:
     engines: {node: '>=16.0.0'}
     dependencies:
       flat-cache: 4.0.1
+
+  /file-saver@2.0.5:
+    resolution: {integrity: sha512-P9bmyZ3h/PRG+Nzga+rbdI4OEpNDzAVyy74uVO9ATgzLK6VtAsYybF/+TOCvrc0MO793d6+42lLyZTw7/ArVzA==}
+    dev: false
 
   /fill-range@7.1.1:
     resolution: {integrity: sha512-YsGpe3WHLK8ZYi4tWDg2Jy3ebRz2rXowDxnld4bkQB00cc/1Zw9AWnC0i9ztDJitivtQvaI9KaLyKrc+hBW0yg==}

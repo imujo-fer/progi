@@ -1,15 +1,18 @@
+import { TripStatusStatusEnum } from "@/api_gen";
+import { GetEmployeeTripsByStatusStatusEnum } from "@/api_gen/apis/trip-controller-api";
+import useGetTripsByStatus from "@/hooks/useGetTripsByStatus";
 import { Link } from "@tanstack/react-router";
 import { Button, Flex, Select, Table } from "antd";
 import Title from "antd/es/typography/Title";
-import { tripRequestsCreateRoute } from "../../../routes/employee.routes";
-import useGetTripsByStatus from "@/hooks/useGetTripsByStatus";
-import { useState } from "react";
-import { GetEmployeeTripsByStatusStatusEnum } from "@/api_gen/apis/trip-controller-api";
 import { format } from "date-fns";
+import { useState } from "react";
+import { tripRequestsCreateRoute } from "../../../routes/employee.routes";
 import ActionButton from "../../Notifications/components/ActionButton.component";
-import { TripStatusStatusEnum } from "@/api_gen";
+import { useExportTrip } from "@/features/export/useExportTrip";
 
 export default function TripsOverview() {
+  const { mutate: exportTrip, isPending: isPendingExportTrip } =
+    useExportTrip();
   const [status, setStatus] = useState<
     GetEmployeeTripsByStatusStatusEnum | "all"
   >("all");
@@ -118,7 +121,19 @@ export default function TripsOverview() {
           tripId={trip.id}
         />
       ),
-      export: <Button>Export</Button>,
+      export: trip.expenseReportId && (
+        <Button
+          onClick={() =>
+            exportTrip({
+              fileName: `Trip ${trip.requestNumber} export`,
+              expenseReportId: trip.expenseReportId,
+            })
+          }
+          loading={isPendingExportTrip}
+        >
+          Export
+        </Button>
+      ),
     };
   });
 
