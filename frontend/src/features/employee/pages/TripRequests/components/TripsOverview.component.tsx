@@ -11,14 +11,14 @@ import { TripStatusStatusEnum } from "@/api_gen";
 
 export default function TripsOverview() {
   const [status, setStatus] = useState<
-    GetEmployeeTripsByStatusStatusEnum | undefined
-  >(undefined);
+    GetEmployeeTripsByStatusStatusEnum | "all"
+  >("all");
 
   const options: {
-    value: GetEmployeeTripsByStatusStatusEnum | null;
+    value: GetEmployeeTripsByStatusStatusEnum | "all";
     label: string;
   }[] = [
-    { value: null, label: "All statuses" },
+    { value: "all", label: "All statuses" },
     {
       value: GetEmployeeTripsByStatusStatusEnum.PendingDepartmentApproval,
       label: "Pending Department Approval",
@@ -99,7 +99,7 @@ export default function TripsOverview() {
     PAID: "Paid",
   };
 
-  const { data } = useGetTripsByStatus(status);
+  const { data } = useGetTripsByStatus(status === "all" ? undefined : status);
 
   const extractedData = data?.content?.map((trip) => {
     const status = tripStatusFormat[trip.status];
@@ -112,7 +112,7 @@ export default function TripsOverview() {
       location: `${trip.address}, ${trip.city}, ${trip.country?.name || ""}`,
       status: status,
       action: <ActionButton status={trip.status} tripId={trip.id} />,
-      export: <Link>export</Link>,
+      export: <Button>Export</Button>,
     };
   });
 
@@ -126,6 +126,7 @@ export default function TripsOverview() {
             onChange={(value) => {
               setStatus(value);
             }}
+            value={status}
             options={options}
             className="w-64"
           />

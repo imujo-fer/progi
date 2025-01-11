@@ -1,12 +1,13 @@
 import useGetDepartments from "@/features/admin/hooks/useGetDepartments";
 import {
   departmentEmployeesRoute,
-  inviteUserRoute,
   departmentRoute,
+  inviteUserRoute,
 } from "@/features/admin/routes/admin.rutes";
 import { statisticsRoute } from "@/features/statistics/statistics.routes";
 import useUser from "@/providers/UserProvider";
-import { Link } from "@tanstack/react-router";
+import { layoutRoute } from "@/routes/router";
+import { AnyRoute, Link, Navigate, useMatches } from "@tanstack/react-router";
 import { Menu } from "antd";
 import { ItemType } from "antd/es/menu/interface";
 import { UserDetailsDTORolesEnum } from "../../api_gen/models/user-details-dto";
@@ -26,17 +27,24 @@ export default function Sidebar() {
   const user = useUser();
   const roleList = user?.roles || [];
 
+  const matches = useMatches();
+
   const { data: departments, isLoading: isLoadingDepartments } =
     useGetDepartments({
       onSuccess: () => {},
     });
 
-  const roles: ItemType[] = [
+  const roles: (ItemType & { route?: AnyRoute })[] = [
     {
       key: "1",
       label: <Link to={tripRequestsRoute.to}>Trips requests</Link>,
+      route: tripRequestsRoute,
     },
-    { key: "2", label: <Link to={pastTripsRoute.to}>Past Trips</Link> },
+    {
+      key: "2",
+      label: <Link to={pastTripsRoute.to}>Past Trips</Link>,
+      route: pastTripsRoute,
+    },
   ];
 
   if (roleList.includes(UserDetailsDTORolesEnum.DepartmentHead)) {
@@ -47,6 +55,7 @@ export default function Sidebar() {
           Department approval requests
         </Link>
       ),
+      route: departmentApprovalRequestsRoute,
     });
   }
 
@@ -56,10 +65,12 @@ export default function Sidebar() {
       label: (
         <Link to={expenseReviewRequestsRoute.to}>Expense review requests</Link>
       ),
+      route: expenseReviewRequestsRoute,
     });
     roles.push({
       key: "7",
       label: <Link to={awaitingPaymentRoute.to}>Awaiting payment</Link>,
+      route: awaitingPaymentRoute,
     });
   }
 
@@ -67,6 +78,7 @@ export default function Sidebar() {
     roles.push({
       key: "8",
       label: <Link to={reviewTripsRoute.to}>Review trips</Link>,
+      route: reviewTripsRoute,
     });
   }
 
@@ -78,6 +90,7 @@ export default function Sidebar() {
     roles.push({
       key: "9",
       label: <Link to={statisticsRoute.to}>Statistics</Link>,
+      route: statisticsRoute,
     });
   }
 
@@ -85,6 +98,7 @@ export default function Sidebar() {
     roles.push({
       key: "10",
       label: <Link to={inviteUserRoute.to}>Invite User</Link>,
+      route: inviteUserRoute,
     });
 
     roles.push({
@@ -94,6 +108,7 @@ export default function Sidebar() {
           <span>Departments</span>
         </Link>
       ),
+      route: departmentRoute,
       children:
         isLoadingDepartments || !departments
           ? [
@@ -119,7 +134,15 @@ export default function Sidebar() {
   roles.push({
     key: "3",
     label: <Link to={notificationsRoute.to}>Notifications</Link>,
+    route: notificationsRoute,
   });
+
+  const currentRoute = matches[matches.length - 1];
+  const firstMenuRoute = roles[0]?.route;
+
+  if (currentRoute?.id === layoutRoute.id) {
+    return <Navigate to={firstMenuRoute?.to || tripRequestsRoute.to} replace />;
+  }
 
   return <Menu theme="light" mode="inline" items={roles} />;
 }
