@@ -82,6 +82,12 @@ export interface TripResponseDTO {
     'expenseReportId': number;
     /**
      * 
+     * @type {number}
+     * @memberof TripResponseDTO
+     */
+    'eurTotalCost'?: number;
+    /**
+     * 
      * @type {UserDetailsDTO}
      * @memberof TripResponseDTO
      */

@@ -54,17 +54,23 @@ export default function ExpenseReivewRequests() {
       )}`,
       location: `${trip.address}, ${trip.city}, ${trip.country?.name || ""}`,
       cost: trip.eurTotalCost + "€",
-      action: <Link><Button>Review Request</Button></Link>,
-      export: <Link>export</Link>,
+      action: (
+        <Link>
+          <Button>Review Request</Button>
+        </Link>
+      ),
+      export: <Button>Export</Button>,
     };
   });
 
-  return <> 
-  <Title>Expense Review Requests</Title>
-  <Table
-    dataSource={extractedData}
-    columns={columns}
-    locale={{ emptyText: "There are no expense requests to review" }}
-  ></Table>
-  </>;
+  return (
+    <>
+      <Title>Expense Review Requests</Title>
+      <Table
+        dataSource={extractedData}
+        columns={columns}
+        locale={{ emptyText: "There are no expense requests to review" }}
+      ></Table>
+    </>
+  );
 }

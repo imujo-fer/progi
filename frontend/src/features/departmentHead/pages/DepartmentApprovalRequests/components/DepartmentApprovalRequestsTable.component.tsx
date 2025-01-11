@@ -1,7 +1,6 @@
-import { Table } from "antd";
-import useGetDepartmentApprovalRequests from "../hooks/useGetDepartmentApprovalRequests";
+import { Button, Table } from "antd";
 import { format } from "date-fns";
-import { Link } from "@tanstack/react-router";
+import useGetDepartmentApprovalRequests from "../hooks/useGetDepartmentApprovalRequests";
 import DepartmentHeadActionButton from "./DepartmentHeadActionButton";
 
 export default function DepartmentApprovalRequestsTable() {
@@ -41,7 +40,7 @@ export default function DepartmentApprovalRequestsTable() {
 
   const extractedData = data?.content?.map((trip) => {
     return {
-      requestNumber: "#" + trip.requestNumber.padStart(3, "0"),
+      requestNumber: trip.requestNumber.padStart(3, "0"),
       employee: trip.user?.firstName + " " + trip.user?.lastName,
       dateRange: `${format(new Date(trip.dateFrom), "dd.MM.yyyy")} - ${format(
         new Date(trip.dateTo),
@@ -49,11 +48,9 @@ export default function DepartmentApprovalRequestsTable() {
       )}`,
       location: `${trip.address}, ${trip.city}, ${trip.country?.name || ""}`,
       action: <DepartmentHeadActionButton requestNumber={trip.requestNumber} />,
-      export: <Link>export</Link>,
+      export: <Button>Export</Button>,
     };
   });
-
-  console.log(data);
 
   return <Table dataSource={extractedData} columns={columns} />;
 }

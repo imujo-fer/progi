@@ -5,7 +5,6 @@ import { format } from "date-fns";
 import useGetAwaitingPaymentTrips from "./hooks/useGetAwaitingPaymentTrips";
 
 export default function TripsOverview() {
-
   const columns = [
     {
       title: "Request number",
@@ -49,15 +48,19 @@ export default function TripsOverview() {
   const extractedData = data?.content?.map((trip) => {
     return {
       requestNumber: trip.requestNumber,
-      employee:trip.user?.firstName + " " + trip.user?.lastName,
+      employee: trip.user?.firstName + " " + trip.user?.lastName,
       dateRange: `${format(new Date(trip.dateFrom), "dd.MM.yyyy")} - ${format(
         new Date(trip.dateTo),
         "dd.MM.yyyy"
       )}`,
       location: `${trip.address}, ${trip.city}, ${trip.country?.name || ""}`,
       cost: trip.eurTotalCost + "€",
-      action: <Link><Button>Review Request</Button></Link>,
-      export: <Link>export</Link>,
+      action: (
+        <Link>
+          <Button>Review Request</Button>
+        </Link>
+      ),
+      export: <Button>Export</Button>,
     };
   });
 

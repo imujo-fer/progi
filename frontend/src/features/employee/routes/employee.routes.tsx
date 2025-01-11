@@ -1,11 +1,10 @@
 import { createRoute } from "@tanstack/react-router";
 import { layoutRoute } from "../../../routes/router";
-import TripRequests from "../pages/TripRequests/TripRequests.page";
-import pastTrips from "../pages/PastTrips/PastTrips.page";
+import { coerceToNumber } from "../../../utils/coerceToNumber";
 import Notifications from "../pages/Notifications/Notifications.page";
 import TripRequestCreatePage from "../pages/TripRequestForm/TripRequestCreate.page";
 import TripRequestEditPage from "../pages/TripRequestForm/TripRequestEdit.page";
-import { coerceToNumber } from "../../../utils/coerceToNumber";
+import TripRequests from "../pages/TripRequests/TripRequests.page";
 
 export const _tripRequestsRoute = createRoute({
   getParentRoute: () => layoutRoute,
@@ -32,12 +31,6 @@ export const tripRequestsEditRoute = createRoute({
     return { tripId };
   },
   component: TripRequestEditPage,
-});
-
-export const pastTripsRoute = createRoute({
-  getParentRoute: () => layoutRoute,
-  path: "/past-trips",
-  component: pastTrips,
 });
 
 export const notificationsRoute = createRoute({

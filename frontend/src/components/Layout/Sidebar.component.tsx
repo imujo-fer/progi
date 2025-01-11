@@ -19,7 +19,6 @@ import { departmentApprovalRequestsRoute } from "../../features/departmentHead/r
 import { reviewTripsRoute } from "../../features/director/routes/director.routes";
 import {
   notificationsRoute,
-  pastTripsRoute,
   tripRequestsRoute,
 } from "../../features/employee/routes/employee.routes";
 
@@ -39,11 +38,6 @@ export default function Sidebar() {
       key: "1",
       label: <Link to={tripRequestsRoute.to}>Trips requests</Link>,
       route: tripRequestsRoute,
-    },
-    {
-      key: "2",
-      label: <Link to={pastTripsRoute.to}>Past Trips</Link>,
-      route: pastTripsRoute,
     },
   ];
 
@@ -140,9 +134,22 @@ export default function Sidebar() {
   const currentRoute = matches[matches.length - 1];
   const firstMenuRoute = roles[0]?.route;
 
+  const currentSelectedRouteKey = roles.find(
+    (role) => role.route?.id === currentRoute?.id
+  )?.key;
+
   if (currentRoute?.id === layoutRoute.id) {
     return <Navigate to={firstMenuRoute?.to || tripRequestsRoute.to} replace />;
   }
 
-  return <Menu theme="light" mode="inline" items={roles} />;
+  return (
+    <Menu
+      theme="light"
+      mode="inline"
+      items={roles}
+      selectedKeys={
+        currentSelectedRouteKey ? [currentSelectedRouteKey.toString()] : []
+      }
+    />
+  );
 }

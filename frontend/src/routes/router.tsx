@@ -7,9 +7,15 @@ import {
 } from "@tanstack/react-router";
 
 import { UserDetailsDTO } from "@/api_gen";
+import {
+  departmentEmployeesRoute,
+  departmentRoute,
+  inviteUserRoute,
+} from "@/features/admin/routes/admin.rutes";
 import { loginRoute } from "@/features/auth/Login/login.routes";
 import { registerRoute } from "@/features/auth/Register/register.routes";
 import Export from "@/features/export/Export.page";
+import { statisticsRoute } from "@/features/statistics/statistics.routes";
 import { AuthedProviders, queryClient } from "@/providers/Providers";
 import { protectedRoute } from "@/utils/protectedRoute";
 import AppLayout from "../components/Layout/AppLayout.component";
@@ -17,26 +23,15 @@ import {
   awaitingPaymentRoute,
   expenseReviewRequestsRoute,
 } from "../features/accountant/routes/accountant.routes";
-import {
-  departmentApprovalRequestsRoute,
-} from "../features/departmentHead/routes/departmentHead.routes";
-import {
-  reviewTripsRoute,
-} from "../features/director/routes/director.routes";
+import { departmentApprovalRequestsRoute } from "../features/departmentHead/routes/departmentHead.routes";
+import { reviewTripsRoute } from "../features/director/routes/director.routes";
 import {
   _tripRequestsRoute,
   notificationsRoute,
-  pastTripsRoute,
   tripRequestsCreateRoute,
   tripRequestsEditRoute,
   tripRequestsRoute,
 } from "../features/employee/routes/employee.routes";
-import { statisticsRoute } from "@/features/statistics/statistics.routes";
-import { inviteUserRoute } from "@/features/admin/routes/admin.rutes";
-import {
-  departmentEmployeesRoute,
-  departmentRoute,
-} from "@/features/admin/routes/admin.rutes";
 
 export const rootRoute = createRootRouteWithContext<RootRouteContext>()();
 
@@ -68,7 +63,6 @@ export const routeTree = rootRoute.addChildren([
       tripRequestsCreateRoute,
       tripRequestsEditRoute,
     ]),
-    pastTripsRoute,
     notificationsRoute,
     departmentApprovalRequestsRoute,
     awaitingPaymentRoute,
