@@ -10,6 +10,7 @@ apis/expense-report-controller-api.ts
 apis/expense-report-item-controller-api.ts
 apis/expense-subcategory-controller-api.ts
 apis/google-maps-controller-api.ts
+apis/hnb-proxy-controller-api.ts
 apis/receipt-controller-api.ts
 apis/statistics-controller-api.ts
 apis/trip-controller-api.ts

@@ -24,7 +24,7 @@ public class ReceiptController {
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 
-    public ResponseEntity<Receipt> uploadReceipt(@RequestParam("receipt") MultipartFile file) {
+    public ResponseEntity<Receipt> uploadReceipt(@RequestParam("file") MultipartFile file) {
         if (!file.getContentType().equals("application/pdf")) {
             return ResponseEntity.badRequest().body(null);
         }

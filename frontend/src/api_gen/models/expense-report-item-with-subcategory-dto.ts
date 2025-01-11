@@ -28,6 +28,12 @@ export interface ExpenseReportItemWithSubcategoryDTO {
      * @type {number}
      * @memberof ExpenseReportItemWithSubcategoryDTO
      */
+    'id': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof ExpenseReportItemWithSubcategoryDTO
+     */
     'expenseReportId': number;
     /**
      * 
@@ -69,9 +75,19 @@ export interface ExpenseReportItemWithSubcategoryDTO {
 
 export const ExpenseReportItemWithSubcategoryDTOCurrencyEnum = {
     Eur: 'EUR',
+    Aud: 'AUD',
     Usd: 'USD',
     Gbp: 'GBP',
-    Other: 'OTHER'
+    Cad: 'CAD',
+    Czk: 'CZK',
+    Dkk: 'DKK',
+    Huf: 'HUF',
+    Jpy: 'JPY',
+    Nok: 'NOK',
+    Sek: 'SEK',
+    Chf: 'CHF',
+    Bam: 'BAM',
+    Pln: 'PLN'
 } as const;
 
 export type ExpenseReportItemWithSubcategoryDTOCurrencyEnum = typeof ExpenseReportItemWithSubcategoryDTOCurrencyEnum[keyof typeof ExpenseReportItemWithSubcategoryDTOCurrencyEnum];

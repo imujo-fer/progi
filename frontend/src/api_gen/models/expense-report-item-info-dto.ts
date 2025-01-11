@@ -69,9 +69,19 @@ export interface ExpenseReportItemInfoDTO {
 
 export const ExpenseReportItemInfoDTOCurrencyEnum = {
     Eur: 'EUR',
+    Aud: 'AUD',
     Usd: 'USD',
     Gbp: 'GBP',
-    Other: 'OTHER'
+    Cad: 'CAD',
+    Czk: 'CZK',
+    Dkk: 'DKK',
+    Huf: 'HUF',
+    Jpy: 'JPY',
+    Nok: 'NOK',
+    Sek: 'SEK',
+    Chf: 'CHF',
+    Bam: 'BAM',
+    Pln: 'PLN'
 } as const;
 
 export type ExpenseReportItemInfoDTOCurrencyEnum = typeof ExpenseReportItemInfoDTOCurrencyEnum[keyof typeof ExpenseReportItemInfoDTOCurrencyEnum];

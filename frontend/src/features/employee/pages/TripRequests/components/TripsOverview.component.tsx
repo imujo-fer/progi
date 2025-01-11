@@ -111,7 +111,13 @@ export default function TripsOverview() {
       )}`,
       location: `${trip.address}, ${trip.city}, ${trip.country?.name || ""}`,
       status: status,
-      action: <ActionButton status={trip.status} tripId={trip.id} />,
+      action: (
+        <ActionButton
+          expenseReportId={trip.expenseReportId}
+          status={trip.status}
+          tripId={trip.id}
+        />
+      ),
       export: <Button>Export</Button>,
     };
   });
