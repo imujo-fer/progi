@@ -41,6 +41,7 @@ import {
   tripRequestsEditRoute,
   tripRequestsRoute,
 } from "../features/employee/routes/employee.routes";
+import { Skeleton } from "antd";
 
 export const rootRoute = createRootRouteWithContext<RootRouteContext>()();
 
@@ -95,6 +96,7 @@ export type RootRouteContext = {
 export const router = createRouter({
   routeTree,
   context: { queryClient, user: null },
+  defaultPendingComponent: Skeleton,
 });
 
 declare module "@tanstack/react-router" {
