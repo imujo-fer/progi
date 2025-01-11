@@ -3,8 +3,11 @@ import { Link } from "@tanstack/react-router";
 import { Button, Table } from "antd";
 import { format } from "date-fns";
 import useGetDepartmentApprovalRequests from "../hooks/useGetDepartmentApprovalRequests";
+import { useExportTrip } from "@/features/export/useExportTrip";
 
 export default function DepartmentApprovalRequestsTable() {
+  const { mutate: exportTrip, isPending: isPendingExportTrip } =
+    useExportTrip();
   const { data } = useGetDepartmentApprovalRequests();
   const columns = [
     {
@@ -56,7 +59,19 @@ export default function DepartmentApprovalRequestsTable() {
           <Button>Review request</Button>
         </Link>
       ),
-      export: <Button>Export</Button>,
+      export: trip.expenseReportId && (
+        <Button
+          onClick={() =>
+            exportTrip({
+              fileName: `Trip ${trip.requestNumber} export`,
+              expenseReportId: trip.expenseReportId,
+            })
+          }
+          loading={isPendingExportTrip}
+        >
+          Export
+        </Button>
+      ),
     };
   });
 

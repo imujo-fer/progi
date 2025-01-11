@@ -4,8 +4,11 @@ import Title from "antd/es/typography/Title";
 import { format } from "date-fns";
 import useGetAwaitingPaymentTrips from "./hooks/useGetAwaitingPaymentTrips";
 import { awaitingPaymentRoute } from "../../routes/accountant.routes";
+import { useExportTrip } from "@/features/export/useExportTrip";
 
 export default function AwaitingPaymentTable() {
+  const { mutate: exportTrip, isPending: isPendingExportTrip } =
+    useExportTrip();
   const columns = [
     {
       title: "Request number",
@@ -67,7 +70,19 @@ export default function AwaitingPaymentTable() {
           <Button>Review Request</Button>
         </Link>
       ),
-      export: <Button>Export</Button>,
+      export: trip.expenseReportId && (
+        <Button
+          onClick={() =>
+            exportTrip({
+              fileName: `Trip ${trip.requestNumber} export`,
+              expenseReportId: trip.expenseReportId,
+            })
+          }
+          loading={isPendingExportTrip}
+        >
+          Export
+        </Button>
+      ),
     };
   });
 

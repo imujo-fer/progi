@@ -4,8 +4,11 @@ import { Button, Table } from "antd";
 import { Link } from "@tanstack/react-router";
 import { format } from "date-fns";
 import { expenseReviewRequestRoute } from "../../routes/accountant.routes";
+import { useExportTrip } from "@/features/export/useExportTrip";
 
 export default function ExpenseReivewRequests() {
+  const { mutate: exportTrip, isPending: isPendingExportTrip } =
+    useExportTrip();
   const columns = [
     {
       title: "Request number",
@@ -66,7 +69,19 @@ export default function ExpenseReivewRequests() {
           <Button>Review Request</Button>
         </Link>
       ),
-      export: <Button>Export</Button>,
+      export: trip.expenseReportId && (
+        <Button
+          onClick={() =>
+            exportTrip({
+              fileName: `Trip ${trip.requestNumber} export`,
+              expenseReportId: trip.expenseReportId,
+            })
+          }
+          loading={isPendingExportTrip}
+        >
+          Export
+        </Button>
+      ),
     };
   });
 
