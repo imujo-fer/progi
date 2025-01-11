@@ -136,7 +136,6 @@ export default function Settings() {
         return (
           <Collapse
             key={continentName}
-            defaultActiveKey={["0"]}
             expandIconPosition="right"
             className="mb-4"
           >
