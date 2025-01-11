@@ -1,7 +1,6 @@
 import { NotificationDTO, TripStatusStatusEnum } from "@/api_gen";
 import { Card, Flex } from "antd";
 import { format } from "date-fns";
-import ActionButton from "./ActionButton.component";
 
 interface NotificationProps {
   notification: NotificationDTO;
@@ -54,10 +53,6 @@ export default function Notification({ notification }: NotificationProps) {
             notification.trip.city
           }, ${notification.trip.country.name}`}
         </div>
-        <ActionButton
-          status={notification.nextTripStatus.status}
-          tripId={notification.trip.id}
-        />
       </Flex>
     </Card>
   );

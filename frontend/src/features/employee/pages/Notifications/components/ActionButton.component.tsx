@@ -1,33 +1,68 @@
 import { TripStatusStatusEnum } from "@/api_gen";
-import { Link } from "@tanstack/react-router";
+import {
+  expenseReportRoute,
+  tripRequestsEditRoute,
+} from "@/features/employee/routes/employee.routes";
+import { useNavigate } from "@tanstack/react-router";
 import { Button } from "antd";
 
 interface ActionButtonProps {
   status: TripStatusStatusEnum;
   tripId: number | undefined;
+  expenseReportId?: number;
 }
 
-export default function ActionButton({ status, tripId }: ActionButtonProps) {
+export default function ActionButton({
+  status,
+  tripId,
+  expenseReportId,
+}: ActionButtonProps) {
+  const navigate = useNavigate();
   const statusList = [
     {
       status: "DepartmentApprovalRejected",
       action: "Edit Trip",
-      link: `/trip-requests/${tripId}/edit`,
+      onClick: () =>
+        navigate({
+          to: tripRequestsEditRoute.to,
+          params: { tripId: tripId?.toString() || "" },
+        }),
     },
     {
       status: "TravelApproved",
       action: "Create Expense Report",
-      link: "../expense-review-requests",
+      onClick: () =>
+        navigate({
+          to: expenseReportRoute.to,
+          params: {
+            tripId: tripId?.toString() || "",
+            expenseReportId: expenseReportId?.toString() || "",
+          },
+        }),
     },
     {
       status: "ExpenseApprovalRejected",
       action: "Edit Expense Report",
-      link: "../expense-review-requests",
+      onClick: () =>
+        navigate({
+          to: expenseReportRoute.to,
+          params: {
+            tripId: tripId?.toString() || "",
+            expenseReportId: expenseReportId?.toString() || "",
+          },
+        }),
     },
     {
       status: "DirectorApprovalRejected",
       action: "Edit Expense Report",
-      link: "../expense-review-requests",
+      onClick: () =>
+        navigate({
+          to: expenseReportRoute.to,
+          params: {
+            tripId: tripId?.toString() || "",
+            expenseReportId: expenseReportId?.toString() || "",
+          },
+        }),
     },
   ];
 
@@ -39,15 +74,7 @@ export default function ActionButton({ status, tripId }: ActionButtonProps) {
         ] == status
     ) || undefined;
 
-  return (
-    <>
-      {statusItem ? (
-        <Link to={statusItem.link}>
-          <Button className="w-48">{statusItem.action}</Button>
-        </Link>
-      ) : (
-        <></>
-      )}
-    </>
-  );
+  if (!statusItem) return null;
+
+  return <Button onClick={statusItem.onClick}>{statusItem.action}</Button>;
 }

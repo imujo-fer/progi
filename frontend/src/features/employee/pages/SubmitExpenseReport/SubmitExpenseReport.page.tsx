@@ -1,13 +1,11 @@
-import { Button } from "antd";
-import ExpenseReport from "./components/ExpenseReport.component";
+import { Button, message } from "antd";
+import { expenseReportRoute } from "../../routes/employee.routes";
 import ApprovalRequirements from "./components/ApprovalRequirementsCard";
-import { useMatch } from "@tanstack/react-router";
+import ExpenseReport from "./components/ExpenseReport.component";
 import usePostExpenseReport from "./hooks/usePostExpenseReport";
-import { message } from "antd";
 
 export default function SubmitExpenseReport() {
-  const match = useMatch({ from: "/$tripId/expense-report/$id" });
-  const tripId = match?.params.tripId;
+  const { tripId } = expenseReportRoute.useParams();
 
   const { mutate: postExpenseReport } = usePostExpenseReport();
 
@@ -28,7 +26,9 @@ export default function SubmitExpenseReport() {
         <ExpenseReport />
         <ApprovalRequirements />
       </div>
-      <Button size="large" onClick={handleSubmit}>Submit for review</Button>
+      <Button size="large" onClick={handleSubmit}>
+        Submit for review
+      </Button>
     </div>
   );
 }

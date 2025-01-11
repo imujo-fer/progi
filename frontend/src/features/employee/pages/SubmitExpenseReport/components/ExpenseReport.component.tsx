@@ -1,24 +1,21 @@
-import Title from "antd/es/typography/Title";
-import useGetExpenseReportItems from "../hooks/useGetExpenseReportItems";
-import ExpenseReportItem from "./ExpenseReportItem";
+import { expenseReportRoute } from "@/features/employee/routes/employee.routes";
 import { Button, Flex, List } from "antd";
+import Title from "antd/es/typography/Title";
 import { useState } from "react";
-import { useMatch } from "@tanstack/react-router";
+import useGetExpenseReportItems from "../hooks/useGetExpenseReportItems";
 import CreateEditExpenseReportItemModal from "./CreateEditExpenseReportItemModal";
+import ExpenseReportItem from "./ExpenseReportItem";
 
 export default function ExpenseReport() {
-  const match = useMatch({ from: "/$tripId/expense-report/$id" });
-  const id = match?.params.id;
+  const { expenseReportId } = expenseReportRoute.useParams();
 
-  const { data } = useGetExpenseReportItems(Number(id));
+  const { data } = useGetExpenseReportItems(Number(expenseReportId));
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   if (!data || !Array.isArray(data)) {
     return <></>;
   }
-
-  console.log(data);
 
   return (
     <div className="w-1/2 min-w-96 m-auto">

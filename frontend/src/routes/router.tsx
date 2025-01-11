@@ -34,7 +34,6 @@ import {
   tripRequestsEditRoute,
   tripRequestsRoute,
 } from "../features/employee/routes/employee.routes";
-import { statisticsRoute } from "@/features/statistics/statistics.routes";
 
 export const rootRoute = createRootRouteWithContext<RootRouteContext>()();
 
@@ -76,12 +75,11 @@ export const routeTree = rootRoute.addChildren([
     departmentEmployeesRoute,
     departmentRoute,
     expenseReportRoute,
-    statisticsRoute,
   ]),
   exportRoute,
   loginRoute,
   registerRoute,
-  expenseReportItemReceiptRoute
+  expenseReportItemReceiptRoute,
 ]);
 
 export type RootRouteContext = {
