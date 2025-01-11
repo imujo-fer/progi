@@ -1,18 +1,17 @@
-import { Form, Button, Modal, FormInstance } from "antd";
+import { Button, Form, FormInstance, Modal } from "antd";
 import useModal from "../hooks/useModal";
-import TextArea from "antd/es/input/TextArea";
 
 type FormLayoutProps<T extends object> = {
   title?: string;
   onSubmit: (values: T) => void;
   children: React.ReactNode;
   isPending?: boolean;
-  onDiscard: () => void;
+  onDiscard?: () => void;
+  onCancel?: () => void;
   discardLabel?: string;
   submitLabel?: string;
   hideCancel?: boolean;
   form: FormInstance;
-  disabled?:boolean;
 };
 
 export function FormLayout<T extends object>({
@@ -24,26 +23,30 @@ export function FormLayout<T extends object>({
   submitLabel,
   discardLabel,
   hideCancel,
+  onCancel,
   form,
-  disabled
 }: FormLayoutProps<T>) {
   const discardModal = useModal();
 
-  const onCancel = () => {
+  const INTERNAL__onCancel = () => {
+    if (onCancel) {
+      onCancel();
+    }
+
     if (form.isFieldsTouched()) {
       discardModal.openModal();
     } else {
-      onDiscard();
+      onDiscard?.();
     }
   };
 
   return (
-    <Form form={form} layout="vertical" onFinish={onSubmit}>
+    <Form form={form} className="w-full" layout="vertical" onFinish={onSubmit}>
       {title && <h1 className="mb-8 mt-4 text-2xl font-medium">{title}</h1>}
       {children}
       <div className="mt-14 flex justify-end gap-2">
         {!hideCancel && (
-          <Button danger onClick={onCancel}>
+          <Button danger onClick={INTERNAL__onCancel}>
             {discardLabel || "Cancel"}
           </Button>
         )}
@@ -51,29 +54,19 @@ export function FormLayout<T extends object>({
           {submitLabel || "Save"}
         </Button>
         <Modal
-          title={disabled? "Request Revision":"Discard changes?"}
+          title={"Discard changes?"}
           open={discardModal.isModalOpen}
           onOk={onDiscard}
           onCancel={discardModal.closeModal}
-          okText={disabled ? "Request revision":"Discard changes"}
+          okText={"Discard changes"}
           okType="danger"
-          cancelText={disabled? "Review again":"Keep editing"}
+          cancelText={"Keep editing"}
           okButtonProps={{ type: "primary" }}
         >
-            {disabled ? (
-            <>
-              <Form.Item
-              name="revisionMessage"
-              rules={[{ required: true, message: 'Please input the required changes!' }]}
-              >
-              <TextArea placeholder="Input required changes" />
-              </Form.Item>
-            </>
-            ) : <p>
+          <p>
             Are you sure you want to discard all changes? Any unsaved
             modifications will be lost.
-          </p>}
-          
+          </p>
         </Modal>
       </div>
     </Form>

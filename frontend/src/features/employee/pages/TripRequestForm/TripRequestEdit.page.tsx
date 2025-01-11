@@ -1,4 +1,4 @@
-import { message, Skeleton } from "antd";
+import { Form, message, Modal, Skeleton } from "antd";
 import { useForm } from "antd/es/form/Form";
 import {
   tripRequestsEditRoute,
@@ -17,6 +17,10 @@ import {
 } from "@/features/departmentHead/routes/departmentHead.routes";
 import useApproveTripRequest from "@/features/departmentHead/hooks/useApproveTripRequest";
 import useRequestRevision from "@/features/departmentHead/hooks/useRequestRevision";
+import ApprovalRequirements from "../SubmitExpenseReport/components/ApprovalRequirementsCard";
+import TextArea from "antd/es/input/TextArea";
+import useModal from "@/hooks/useModal";
+import { useState } from "react";
 
 interface TripRequestEditPageProps {
   disabled?: boolean;
@@ -25,6 +29,7 @@ interface TripRequestEditPageProps {
 export default function TripRequestEditPage({
   disabled,
 }: TripRequestEditPageProps) {
+  const [reviewMessage, setReviewMessage] = useState("");
   const navigate = tripRequestsRoute.useNavigate();
 
   let tripId = 0;
@@ -115,43 +120,81 @@ export default function TripRequestEditPage({
         to: tripRequestsRoute.to,
       });
     } else {
-      requestRevision(trip?.id || 0, {
-        onSuccess: () => {
-          navigate({
-            to: departmentApprovalRequestsRoute.to,
-          });
-          message.success(
-            `Trip request ${trip?.requestNumber} revision requested successfully`
-          );
+      requestRevision(
+        {
+          tripId: trip?.id || 0,
+          message: reviewMessage,
         },
-        onError: () => {
-          message.error(
-            `Failed to request revision for trip request ${trip?.requestNumber}`
-          );
-        },
-      });
+        {
+          onSuccess: () => {
+            navigate({
+              to: departmentApprovalRequestsRoute.to,
+            });
+            message.success(
+              `Trip request ${trip?.requestNumber} revision requested successfully`
+            );
+          },
+          onError: () => {
+            message.error(
+              `Failed to request revision for trip request ${trip?.requestNumber}`
+            );
+          },
+        }
+      );
     }
   }
+
+  const discardModal = useModal();
 
   if (isLoadingGetTrip) return <Skeleton />;
 
   if (trip)
     return (
-      <TripRequestForm
-        title={
-          disabled
-            ? `Review trip request ${trip.requestNumber
-                .toString()
-                .padStart(3, "0")}`
-            : `Edit trip request ${trip.requestNumber
-                .toString()
-                .padStart(3, "0")}`
-        }
-        form={form}
-        onSubmit={handleSubmit}
-        isPending={isPending}
-        onDiscard={handleDiscard}
-        disabled={disabled ? true : false}
-      />
+      <div className="flex w-full gap-20">
+        <TripRequestForm
+          title={
+            disabled
+              ? `Review trip request ${trip.requestNumber
+                  .toString()
+                  .padStart(3, "0")}`
+              : `Edit trip request ${trip.requestNumber
+                  .toString()
+                  .padStart(3, "0")}`
+          }
+          form={form}
+          onSubmit={handleSubmit}
+          isPending={isPending}
+          onCancel={discardModal.openModal}
+          disabled={disabled}
+        />
+        <ApprovalRequirements tripId={tripId} />
+
+        <Modal
+          title={"Request Revision"}
+          open={discardModal.isModalOpen}
+          onOk={handleDiscard}
+          onCancel={discardModal.closeModal}
+          okText={"Request revision"}
+          okType="danger"
+          cancelText={"Review again"}
+          okButtonProps={{ type: "primary" }}
+        >
+          <Form.Item
+            name="revisionMessage"
+            rules={[
+              {
+                required: true,
+                message: "Please input the required changes!",
+              },
+            ]}
+          >
+            <TextArea
+              value={reviewMessage}
+              onChange={(e) => setReviewMessage(e.target.value)}
+              placeholder="Input required changes"
+            />
+          </Form.Item>
+        </Modal>
+      </div>
     );
 }

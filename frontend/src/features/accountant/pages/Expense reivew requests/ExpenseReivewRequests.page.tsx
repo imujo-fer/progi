@@ -53,7 +53,7 @@ export default function ExpenseReivewRequests() {
         "dd.MM.yyyy"
       )}`,
       location: `${trip.address}, ${trip.city}, ${trip.country?.name || ""}`,
-      cost: trip.eurTotalCost + "€",
+      cost: trip.eurTotalCost?.toFixed(2) + "€",
       action: (
         <Link>
           <Button>Review Request</Button>

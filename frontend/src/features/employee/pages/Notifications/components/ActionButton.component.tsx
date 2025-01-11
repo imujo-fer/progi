@@ -5,6 +5,7 @@ import {
 } from "@/features/employee/routes/employee.routes";
 import { useNavigate } from "@tanstack/react-router";
 import { Button } from "antd";
+import usePostExpenseReport from "../../SubmitExpenseReport/hooks/usePostExpenseReport";
 
 interface ActionButtonProps {
   status: TripStatusStatusEnum;
@@ -18,6 +19,8 @@ export default function ActionButton({
   expenseReportId,
 }: ActionButtonProps) {
   const navigate = useNavigate();
+  const { mutate: postExpenseReport, isPending } = usePostExpenseReport();
+
   const statusList = [
     {
       status: "DepartmentApprovalRejected",
@@ -31,14 +34,30 @@ export default function ActionButton({
     {
       status: "TravelApproved",
       action: "Create Expense Report",
-      onClick: () =>
-        navigate({
-          to: expenseReportRoute.to,
-          params: {
-            tripId: tripId?.toString() || "",
-            expenseReportId: expenseReportId?.toString() || "",
+      onClick: () => {
+        if (expenseReportId) {
+          navigate({
+            to: expenseReportRoute.to,
+            params: {
+              tripId: tripId?.toString() || "",
+              expenseReportId: expenseReportId?.toString() || "",
+            },
+          });
+          return;
+        }
+
+        postExpenseReport(tripId || 0, {
+          onSuccess: (expenseReport) => {
+            navigate({
+              to: expenseReportRoute.to,
+              params: {
+                tripId: tripId?.toString() || "",
+                expenseReportId: expenseReport.id?.toString() || "",
+              },
+            });
           },
-        }),
+        });
+      },
     },
     {
       status: "ExpenseApprovalRejected",
@@ -76,5 +95,9 @@ export default function ActionButton({
 
   if (!statusItem) return null;
 
-  return <Button onClick={statusItem.onClick}>{statusItem.action}</Button>;
+  return (
+    <Button loading={isPending} onClick={statusItem.onClick}>
+      {statusItem.action}
+    </Button>
+  );
 }
