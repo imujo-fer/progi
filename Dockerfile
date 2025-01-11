@@ -20,7 +20,7 @@ RUN ./mvnw clean package -DskipTests
 # Stage 3: Combine Frontend and Backend
 FROM openjdk:21-jdk
 WORKDIR /app
-VOLUME /tmp
+# VOLUME /tmp
 
 # Copy Spring Boot JAR
 COPY --from=backend /app/target/*.jar app.jar
