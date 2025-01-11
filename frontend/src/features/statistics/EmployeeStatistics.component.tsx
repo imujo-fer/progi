@@ -35,7 +35,7 @@ export default function EmployeeStatistics() {
       title: "Total cost",
       dataIndex: "eurTotalCost",
       key: "eurTotalCost",
-      render: (_, item) => `${item.eurTotalCost}€`,
+      render: (_, item) => `${item.eurTotalCost?.toFixed(2)}€`,
     },
   ];
 
