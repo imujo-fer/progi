@@ -76,3 +76,4 @@ src/main/resources/application-*.yaml
 target/classes/application-local.yaml
 /target
 /receipts/
+.env.prod
