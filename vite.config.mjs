@@ -16,7 +16,7 @@ export default defineConfig(({ mode }) => {
       tailwind(),
     ],
     build: {
-      outDir: `./frontend/dist`,
+      outDir: `src/main/resources/static/`,
       rollupOptions: {
         input: {
           index: `./frontend/src/index.tsx`,
