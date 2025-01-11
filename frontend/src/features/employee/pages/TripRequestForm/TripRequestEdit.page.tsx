@@ -11,10 +11,29 @@ import useGetTripRequest from "./hooks/useGetTripRequest";
 import useUpdateTrip from "./hooks/useUpdateTripRequest";
 import { LocationInfo } from "./utils/geoLocationToLocationInfo";
 import dayjs from "dayjs";
+import {
+  departmentApprovalRequestReviewRoute,
+  departmentApprovalRequestsRoute,
+} from "@/features/departmentHead/routes/departmentHead.routes";
+import useApproveTripRequest from "@/features/departmentHead/hooks/useApproveTripRequest";
+import useRequestRevision from "@/features/departmentHead/hooks/useRequestRevision";
 
-export default function TripRequestEditPage() {
-  const navigate = tripRequestsEditRoute.useNavigate();
-  const { tripId } = tripRequestsEditRoute.useRouteContext();
+interface TripRequestEditPageProps {
+  disabled?: boolean;
+}
+
+export default function TripRequestEditPage({
+  disabled,
+}: TripRequestEditPageProps) {
+  const navigate = tripRequestsRoute.useNavigate();
+
+  let tripId = 0;
+  if (!disabled) {
+    tripId = tripRequestsEditRoute.useRouteContext().tripId;
+  } else {
+    tripId = departmentApprovalRequestReviewRoute.useRouteContext().tripId;
+  }
+
   const [form] = useForm<TripRequestFormType>();
 
   const { data: trip, isLoading: isLoadingGetTrip } = useGetTripRequest({
@@ -43,6 +62,40 @@ export default function TripRequestEditPage() {
     },
   });
 
+  const { mutate: approveTrip } = useApproveTripRequest();
+
+  function handleSubmit(values: TripRequestFormType) {
+    if (!disabled) {
+      const destination = JSON.parse(values.destination) as LocationInfo;
+      mutate({
+        city: destination.city,
+        coordinatesLat: destination.coordinates.lat,
+        coordinatesLon: destination.coordinates.lng,
+        countryCode: destination.country.code,
+        datetimeFrom: values.duration[0].toString(),
+        datetimeTo: values.duration[1].toString(),
+        reason: values.purpose,
+        address: destination.address,
+      });
+    } else {
+      approveTrip(trip?.id || 0, {
+        onSuccess: () => {
+          navigate({
+            to: departmentApprovalRequestsRoute.to,
+          });
+          message.success(
+            `Trip request ${trip?.requestNumber} approved successfully`
+          );
+        },
+        onError: () => {
+          message.error(
+            `Failed to approve trip request ${trip?.requestNumber}`
+          );
+        },
+      });
+    }
+  }
+
   const { mutate } = useUpdateTrip({
     tripId,
     onSuccess: () => {
@@ -55,32 +108,50 @@ export default function TripRequestEditPage() {
     },
   });
 
+  const { mutate: requestRevision, isPending } = useRequestRevision();
+  function handleDiscard() {
+    if (!disabled) {
+      navigate({
+        to: tripRequestsRoute.to,
+      });
+    } else {
+      requestRevision(trip?.id || 0, {
+        onSuccess: () => {
+          navigate({
+            to: departmentApprovalRequestsRoute.to,
+          });
+          message.success(
+            `Trip request ${trip?.requestNumber} revision requested successfully`
+          );
+        },
+        onError: () => {
+          message.error(
+            `Failed to request revision for trip request ${trip?.requestNumber}`
+          );
+        },
+      });
+    }
+  }
+
   if (isLoadingGetTrip) return <Skeleton />;
 
   if (trip)
     return (
       <TripRequestForm
-        title={`Edit trip request ${trip.requestNumber}`}
+        title={
+          disabled
+            ? `Review trip request ${trip.requestNumber
+                .toString()
+                .padStart(3, "0")}`
+            : `Edit trip request ${trip.requestNumber
+                .toString()
+                .padStart(3, "0")}`
+        }
         form={form}
-        onSubmit={(data) => {
-          const destination = JSON.parse(data.destination) as LocationInfo;
-          mutate({
-            city: destination.city,
-            coordinatesLat: destination.coordinates.lat,
-            coordinatesLon: destination.coordinates.lng,
-            countryCode: destination.country.code,
-            datetimeFrom: data.duration[0].toString(),
-            datetimeTo: data.duration[1].toString(),
-            reason: data.purpose,
-            address: destination.address,
-          });
-        }}
-        isPending={false}
-        onDiscard={() => {
-          navigate({
-            to: tripRequestsRoute.to,
-          });
-        }}
+        onSubmit={handleSubmit}
+        isPending={isPending}
+        onDiscard={handleDiscard}
+        disabled={disabled ? true : false}
       />
     );
 }

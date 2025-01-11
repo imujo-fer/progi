@@ -1,7 +1,8 @@
+import { departmentApprovalRequestReviewRoute } from "@/features/departmentHead/routes/departmentHead.routes";
+import { Link } from "@tanstack/react-router";
 import { Button, Table } from "antd";
 import { format } from "date-fns";
 import useGetDepartmentApprovalRequests from "../hooks/useGetDepartmentApprovalRequests";
-import DepartmentHeadActionButton from "./DepartmentHeadActionButton";
 
 export default function DepartmentApprovalRequestsTable() {
   const { data } = useGetDepartmentApprovalRequests();
@@ -47,7 +48,14 @@ export default function DepartmentApprovalRequestsTable() {
         "dd.MM.yyyy"
       )}`,
       location: `${trip.address}, ${trip.city}, ${trip.country?.name || ""}`,
-      action: <DepartmentHeadActionButton requestNumber={trip.requestNumber} />,
+      action: (
+        <Link
+          to={departmentApprovalRequestReviewRoute.to}
+          params={{ tripId: trip.id.toString() }}
+        >
+          <Button>Review request</Button>
+        </Link>
+      ),
       export: <Button>Export</Button>,
     };
   });
