@@ -4,7 +4,7 @@ import Title from "antd/es/typography/Title";
 import { format } from "date-fns";
 import useGetAwaitingPaymentTrips from "./hooks/useGetAwaitingPaymentTrips";
 
-export default function TripsOverview() {
+export default function AwaitingPaymentTable() {
   const columns = [
     {
       title: "Request number",

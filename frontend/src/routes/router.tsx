@@ -27,7 +27,10 @@ import {
   departmentApprovalRequestReviewRoute,
   departmentApprovalRequestsRoute,
 } from "../features/departmentHead/routes/departmentHead.routes";
-import { reviewTripsRoute } from "../features/director/routes/director.routes";
+import {
+  directorApproveTripRoute,
+  reviewTripsRoute,
+} from "../features/director/routes/director.routes";
 import {
   _tripRequestsRoute,
   expenseReportRoute,
@@ -68,6 +71,7 @@ export const routeTree = rootRoute.addChildren([
     awaitingPaymentRoute,
     expenseReviewRequestsRoute,
     reviewTripsRoute,
+    directorApproveTripRoute,
     statisticsRoute,
     inviteUserRoute,
     departmentEmployeesRoute,
