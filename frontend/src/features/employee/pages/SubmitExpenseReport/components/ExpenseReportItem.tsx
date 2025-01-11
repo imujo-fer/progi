@@ -1,11 +1,10 @@
 import { ExpenseReportItemWithSubcategoryDTO } from "@/api_gen";
+import { queryClient } from "@/providers/Providers";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Link } from "@tanstack/react-router";
 import { Card, Flex, message } from "antd";
-import CreateEditExpenseReportItemModal from "./CreateEditExpenseReportItemModal";
 import { useState } from "react";
 import useDeleteExpenseReportItem from "../hooks/useDeleteExpenseReportItem";
-import { queryClient } from "@/providers/Providers";
+import CreateEditExpenseReportItemModal from "./CreateEditExpenseReportItemModal";
 
 interface ExpenseReportItemProps {
   item: ExpenseReportItemWithSubcategoryDTO;
@@ -33,12 +32,9 @@ export default function ExpenseReportItem({ item }: ExpenseReportItemProps) {
         });
       }}
     />,
-  <Link
-    key="view-bill"
-    onClick={() => window.open(`/receipts/1734726833237.pdf`, '_blank')}
-  >
-    View bill
-  </Link>
+    <a key="view-bill" href={`/api/receipts/${item.receiptId}`} target="_blank">
+      Download bill
+    </a>,
   ];
 
   return (

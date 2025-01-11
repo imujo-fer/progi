@@ -27,12 +27,9 @@ import {
   departmentApprovalRequestReviewRoute,
   departmentApprovalRequestsRoute,
 } from "../features/departmentHead/routes/departmentHead.routes";
-import {
-  reviewTripsRoute,
-} from "../features/director/routes/director.routes";
+import { reviewTripsRoute } from "../features/director/routes/director.routes";
 import {
   _tripRequestsRoute,
-  expenseReportItemReceiptRoute,
   expenseReportRoute,
   notificationsRoute,
   tripRequestsCreateRoute,
@@ -86,7 +83,6 @@ export const routeTree = rootRoute.addChildren([
   exportRoute,
   loginRoute,
   registerRoute,
-  expenseReportItemReceiptRoute,
 ]);
 
 export type RootRouteContext = {

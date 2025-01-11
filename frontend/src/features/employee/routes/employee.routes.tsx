@@ -1,9 +1,8 @@
 import { createRoute } from "@tanstack/react-router";
-import { layoutRoute, rootRoute } from "../../../routes/router";
+import { layoutRoute } from "../../../routes/router";
 import { coerceToNumber } from "../../../utils/coerceToNumber";
 import Notifications from "../pages/Notifications/Notifications.page";
 import SubmitExpenseReport from "../pages/SubmitExpenseReport/SubmitExpenseReport.page";
-import ExpenseReportItemReceipt from "../pages/SubmitExpenseReport/components/ExpenseReportItemReceipt";
 import TripRequestCreatePage from "../pages/TripRequestForm/TripRequestCreate.page";
 import TripRequestEditPage from "../pages/TripRequestForm/TripRequestEdit.page";
 import TripRequests from "../pages/TripRequests/TripRequests.page";
@@ -45,10 +44,4 @@ export const expenseReportRoute = createRoute({
   getParentRoute: () => layoutRoute,
   path: "$tripId/expense-report/$expenseReportId",
   component: SubmitExpenseReport,
-});
-
-export const expenseReportItemReceiptRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "receipts/$receiptFileName",
-  component: ExpenseReportItemReceipt,
 });
