@@ -4,6 +4,7 @@ import InviteUserForm from "../pages/inviteUser/InviteUserForm";
 import DepartmentEmployeesTable from "../pages/employees/DepartmentEmployeesTable";
 import { coerceToNumber } from "@/utils/coerceToNumber";
 import DepartmentsTable from "../pages/departments/DepartmentsTable";
+import Settings from "../pages/settings/Settings.page";
 
 export const inviteUserRoute = createRoute({
   getParentRoute: () => layoutRoute,
@@ -25,4 +26,10 @@ export const departmentEmployeesRoute = createRoute({
     return { id };
   },
   component: DepartmentEmployeesTable,
+});
+
+export const settingsRoute = createRoute({
+  getParentRoute: () => layoutRoute,
+  path: "/settings",
+  component: Settings,
 });

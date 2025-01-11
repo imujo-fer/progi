@@ -1,9 +1,7 @@
 package com.progi.company.dto;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Data
@@ -11,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CountryDailyWageDTO {
     private String countryName;
+    private String countryCode;
     private String continentName;
     private double eurDailyWage;
 

@@ -13,6 +13,11 @@ public class CompanyController {
     @Autowired
     private CompanyService companyService;
 
+    @GetMapping
+    public Company getCompanyDetails(){
+        return companyService.getCompanyDetails();
+    }
+
     // GET request to fetch company details
     @GetMapping("/settings")
     public CompanyDetailsDTO getCompanyDetailsWithDailyWages() {

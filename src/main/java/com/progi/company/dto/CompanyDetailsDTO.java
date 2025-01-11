@@ -16,7 +16,8 @@ public class CompanyDetailsDTO {
     private Double locationCoordLon;
     private String address;
     private String city;
-    private String country;  // Name of the country for GET
+    private String countryName;
+    private String countryCode;
     private String iban;
     private List<CountryDailyWageDTO> dailyWages;
 }

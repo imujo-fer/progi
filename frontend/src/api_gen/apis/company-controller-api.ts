@@ -23,6 +23,10 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 import { BASE_PATH, COLLECTION_FORMATS, type RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
 import type { Company } from '../models';
+// @ts-ignore
+import type { CompanyDetailsDTO } from '../models';
+// @ts-ignore
+import type { UpdateCompanyDTO } from '../models';
 /**
  * CompanyControllerApi - axios parameter creator
  * @export
@@ -58,6 +62,70 @@ export const CompanyControllerApiAxiosParamCreator = function (configuration?: C
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getCompanyDetailsWithDailyWages: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/company/settings`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {UpdateCompanyDTO} updateCompanyDTO 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateCompanySettings: async (updateCompanyDTO: UpdateCompanyDTO, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'updateCompanyDTO' is not null or undefined
+            assertParamExists('updateCompanySettings', 'updateCompanyDTO', updateCompanyDTO)
+            const localVarPath = `/api/company/settings`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateCompanyDTO, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -79,6 +147,29 @@ export const CompanyControllerApiFp = function(configuration?: Configuration) {
             const localVarOperationServerBasePath = operationServerMap['CompanyControllerApi.getCompanyDetails']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getCompanyDetailsWithDailyWages(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CompanyDetailsDTO>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getCompanyDetailsWithDailyWages(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['CompanyControllerApi.getCompanyDetailsWithDailyWages']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {UpdateCompanyDTO} updateCompanyDTO 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateCompanySettings(updateCompanyDTO: UpdateCompanyDTO, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Company>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateCompanySettings(updateCompanyDTO, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['CompanyControllerApi.updateCompanySettings']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
     }
 };
 
@@ -97,8 +188,39 @@ export const CompanyControllerApiFactory = function (configuration?: Configurati
         getCompanyDetails(options?: RawAxiosRequestConfig): AxiosPromise<Company> {
             return localVarFp.getCompanyDetails(options).then((request) => request(axios, basePath));
         },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getCompanyDetailsWithDailyWages(options?: RawAxiosRequestConfig): AxiosPromise<CompanyDetailsDTO> {
+            return localVarFp.getCompanyDetailsWithDailyWages(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {CompanyControllerApiUpdateCompanySettingsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateCompanySettings(requestParameters: CompanyControllerApiUpdateCompanySettingsRequest, options?: RawAxiosRequestConfig): AxiosPromise<Company> {
+            return localVarFp.updateCompanySettings(requestParameters.updateCompanyDTO, options).then((request) => request(axios, basePath));
+        },
     };
 };
+
+/**
+ * Request parameters for updateCompanySettings operation in CompanyControllerApi.
+ * @export
+ * @interface CompanyControllerApiUpdateCompanySettingsRequest
+ */
+export interface CompanyControllerApiUpdateCompanySettingsRequest {
+    /**
+     * 
+     * @type {UpdateCompanyDTO}
+     * @memberof CompanyControllerApiUpdateCompanySettings
+     */
+    readonly updateCompanyDTO: UpdateCompanyDTO
+}
 
 /**
  * CompanyControllerApi - object-oriented interface
@@ -115,6 +237,27 @@ export class CompanyControllerApi extends BaseAPI {
      */
     public getCompanyDetails(options?: RawAxiosRequestConfig) {
         return CompanyControllerApiFp(this.configuration).getCompanyDetails(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CompanyControllerApi
+     */
+    public getCompanyDetailsWithDailyWages(options?: RawAxiosRequestConfig) {
+        return CompanyControllerApiFp(this.configuration).getCompanyDetailsWithDailyWages(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {CompanyControllerApiUpdateCompanySettingsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CompanyControllerApi
+     */
+    public updateCompanySettings(requestParameters: CompanyControllerApiUpdateCompanySettingsRequest, options?: RawAxiosRequestConfig) {
+        return CompanyControllerApiFp(this.configuration).updateCompanySettings(requestParameters.updateCompanyDTO, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

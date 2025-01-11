@@ -23,8 +23,10 @@ git_push.sh
 index.ts
 models/address-component.ts
 models/bounds.ts
+models/company-details-dto.ts
 models/company.ts
 models/cost-statistics-dto.ts
+models/country-daily-wage-dto.ts
 models/country-dto.ts
 models/country.ts
 models/create-department-dto.ts
@@ -61,6 +63,7 @@ models/trip-status-dto.ts
 models/trip-status.ts
 models/trip-with-country-dto.ts
 models/trip.ts
+models/update-company-dto.ts
 models/user-details-dto.ts
 models/user-edit-dto.ts
 models/user-invite-details-dto.ts

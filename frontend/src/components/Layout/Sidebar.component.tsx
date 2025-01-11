@@ -3,6 +3,7 @@ import {
   departmentEmployeesRoute,
   departmentRoute,
   inviteUserRoute,
+  settingsRoute,
 } from "@/features/admin/routes/admin.rutes";
 import { statisticsRoute } from "@/features/statistics/statistics.routes";
 import useUser from "@/providers/UserProvider";
@@ -126,6 +127,12 @@ export default function Sidebar() {
                 </Link>
               ),
             })),
+    });
+
+    roles.push({
+      key: "settings",
+      label: <Link to={settingsRoute.to}>Settings</Link>,
+      route: settingsRoute,
     });
   }
 

@@ -11,7 +11,7 @@ type FormLayoutProps<T extends object> = {
   discardLabel?: string;
   submitLabel?: string;
   hideCancel?: boolean;
-  form: FormInstance;
+  form?: FormInstance;
 };
 
 export function FormLayout<T extends object>({
@@ -33,7 +33,7 @@ export function FormLayout<T extends object>({
       onCancel();
     }
 
-    if (form.isFieldsTouched()) {
+    if (form?.isFieldsTouched()) {
       discardModal.openModal();
     } else {
       onDiscard?.();

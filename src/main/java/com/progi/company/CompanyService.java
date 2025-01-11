@@ -1,20 +1,19 @@
 package com.progi.company;
 
 
-import com.progi.company.dto.CompanyDetailsDTO;
-import com.progi.company.dto.CountryDailyWageDTO;
+import java.util.List;
+import java.util.stream.Collectors;
 
-import com.progi.company.dto.UpdateCompanyDTO;
-import com.progi.country.Country;
-import com.progi.country.CountryRepository;
-import com.progi.country.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import jakarta.transaction.Transactional;
+import com.progi.company.dto.CompanyDetailsDTO;
+import com.progi.company.dto.CountryDailyWageDTO;
+import com.progi.company.dto.UpdateCompanyDTO;
+import com.progi.country.Country;
+import com.progi.country.CountryService;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import jakarta.transaction.Transactional;
 
 @Service
 @Transactional
@@ -26,16 +25,17 @@ public class CompanyService {
     @Autowired
     private CountryService countryService;
 
-    // GET: Retrieve company details
-    // GET: Retrieve company details
-    // GET: Retrieve company details
-    public CompanyDetailsDTO getCompanyDetailsWithDailyWages() {
-        Company company = companyRepository.findAll().get(0); // Simplified for single company
+    public Company getCompanyDetails() {
+        return companyRepository.findAll().get(0);
+    }
 
-        // Map the daily wages to include the country name, continent name, and EUR daily wage
+    
+    public CompanyDetailsDTO getCompanyDetailsWithDailyWages() {
+        Company company = companyRepository.findAll().get(0); // 
         List<CountryDailyWageDTO> dailyWages = countryService.getAllCountries().stream()
                 .map(country -> new CountryDailyWageDTO(
                         country.getName(),              // Country name
+                        country.getCode(),              // Country code
                         country.getContinent().toString(), // Continent name (you may want to adjust this depending on the Continent enum)
                         country.getEurDailyWage()       // EUR daily wage
                 ))
@@ -49,6 +49,7 @@ public class CompanyService {
                 company.getAddress(),
                 company.getCity(),
                 company.getCountry().getName(), // Get the country name for response
+                company.getCountry().getCode(), // Get the country code for response
                 company.getIban(),
                 dailyWages // Pass the modified dailyWages list with country name, continent, and EUR daily wage
         );
@@ -92,7 +93,7 @@ public class CompanyService {
         if (updatedCompanyDTO.getDailyWages() != null) {
             for (CountryDailyWageDTO wageDTO : updatedCompanyDTO.getDailyWages()) {
                 // Use countryCode to fetch the country and update daily wage
-                Country country = countryService.getCountryByCode(wageDTO.getCountryName());
+                Country country = countryService.getCountryByCode(wageDTO.getCountryCode());
                 country.setEurDailyWage(wageDTO.getEurDailyWage());
                 countryService.updateCountry(country);
             }

@@ -11,6 +11,7 @@ import {
   departmentEmployeesRoute,
   departmentRoute,
   inviteUserRoute,
+  settingsRoute,
 } from "@/features/admin/routes/admin.rutes";
 import { loginRoute } from "@/features/auth/Login/login.routes";
 import { registerRoute } from "@/features/auth/Register/register.routes";
@@ -80,6 +81,7 @@ export const routeTree = rootRoute.addChildren([
     expenseReportRoute,
     expenseReviewRequestRoute,
     awaitingPaymentRoute,
+    settingsRoute,
   ]),
   loginRoute,
   registerRoute,
