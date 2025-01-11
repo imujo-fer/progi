@@ -21,6 +21,7 @@ import { protectedRoute } from "@/utils/protectedRoute";
 import AppLayout from "../components/Layout/AppLayout.component";
 import {
   awaitingPaymentRoute,
+  expenseReviewRequestRoute,
   expenseReviewRequestsRoute,
 } from "../features/accountant/routes/accountant.routes";
 import {
@@ -79,6 +80,7 @@ export const routeTree = rootRoute.addChildren([
     departmentEmployeesRoute,
     departmentRoute,
     expenseReportRoute,
+    expenseReviewRequestRoute,
   ]),
   exportRoute,
   loginRoute,

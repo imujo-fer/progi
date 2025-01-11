@@ -3,6 +3,7 @@ import useGetExpenseApprovalTrips from "./hooks/useGetExpenseApprovalTrips";
 import { Button, Table } from "antd";
 import { Link } from "@tanstack/react-router";
 import { format } from "date-fns";
+import { expenseReviewRequestRoute } from "../../routes/accountant.routes";
 
 export default function ExpenseReivewRequests() {
   const columns = [
@@ -55,7 +56,13 @@ export default function ExpenseReivewRequests() {
       location: `${trip.address}, ${trip.city}, ${trip.country?.name || ""}`,
       cost: trip.eurTotalCost?.toFixed(2) + "€",
       action: (
-        <Link>
+        <Link
+          to={expenseReviewRequestRoute.to}
+          params={{
+            expenseReportId: trip.expenseReportId.toString(),
+            tripId: trip.id.toString(),
+          }}
+        >
           <Button>Review Request</Button>
         </Link>
       ),

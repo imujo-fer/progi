@@ -8,30 +8,36 @@ import CreateEditExpenseReportItemModal from "./CreateEditExpenseReportItemModal
 
 interface ExpenseReportItemProps {
   item: ExpenseReportItemWithSubcategoryDTO;
+  hideActions?: boolean;
 }
 
-export default function ExpenseReportItem({ item }: ExpenseReportItemProps) {
+export default function ExpenseReportItem({
+  item,
+  hideActions,
+}: ExpenseReportItemProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { mutate } = useDeleteExpenseReportItem();
 
   const actions = [
-    <EditOutlined key="edit" onClick={() => setIsOpen(true)} />,
-    <DeleteOutlined
-      key="delete"
-      onClick={() => {
-        mutate(item.id, {
-          onSuccess: () => {
-            queryClient.invalidateQueries({
-              queryKey: ["expense report items"],
-            });
-            message.success("Expense item deleted successfully!");
-          },
-          onError: () => {
-            message.error("Failed to delete expense item.");
-          },
-        });
-      }}
-    />,
+    !hideActions && <EditOutlined key="edit" onClick={() => setIsOpen(true)} />,
+    !hideActions && (
+      <DeleteOutlined
+        key="delete"
+        onClick={() => {
+          mutate(item.id, {
+            onSuccess: () => {
+              queryClient.invalidateQueries({
+                queryKey: ["expense report items"],
+              });
+              message.success("Expense item deleted successfully!");
+            },
+            onError: () => {
+              message.error("Failed to delete expense item.");
+            },
+          });
+        }}
+      />
+    ),
     <a key="view-bill" href={`/api/receipts/${item.receiptId}`} target="_blank">
       Download bill
     </a>,
@@ -39,7 +45,7 @@ export default function ExpenseReportItem({ item }: ExpenseReportItemProps) {
 
   return (
     <>
-      <Card actions={actions} className="my-3 w-full">
+      <Card actions={actions.filter((a) => !!a)} className="my-3 w-full">
         <Card.Meta
           description={
             <Flex justify="space-between" align="center" className="text-black">
@@ -57,11 +63,13 @@ export default function ExpenseReportItem({ item }: ExpenseReportItemProps) {
           }
         />
       </Card>
-      <CreateEditExpenseReportItemModal
-        open={isOpen}
-        setOpen={setIsOpen}
-        item={item}
-      />
+      {!hideActions && (
+        <CreateEditExpenseReportItemModal
+          open={isOpen}
+          setOpen={setIsOpen}
+          item={item}
+        />
+      )}
     </>
   );
 }
