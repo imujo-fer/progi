@@ -36,12 +36,12 @@ export default function ReviewTripsTable() {
       key: "cost",
     },
     {
-      title: "",
+      title: "Action",
       dataIndex: "action",
       key: "action",
     },
     {
-      title: "",
+      title: "Export",
       dataIndex: "export",
       key: "export",
     },
