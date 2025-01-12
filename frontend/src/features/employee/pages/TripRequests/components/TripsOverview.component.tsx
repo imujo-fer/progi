@@ -140,7 +140,7 @@ export default function TripsOverview() {
   return (
     <>
       <Title>Trip Requests</Title>
-      <Flex className="justify-between items-center pb-10">
+      <Flex className="flex flex-wrap justify-between items-end pb-10 gap-4">
         <div className="flex flex-col">
           <div>Status</div>
           <Select
