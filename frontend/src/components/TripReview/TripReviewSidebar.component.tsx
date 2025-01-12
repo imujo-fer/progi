@@ -27,7 +27,7 @@ export default function TripReviewSidebar({
             -{expenseReportInfo.user.email}
           </p>
         </div>
-
+        <hr className="mt-4"/>
         <div className="flex  justify-between">
           <p>Date</p>
           <p className="w-2/3 text-right">
@@ -39,12 +39,12 @@ export default function TripReviewSidebar({
             {format(new Date(expenseReportInfo.trip.datetimeTo), "dd.MM.yyyy")}
           </p>
         </div>
-
+        <hr className="mt-4"/>
         <div className="flex  justify-between">
           <p>Trip location</p>
           <p className="w-2/3 text-right">{expenseReportInfo.trip.address}</p>
         </div>
-
+        <hr className="mt-4"/>  
         <div className="flex  justify-between">
           <p>Reason</p>
           <p className="w-2/3 text-right">{expenseReportInfo.trip.reason}</p>
