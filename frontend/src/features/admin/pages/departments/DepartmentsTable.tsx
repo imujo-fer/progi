@@ -8,6 +8,7 @@ import useEditDepartment from "../../hooks/useEditDepartment";
 import useDeleteDepartment from "../../hooks/useDeleteDepartment";
 import { DepartmentDTO } from "@/api_gen";
 import DepartmentForm from "./DepartmentForm";
+import Title from "antd/es/typography/Title";
 
 const DepartmentsTable = () => {
   const [editingDepartment, setEditingDepartment] =
@@ -146,9 +147,9 @@ const DepartmentsTable = () => {
   ];
 
   return (
-    <div className="p-4 sm:p-6 lg:p-8">
+    <>
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-xl font-bold">Departments</h2>
+        <Title level={2}>Departments</Title>
         <Button
           type="primary"
           onClick={handleCreate}
@@ -180,7 +181,7 @@ const DepartmentsTable = () => {
           onCancel={closeModal}
         />
       </Modal>
-    </div>
+    </>
   );
 };
 

@@ -81,11 +81,11 @@ export default function Settings() {
 
   return (
     <FormLayout
-      title={"Settings"}
       onSubmit={onSave}
       isPending={isPendingPatchSettings}
       hideCancel
     >
+      <Title level={2}>Settings</Title>
       <Form.Item
         label="Destination"
         name="destination"

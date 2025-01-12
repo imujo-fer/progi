@@ -9,7 +9,7 @@ export default function Notifications() {
 
   return (
     <div>
-      <Title>Notifications</Title>
+      <Title level={2}>Notifications</Title>
       <List
         itemLayout="horizontal"
         dataSource={data}

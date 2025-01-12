@@ -88,7 +88,7 @@ export default function ReviewTripsTable() {
 
   return (
     <>
-      <Title>Director Trip Approval</Title>
+      <Title level={2}>Director Trip Approval</Title>
       <Table
         dataSource={extractedData}
         columns={columns}

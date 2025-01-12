@@ -87,7 +87,7 @@ export default function ExpenseReivewRequests() {
 
   return (
     <>
-      <Title>Expense Review Requests</Title>
+      <Title level={2}>Expense Review Requests</Title>
       <Table
         dataSource={extractedData}
         columns={columns}

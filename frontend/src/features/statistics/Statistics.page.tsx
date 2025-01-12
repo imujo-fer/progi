@@ -4,6 +4,7 @@ import CostStatistics from "./CostStatistics.component";
 import { statisticsRoute } from "./statistics.routes";
 import TripStatistics from "./TripStatistics.component";
 import EmployeeStatistics from "./EmployeeStatistics.component";
+import Title from "antd/es/typography/Title";
 
 export const StatisticsTabEnum = {
   COST_PER_MONTH: "cost-per-month",
@@ -61,6 +62,7 @@ export default function Statistics() {
 
   return (
     <div>
+      <Title level={2}>Statistics</Title>
       <h1>Statistics</h1>
       <Tabs activeKey={tab} items={tabItems} />
     </div>

@@ -88,7 +88,7 @@ export default function AwaitingPaymentTable() {
 
   return (
     <>
-      <Title>Awaiting Payment</Title>
+      <Title level={2}>Awaiting Payment</Title>
       <Table
         dataSource={extractedData}
         columns={columns}
