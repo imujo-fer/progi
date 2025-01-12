@@ -92,7 +92,7 @@ export default function ReviewTripsTable() {
       <Table
         dataSource={extractedData}
         columns={columns}
-        locale={{ emptyText: "There are no trips awaiting payment" }}
+        locale={{ emptyText: "There are no trips to review" }}
       ></Table>
     </>
   );
