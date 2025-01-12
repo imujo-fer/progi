@@ -49,7 +49,7 @@ export default function EmployeeStatistics() {
           <DatePicker value={dateTo} onChange={setDateTo} />
         </FormItem>
       </div>
-      <Table columns={columns} dataSource={employeeStatistics} />
+      <Table columns={columns} dataSource={employeeStatistics} scroll={{ x: 'max-content' }} />
     </div>
   );
 }

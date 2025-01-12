@@ -21,11 +21,9 @@ export default function TripReview({
 
   if (!expenseReportInfo) return <Skeleton />;
 
-  // const a = expenseReportInfo.expenseCategory[0]?.expenseReportItemInfo[0];
-
   return (
-    <div className="w-full">
-      <div className="w-full gap-16 flex">
+    <div className="flex justify-between flex-col w-full min-h-full">
+      <div className="w-full gap-16 flex [@media(min-width:1300px)]:flex-row flex-col h-auto">
         <div className="w-full">
           <Title level={2}>{title}</Title>
           {expenseReportInfo.expenseCategory.map((category) => (
@@ -51,7 +49,7 @@ export default function TripReview({
         </div>
         <TripReviewSidebar expenseReportInfo={expenseReportInfo} />
       </div>
-      <div className="flex justify-end mt-8">{actions}</div>
+      <div className="flex justify-end my-8">{actions}</div>
     </div>
   );
 }

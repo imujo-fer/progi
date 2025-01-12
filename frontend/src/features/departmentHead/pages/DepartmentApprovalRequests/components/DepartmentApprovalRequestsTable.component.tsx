@@ -31,12 +31,12 @@ export default function DepartmentApprovalRequestsTable() {
       key: "location",
     },
     {
-      title: "",
+      title: "Action",
       dataIndex: "action",
       key: "action",
     },
     {
-      title: "",
+      title: "Export",
       dataIndex: "export",
       key: "export",
     },
@@ -75,5 +75,10 @@ export default function DepartmentApprovalRequestsTable() {
     };
   });
 
-  return <Table dataSource={extractedData} columns={columns} />;
+  return <Table 
+          dataSource={extractedData} 
+          columns={columns} 
+          locale={{ emptyText: "There are no requests to review" }}
+          scroll={{ x: 'max-content' }}
+           />;
 }

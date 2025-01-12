@@ -8,6 +8,7 @@ import useDeleteUser from "../../hooks/useDeleteUserFromDepartment";
 import { departmentEmployeesRoute } from "../../routes/admin.rutes";
 import InviteUserForm from "../inviteUser/InviteUserForm";
 import { UserDetailsDTO } from "@/api_gen";
+import Title from "antd/es/typography/Title";
 
 const DepartmentEmployeesTable = () => {
   const { id: departmentId } = departmentEmployeesRoute.useRouteContext();
@@ -116,16 +117,15 @@ const DepartmentEmployeesTable = () => {
   ];
 
   return (
-    <div className="p-4 sm:p-6 lg:p-8">
-      <h2 className="text-xl font-bold mb-6 text-center sm:text-left">
-        Employees in Department: {department?.name || "Unknown Department"}
-      </h2>
+    <>
+      <Title level={2}> Employees in Department: {department?.name || "Unknown Department"}</Title>
       <Table
         dataSource={employees}
         columns={columns}
         rowKey={(record) => record.id}
         pagination={false}
         scroll={{ x: "1000px" }} // Dodano za responzivnost
+        locale={{ emptyText: "There are no employees in this department" }}
       />
       <Modal visible={isModalVisible} onCancel={closeModal} footer={null}>
         {editingUser && (
@@ -136,7 +136,7 @@ const DepartmentEmployeesTable = () => {
           />
         )}
       </Modal>
-    </div>
+    </>
   );
 };
 

@@ -4,7 +4,7 @@ import DepartmentApprovalRequestsTable from "./components/DepartmentApprovalRequ
 export default function DepartmentApprovalRequests() {
   return (
     <>
-      <Title>Department Approval Requests</Title>
+      <Title level={2}>Department Approval Requests</Title>
       <DepartmentApprovalRequestsTable />
     </>
   );

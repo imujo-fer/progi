@@ -36,12 +36,12 @@ export default function ReviewTripsTable() {
       key: "cost",
     },
     {
-      title: "",
+      title: "Action",
       dataIndex: "action",
       key: "action",
     },
     {
-      title: "",
+      title: "Export",
       dataIndex: "export",
       key: "export",
     },
@@ -88,11 +88,12 @@ export default function ReviewTripsTable() {
 
   return (
     <>
-      <Title>Director Trip Approval</Title>
+      <Title level={2}>Director Trip Approval</Title>
       <Table
         dataSource={extractedData}
         columns={columns}
-        locale={{ emptyText: "There are no trips awaiting payment" }}
+        locale={{ emptyText: "There are no trips to review" }}
+        scroll={{ x: 'max-content' }}
       ></Table>
     </>
   );

@@ -154,7 +154,7 @@ export default function CreateEditExpenseReportItemModal({
             : [],
         }}
       >
-        <Title>{item ? "Edit " : "Add "}Expense Item</Title>
+        <Title level={2}>{item ? "Edit " : "Add "}Expense Item</Title>
         <Form.Item
           label="Upload"
           name="attachment"

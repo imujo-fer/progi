@@ -36,12 +36,12 @@ export default function AwaitingPaymentTable() {
       key: "cost",
     },
     {
-      title: "",
+      title: "Action",
       dataIndex: "action",
       key: "action",
     },
     {
-      title: "",
+      title: "Export",
       dataIndex: "export",
       key: "export",
     },
@@ -88,11 +88,12 @@ export default function AwaitingPaymentTable() {
 
   return (
     <>
-      <Title>Awaiting Payment</Title>
+      <Title level={2}>Awaiting Payment</Title>
       <Table
         dataSource={extractedData}
         columns={columns}
         locale={{ emptyText: "There are no trips awaiting payment" }}
+        scroll={{ x: 'max-content' }}
       ></Table>
     </>
   );

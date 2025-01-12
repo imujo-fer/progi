@@ -36,12 +36,12 @@ export default function ExpenseReivewRequests() {
       key: "cost",
     },
     {
-      title: "",
+      title: "Action",
       dataIndex: "action",
       key: "action",
     },
     {
-      title: "",
+      title: "Export",
       dataIndex: "export",
       key: "export",
     },
@@ -87,11 +87,12 @@ export default function ExpenseReivewRequests() {
 
   return (
     <>
-      <Title>Expense Review Requests</Title>
+      <Title level={2}>Expense Review Requests</Title>
       <Table
         dataSource={extractedData}
         columns={columns}
         locale={{ emptyText: "There are no expense requests to review" }}
+        scroll={{ x: 'max-content' }}
       ></Table>
     </>
   );

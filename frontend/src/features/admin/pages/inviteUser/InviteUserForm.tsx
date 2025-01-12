@@ -5,6 +5,7 @@ import { UserDetailsDTO, UserDetailsDTORolesEnum } from "@/api_gen";
 import useInviteUser from "../../hooks/useInviteUser";
 import useUpdateUser from "../../hooks/useUpdateUser";
 import useGetDepartments from "../../hooks/useGetDepartments";
+import Title from "antd/es/typography/Title";
 
 interface InviteUserFormProps {
   userDetails?: UserDetailsDTO;
@@ -99,9 +100,9 @@ export default function InviteUserForm({
 
   return (
     <>
-      <h1 className="text-2xl font-bold mb-6">
+      <Title level={2}>
         {userDetails ? "Edit User" : "Invite User"}
-      </h1>
+      </Title>
       <Form
         form={form}
         layout="vertical"

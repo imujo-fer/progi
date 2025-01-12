@@ -79,12 +79,12 @@ export default function TripsOverview() {
       key: "status",
     },
     {
-      title: "",
+      title: "Action",
       dataIndex: "action",
       key: "action",
     },
     {
-      title: "",
+      title: "Export",
       dataIndex: "export",
       key: "export",
     },
@@ -121,7 +121,7 @@ export default function TripsOverview() {
           tripId={trip.id}
         />
       ),
-      export: trip.expenseReportId && (
+      export: trip.expenseReportId ? (
         <Button
           onClick={() =>
             exportTrip({
@@ -133,14 +133,14 @@ export default function TripsOverview() {
         >
           Export
         </Button>
-      ),
+      ): <div className="text-center">-</div>
     };
   });
 
   return (
     <>
-      <Title>Active Trip Requests</Title>
-      <Flex className="justify-between items-center pb-10">
+      <Title level={2}>Trip Requests</Title>
+      <Flex className="flex flex-wrap justify-between items-end pb-10 gap-4">
         <div className="flex flex-col">
           <div>Status</div>
           <Select
@@ -160,6 +160,7 @@ export default function TripsOverview() {
         dataSource={extractedData}
         columns={columns}
         locale={{ emptyText: "There are no trips with this status" }}
+        scroll={{ x: 'max-content' }}
       ></Table>
     </>
   );
