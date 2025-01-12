@@ -162,7 +162,7 @@ const DepartmentsTable = () => {
         columns={columns}
         rowKey={(record) => record.id ?? "unknown"}
         pagination={false}
-        scroll={{ x: "1000px" }}
+        scroll={{ x: 'max-content' }}
       />
       <Modal
         title={

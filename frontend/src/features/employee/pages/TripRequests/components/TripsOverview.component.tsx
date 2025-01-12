@@ -160,6 +160,7 @@ export default function TripsOverview() {
         dataSource={extractedData}
         columns={columns}
         locale={{ emptyText: "There are no trips with this status" }}
+        scroll={{ x: 'max-content' }}
       ></Table>
     </>
   );
