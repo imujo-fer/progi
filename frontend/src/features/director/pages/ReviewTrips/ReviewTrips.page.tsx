@@ -93,6 +93,7 @@ export default function ReviewTripsTable() {
         dataSource={extractedData}
         columns={columns}
         locale={{ emptyText: "There are no trips to review" }}
+        scroll={{ x: 'max-content' }}
       ></Table>
     </>
   );
