@@ -14,15 +14,15 @@ export default function TripReviewSidebar({
     expenseReportInfo.trip.datetimeFrom
   );
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-16 items-center">
       <Card
         title="Info"
         bordered={false}
-        className="lg:mx-auto max-h-fit max-w-md min-w-[350px] "
+        className="lg:mx-auto max-h-fit max-w-md min-w-[350px] w-full"
       >
         <div className="flex  justify-between">
           <p>Employee</p>
-          <p>
+          <p className="w-2/3 text-right">
             <b>{`${expenseReportInfo.user.firstName} ${expenseReportInfo.user.lastName}`}</b>
             -{expenseReportInfo.user.email}
           </p>
@@ -30,7 +30,7 @@ export default function TripReviewSidebar({
 
         <div className="flex  justify-between">
           <p>Date</p>
-          <p>
+          <p className="w-2/3 text-right">
             {format(
               new Date(expenseReportInfo.trip.datetimeFrom),
               "dd.MM.yyyy"
@@ -42,18 +42,18 @@ export default function TripReviewSidebar({
 
         <div className="flex  justify-between">
           <p>Trip location</p>
-          <p>{expenseReportInfo.trip.address}</p>
+          <p className="w-2/3 text-right">{expenseReportInfo.trip.address}</p>
         </div>
 
         <div className="flex  justify-between">
           <p>Reason</p>
-          <p>{expenseReportInfo.trip.reason}</p>
+          <p className="w-2/3 text-right">{expenseReportInfo.trip.reason}</p>
         </div>
       </Card>
       <Card
         title="Expense summary"
         bordered={false}
-        className="lg:mx-auto max-h-fit max-w-md min-w-[350px] "
+        className="lg:mx-auto max-h-fit max-w-md min-w-[350px] w-full"
       >
         {expenseReportInfo.expenseCategory.map((category) => (
           <div className="flex  justify-between">
