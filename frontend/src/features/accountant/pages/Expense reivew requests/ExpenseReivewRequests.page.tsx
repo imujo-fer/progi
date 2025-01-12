@@ -92,6 +92,7 @@ export default function ExpenseReivewRequests() {
         dataSource={extractedData}
         columns={columns}
         locale={{ emptyText: "There are no expense requests to review" }}
+        scroll={{ x: 'max-content' }}
       ></Table>
     </>
   );

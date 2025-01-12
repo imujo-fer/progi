@@ -93,6 +93,7 @@ export default function AwaitingPaymentTable() {
         dataSource={extractedData}
         columns={columns}
         locale={{ emptyText: "There are no trips awaiting payment" }}
+        scroll={{ x: 'max-content' }}
       ></Table>
     </>
   );

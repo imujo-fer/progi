@@ -126,6 +126,7 @@ const DepartmentEmployeesTable = () => {
         rowKey={(record) => record.id}
         pagination={false}
         scroll={{ x: "1000px" }} // Dodano za responzivnost
+        locale={{ emptyText: "There are no employees in this department" }}
       />
       <Modal visible={isModalVisible} onCancel={closeModal} footer={null}>
         {editingUser && (
