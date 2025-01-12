@@ -36,12 +36,12 @@ export default function ExpenseReivewRequests() {
       key: "cost",
     },
     {
-      title: "",
+      title: "Action",
       dataIndex: "action",
       key: "action",
     },
     {
-      title: "",
+      title: "Export",
       dataIndex: "export",
       key: "export",
     },

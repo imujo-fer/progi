@@ -31,12 +31,12 @@ export default function DepartmentApprovalRequestsTable() {
       key: "location",
     },
     {
-      title: "",
+      title: "Action",
       dataIndex: "action",
       key: "action",
     },
     {
-      title: "",
+      title: "Export",
       dataIndex: "export",
       key: "export",
     },

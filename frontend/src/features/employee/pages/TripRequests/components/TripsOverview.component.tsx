@@ -79,12 +79,12 @@ export default function TripsOverview() {
       key: "status",
     },
     {
-      title: "",
+      title: "Action",
       dataIndex: "action",
       key: "action",
     },
     {
-      title: "",
+      title: "Export",
       dataIndex: "export",
       key: "export",
     },
@@ -121,7 +121,7 @@ export default function TripsOverview() {
           tripId={trip.id}
         />
       ),
-      export: trip.expenseReportId && (
+      export: trip.expenseReportId ? (
         <Button
           onClick={() =>
             exportTrip({
@@ -133,7 +133,7 @@ export default function TripsOverview() {
         >
           Export
         </Button>
-      ),
+      ): <div className="text-center">-</div>
     };
   });
 
