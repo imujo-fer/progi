@@ -32,7 +32,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
         </Sider>
       ) : (
         <>
-          <Header className="flex items-center justify-between bg-gray-200 p-4">
+          <Header className="flex items-center justify-between bg-gray-200 p-4 fixed w-full z-10">
             <>
             <a href="/trip-requests" className="flex items-center justify-between p-4">
               <img src="http://localhost:5171/frontend/public/logo.png" alt="logo" className="rounded-full w-10 h-10"/>
@@ -61,7 +61,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
         </>
       )}
 
-      <Layout>
+      <Layout className={isDesktop ? '' : 'mt-20'}>
         <Content className="bg-gray-100 p-8">{children}</Content>
       </Layout>
     </Layout>

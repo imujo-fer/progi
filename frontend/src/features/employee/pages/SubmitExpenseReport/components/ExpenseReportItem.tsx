@@ -45,7 +45,7 @@ export default function ExpenseReportItem({
 
   return (
     <>
-      <Card actions={actions.filter((a) => !!a)} className="my-3 w-full">
+      <Card actions={actions.filter((a) => !!a)} className="my-3 w-full min-w-[400px]">
         <Card.Meta
           description={
             <Flex justify="space-between" align="center" className="text-black">
