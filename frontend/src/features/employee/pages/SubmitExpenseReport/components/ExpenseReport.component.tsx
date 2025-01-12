@@ -20,7 +20,7 @@ export default function ExpenseReport() {
   return (
     <div className="w-full min-w-96 m-auto">
       <Flex justify="space-between" align="center">
-        <Title>Submit expense report</Title>
+        <Title>Expense report</Title>
         <Button onClick={() => setIsOpen(true)}>Add</Button>
       </Flex>
 

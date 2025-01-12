@@ -28,12 +28,12 @@ export default function SubmitExpenseReport() {
   };
 
   return (
-    <div className="flex flex-col justify-between h-full p-10 py-20">
+    <div className="flex flex-col justify-between h-full">
       <div className="flex gap-20">
         <ExpenseReport />
         <ApprovalRequirements tripId={Number(tripId)} />
       </div>
-      <div className="flex justify-end">
+      <div className="flex justify-end pb-12">
         <Button type="primary" onClick={handleSubmit} loading={isPending}>
           Submit for review
         </Button>
