@@ -2,6 +2,7 @@ import { MenuOutlined } from "@ant-design/icons";
 import { Button, Drawer, Grid, Layout } from "antd";
 import { useState } from "react";
 import Sidebar from "./Sidebar.component";
+import Image from "../Image.component";
 
 const { Sider, Header, Content } = Layout;
 const { useBreakpoint } = Grid;
@@ -24,23 +25,36 @@ export default function AppLayout({ children }: AppLayoutProps) {
       {isDesktop ? (
         <Layout className="fixed h-screen">
           <Sider theme="light" collapsedWidth="0" width={300}>
-            <a href="/trip-requests" className="flex items-center justify-evenly p-4">
-              <img src="http://localhost:5171/frontend/public/logo.png" alt="logo" className="rounded-full w-16 h-16"/>
+            <a
+              href="/trip-requests"
+              className="flex items-center justify-evenly p-4"
+            >
+              <Image
+                src="/logo.png"
+                alt="logo"
+                className="rounded-full w-16 h-16"
+              />
               <div className="text-2xl font-semibold p-6">Business Trip</div>
             </a>
-            <hr className="pb-4 w-4/5 m-auto"/>
+            <hr className="pb-4 w-4/5 m-auto" />
             <Sidebar />
           </Sider>
         </Layout>
-        
       ) : (
         <>
           <Header className="flex items-center justify-between bg-gray-200 p-4 fixed w-full z-10">
             <>
-            <a href="/trip-requests" className="flex items-center justify-between p-4">
-              <img src="http://localhost:5171/frontend/public/logo.png" alt="logo" className="rounded-full w-10 h-10"/>
-              <div className="text-xl font-semibold p-2">Business Trip</div>
-            </a>
+              <a
+                href="/trip-requests"
+                className="flex items-center justify-between p-4"
+              >
+                <Image
+                  src="/logo.png"
+                  alt="logo"
+                  className="rounded-full w-10 h-10"
+                />
+                <div className="text-xl font-semibold p-2">Business Trip</div>
+              </a>
               <Button
                 type="text"
                 icon={<MenuOutlined />}
@@ -64,7 +78,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
         </>
       )}
 
-      <Layout className={isDesktop ? 'ml-[300px]' : 'mt-20'}>
+      <Layout className={isDesktop ? "ml-[300px]" : "mt-20"}>
         <Content className="bg-gray-100 p-8">{children}</Content>
       </Layout>
     </Layout>
