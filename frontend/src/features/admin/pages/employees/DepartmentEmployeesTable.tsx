@@ -7,7 +7,7 @@ import useGetDepartmentById from "../../hooks/useGetDepartmentById";
 import useDeleteUser from "../../hooks/useDeleteUserFromDepartment";
 import { departmentEmployeesRoute } from "../../routes/admin.rutes";
 import InviteUserForm from "../inviteUser/InviteUserForm";
-import { UserDetailsDTO } from "@/api_gen";
+import { RoleRoleTypeEnum, UserDetailsDTO } from "@/api_gen";
 import Title from "antd/es/typography/Title";
 
 const DepartmentEmployeesTable = () => {
@@ -66,6 +66,14 @@ const DepartmentEmployeesTable = () => {
     );
   }
 
+  const userRoleFormat: Record<RoleRoleTypeEnum, string> = {
+      EMPLOYEE: "Employee",
+      DEPARTMENT_HEAD: "Department Head",
+      DIRECTOR: "Director",
+      ACCOUNTANT: "Accountant",
+      ADMINISTRATOR: "Administrator",
+    }
+
   const columns = [
     {
       title: "Name",
@@ -89,7 +97,7 @@ const DepartmentEmployeesTable = () => {
       title: "Role",
       dataIndex: "roles",
       key: "roles",
-      render: (roles: string[]) => roles.join(", "),
+      render: (roles: string[]) => {return (roles.map((role: string) => {return userRoleFormat[role as RoleRoleTypeEnum] || role;}).join(", "));},
     },
     {
       title: "",
