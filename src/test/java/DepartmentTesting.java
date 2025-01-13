@@ -21,17 +21,17 @@ public class DepartmentTesting {
             driver.get("https://progi-production.up.railway.app/trip-requests");
 
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1000));
-            // Pronađi gumb pomoću teksta unutar <span> elementa
+           
             WebElement createTripButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='Create trip request']")));
 
-            // Pronađi input polje prema ID-u
+            
             WebElement destinationInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("destination")));
             destinationInput.sendKeys("Krapina");
 
             WebElement reasonInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("purpose")));
             reasonInput.sendKeys("Investigating human origins");
 
-// Klikni na gumb
+
 
 
         } catch (Exception e) {
