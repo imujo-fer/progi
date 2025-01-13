@@ -63,7 +63,6 @@ export default function Statistics() {
   return (
     <div>
       <Title level={2}>Statistics</Title>
-      <h1>Statistics</h1>
       <Tabs activeKey={tab} items={tabItems} />
     </div>
   );

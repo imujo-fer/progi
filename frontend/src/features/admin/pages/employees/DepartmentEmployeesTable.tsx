@@ -99,7 +99,6 @@ const DepartmentEmployeesTable = () => {
           <Button
             type="primary"
             onClick={() => handleEdit(record)}
-            className="bg-blue-500"
           >
             Edit
           </Button>

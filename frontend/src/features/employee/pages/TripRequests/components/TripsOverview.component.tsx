@@ -123,6 +123,7 @@ export default function TripsOverview() {
       ),
       export: trip.expenseReportId ? (
         <Button
+          type="default"
           onClick={() =>
             exportTrip({
               fileName: `Trip ${trip.requestNumber} export`,
@@ -153,7 +154,7 @@ export default function TripsOverview() {
           />
         </div>
         <Link to={tripRequestsCreateRoute.to}>
-          <Button>Create trip request</Button>
+          <Button type="primary">Create trip request</Button>
         </Link>
       </Flex>
       <Table
