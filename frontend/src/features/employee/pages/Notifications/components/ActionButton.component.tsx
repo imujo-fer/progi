@@ -96,7 +96,7 @@ export default function ActionButton({
   if (!statusItem) return <div className="text-center">-</div>;
 
   return (
-    <Button loading={isPending} onClick={statusItem.onClick}>
+    <Button type="default" loading={isPending} onClick={statusItem.onClick}>
       {statusItem.action}
     </Button>
   );

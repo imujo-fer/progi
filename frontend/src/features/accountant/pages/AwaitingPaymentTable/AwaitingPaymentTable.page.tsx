@@ -67,7 +67,7 @@ export default function AwaitingPaymentTable() {
             expenseReportId: trip.expenseReportId?.toString(),
           }}
         >
-          <Button>Review Request</Button>
+          <Button type="primary">Review Request</Button>
         </Link>
       ),
       export: trip.expenseReportId && (

@@ -128,7 +128,6 @@ const DepartmentsTable = () => {
           <Button
             type="primary"
             onClick={() => handleEdit(record)}
-            className="bg-blue-500"
           >
             Edit
           </Button>
@@ -153,7 +152,6 @@ const DepartmentsTable = () => {
         <Button
           type="primary"
           onClick={handleCreate}
-          className="bg-gray-500 hover:!bg-gray-600"
         >
           Create department
         </Button>

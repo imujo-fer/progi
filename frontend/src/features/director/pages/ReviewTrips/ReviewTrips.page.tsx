@@ -67,7 +67,7 @@ export default function ReviewTripsTable() {
             tripId: trip.id.toString(),
           }}
         >
-          <Button>Review Request</Button>
+          <Button type="primary">Review Request</Button>
         </Link>
       ),
       export: trip.expenseReportId && (

@@ -56,7 +56,7 @@ export default function DepartmentApprovalRequestsTable() {
           to={departmentApprovalRequestReviewRoute.to}
           params={{ tripId: trip.id.toString() }}
         >
-          <Button>Review request</Button>
+          <Button type="primary">Review request</Button>
         </Link>
       ),
       export: trip.expenseReportId && (

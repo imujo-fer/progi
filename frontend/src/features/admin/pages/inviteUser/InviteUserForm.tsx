@@ -196,7 +196,7 @@ export default function InviteUserForm({
             htmlType="submit"
             loading={isInviting || isUpdating}
           >
-            Save
+             {userDetails ? "Save" : "Invite"}
           </Button>
         </div>
       </Form>
