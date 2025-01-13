@@ -52,7 +52,7 @@ public class LoginTesting {
             WebDriver driver = new ChromeDriver();
 
             try {
-                // Otvori stranicu za prijavu
+                
                 driver.get("https://progi-production.up.railway.app/login");
 
                 WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
