@@ -35,7 +35,7 @@ class DepartmentServiceTest {
     }
 
     //creates two departments and checks if it correctly returns all departments
-    //cheks if it correctly returns number of employees for a department
+    //checks if it correctly returns number of employees for a department
     @Test
     void testGetAllDepartments() {
         // Arrange
@@ -95,7 +95,7 @@ class DepartmentServiceTest {
     }
 
     //creates a department and tests if it was successfull
-    //cheks if the id is correct
+    //checks if the id is correct
     @Test
     void testCreateDepartment() {
         // Arrange
