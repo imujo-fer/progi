@@ -50,6 +50,8 @@ cd frontend
 nvm use
 pnpm i
 ```
+## Domain
+The application is deployed and available publically at the domain: https://progi-production.up.railway.app
 
 ## Team Members
 
