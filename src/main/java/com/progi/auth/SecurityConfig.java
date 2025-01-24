@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -33,6 +34,14 @@ public class SecurityConfig {
                                                 .failureUrl("/login?error=true")
                                                 .userInfoEndpoint(userInfoEndpoint -> userInfoEndpoint
                                                                 .userService(customOAuth2UserService)))
+                                .logout(logout -> logout
+                                .logoutUrl("/api/logout") // Logout endpoint
+                                .logoutSuccessHandler(new SimpleUrlLogoutSuccessHandler() {{
+                                        setDefaultTargetUrl("/login"); // Redirect to /login after logout
+                                }})
+                                .invalidateHttpSession(true) // Invalidate session
+                                .clearAuthentication(true) // Clear authentication context
+                                )
                                 .csrf().disable();
                 return http.build();
         }

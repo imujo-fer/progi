@@ -9,7 +9,7 @@ import { statisticsRoute } from "@/features/statistics/statistics.routes";
 import useUser from "@/providers/UserProvider";
 import { layoutRoute } from "@/routes/router";
 import { AnyRoute, Link, Navigate, useMatches } from "@tanstack/react-router";
-import { Menu } from "antd";
+import { Button, Menu } from "antd";
 import { ItemType } from "antd/es/menu/interface";
 import { UserDetailsDTORolesEnum } from "../../api_gen/models/user-details-dto";
 
@@ -140,6 +140,16 @@ export default function Sidebar() {
     key: "3",
     label: <Link to={notificationsRoute.to}>Notifications</Link>,
     route: notificationsRoute,
+  });
+
+  roles.push({
+    key: "12",
+    type: "group",
+    label: (
+      <a href="/api/logout">
+        <Button>Logout</Button>
+      </a>
+    ),
   });
 
   const currentRoute = matches[matches.length - 1];
