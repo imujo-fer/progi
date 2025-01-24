@@ -146,9 +146,12 @@ export default function Sidebar() {
     key: "12",
     type: "group",
     label: (
-      <a href="/api/logout">
-        <Button>Logout</Button>
-      </a>
+      <div className="flex gap-2 flex-col">
+        <div>{user.email}</div>
+        <a href="/api/logout">
+          <Button>Logout</Button>
+        </a>
+      </div>
     ),
   });
 
