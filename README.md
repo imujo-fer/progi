@@ -72,14 +72,7 @@ Vjekoslav Gračaković
 Ivo Mujo
 
 ## Contributions
-Pravila ovise o organizaciji tima i su često izdvojena u CONTRIBUTING.md
-
-
-
-
-
-
-
+The rules are dependant on a team organisation and are often stated in CONTRIBUTING.md
 
 
 
